@@ -5,7 +5,7 @@
         "port": 5432,
         "username": "postgres",
         "password": "",
-        "database": "backend_app",
+        "database": "mtg_app",
         "logging": false
     },
     "media": {

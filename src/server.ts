@@ -13,9 +13,11 @@ import Container from 'typedi';
 
 import { HealthController } from './controllers/health.controller';
 import { UserExtensionEntity } from './entities/user-extension.entity';
+import { LibraryController } from './controllers/library.controller';
 
 const controllers = [
     HealthController,
+    LibraryController,
 ];
 
 UserManagementMetadata.instance.userClass = UserExtensionEntity;
