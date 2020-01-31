@@ -1,8 +1,9 @@
 /*!
- * @copyright FLYACTS GmbH 2020
+ * @copyright Card Librarian Team 2020
  */
 
 import {MigrationInterface, QueryRunner, Table} from 'typeorm';
+// tslint:disable-next-line
 import { TableColumnOptions } from 'typeorm/schema-builder/options/TableColumnOptions';
 
 /**
@@ -64,7 +65,7 @@ export class AddCardEntity1580409992827 implements MigrationInterface {
                 {
                     name: 'import_data',
                     type: 'jsonb',
-                }
+                },
             ],
         });
 

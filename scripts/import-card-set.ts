@@ -1,11 +1,12 @@
 /*!
- * @copyright FLYACTS GmbH 2018
+ * @copyright Card Librarian Team 2020
  */
 
 import { Logger } from '@flyacts/backend';
-import minimist = require('minimist');
 import * as config from 'config';
+import minimist = require('minimist');
 import { createConnection } from 'typeorm';
+
 import { CardEntity } from '../src/entities/card.entity';
 
 // tslint:disable-next-line
@@ -21,10 +22,8 @@ import { CardEntity } from '../src/entities/card.entity';
 
         const connection = await createConnection(typeOrmConfig);
 
-        console.dir(connection);
-
         if (!(Array.isArray(args._) && args._.length === 1)) {
-            throw new Error('JSON file not passed along?!')
+            throw new Error('JSON file not passed along?!');
         }
 
         const fileName = args._[0];

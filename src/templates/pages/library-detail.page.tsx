@@ -1,5 +1,5 @@
 /*!
- * @license MIT
+ * @copyright Card Librarian Team 2020
  */
 
 import * as React from 'react';
@@ -19,6 +19,9 @@ export class LibraryDetailPage extends React.Component<LibraryDetailPageProps, {
         super(props);
     }
 
+    /**
+     * Reacts render method
+     */
     public render() {
         return <MainComponent title='Library'>
             <h2>{this.props.library.name}</h2>

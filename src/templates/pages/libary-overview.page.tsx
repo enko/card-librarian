@@ -1,5 +1,5 @@
 /*!
- * @license MIT
+ * @copyright Card Librarian Team 2020
  */
 
 import * as React from 'react';
@@ -19,9 +19,12 @@ export class LibraryOverviewPage extends React.Component<LibraryOverviewPageProp
         super(props);
     }
 
+    /**
+     * Reacts render method
+     */
     public render() {
         return <MainComponent title='Library'>
-            <table className="table">
+            <table className='table'>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -45,9 +48,9 @@ export class LibraryOverviewPage extends React.Component<LibraryOverviewPageProp
                     ])}
                 </tbody>
             </table>
-            <form method="post" target="/libraries" encType="multipart/form-data">
-                <input name="name" />
-                <button type="submit">Submit</button>
+            <form method='post' target='/libraries' encType='multipart/form-data'>
+                <input name='name' />
+                <button type='submit'>Submit</button>
             </form>
         </MainComponent>;
     }

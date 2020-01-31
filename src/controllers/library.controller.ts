@@ -1,22 +1,23 @@
 /*!
- * @copyright FLYACTS GmbH 2018
+ * @copyright Card Librarian Team 2020
  */
 
 import {
-    Get,
     Controller,
-    Post,
     FormField,
-    Redirect,
-    Param,
+    Get,
     NotFoundError,
+    Param,
+    Post,
+    Redirect,
 } from '@flyacts/routing-controllers';
-import { Service } from 'typedi';
-import * as react from 'react-dom/server';
-import { LibraryOverviewPage } from '../templates/pages/libary-overview.page';
 import React = require('react');
+import * as react from 'react-dom/server';
+import { Service } from 'typedi';
 import { Connection } from 'typeorm';
+
 import { LibraryEntity } from '../entities/library.entity';
+import { LibraryOverviewPage } from '../templates/pages/libary-overview.page';
 import { LibraryDetailPage } from '../templates/pages/library-detail.page';
 
 
@@ -48,11 +49,14 @@ export class LibraryController {
             LibraryOverviewPage,
             {
                 libraries,
-            }
+            },
         ),
         );
     }
 
+    /**
+     * Save a library to the database
+     */
     @Post()
     @Redirect('/libraries')
     public async save(
@@ -65,6 +69,9 @@ export class LibraryController {
         await this.connection.manager.save(library);
     }
 
+    /**
+     * Get a library detail page
+     */
     @Get('/:id')
     public async getDetail(
         @Param('id') id: number,
@@ -76,10 +83,10 @@ export class LibraryController {
             .where('l.id = :id', { id })
             .getOne();
 
-        if(!(library instanceof LibraryEntity)) {
+        if (!(library instanceof LibraryEntity)) {
             throw new NotFoundError();
         }
 
-        return react.renderToStaticMarkup(React.createElement(LibraryDetailPage, { library }))
+        return react.renderToStaticMarkup(React.createElement(LibraryDetailPage, { library }));
     }
 }

@@ -1,7 +1,6 @@
 /*!
- * @copyright FLYACTS GmbH 2018
+ * @copyright Card Librarian Team 2020
  */
-
 
 import {
     BaseEntity,

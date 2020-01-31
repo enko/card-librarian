@@ -1,9 +1,9 @@
 /*!
- * @copyright FLYACTS GmbH 2020
+ * @copyright Card Librarian Team 2020
  */
 
-import { OwnableEntity } from '@flyacts/backend-user-management';
 import { BaseEntity } from '@flyacts/backend-core-entities';
+import { OwnableEntity } from '@flyacts/backend-user-management';
 import { IsString, MinLength } from 'class-validator';
 import { Column } from 'typeorm';
 

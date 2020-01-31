@@ -1,19 +1,16 @@
 /*!
- * @copyright FLYACTS GmbH 2018
+ * @copyright Card Librarian Team 2020
  */
 
-
-import { Backend } from '@flyacts/backend';
+import { Backend, HealthController } from '@flyacts/backend';
 import { MediaConfiguration } from '@flyacts/backend-media-management';
 import { CreateContextMiddleware, UserManagementMetadata } from '@flyacts/backend-user-management';
 import * as config from 'config';
 import * as fs from 'fs-extra';
-import 'reflect-metadata';
 import Container from 'typedi';
 
-import { HealthController } from './controllers/health.controller';
-import { UserExtensionEntity } from './entities/user-extension.entity';
 import { LibraryController } from './controllers/library.controller';
+import { UserExtensionEntity } from './entities/user-extension.entity';
 
 const controllers = [
     HealthController,
