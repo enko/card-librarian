@@ -1,11 +1,13 @@
 /*!
- * @copyright FLYACTS GmbH 2020
+ * @copyright Card Librarian Team 2020
  */
 
-import { OwnableEntity } from '@flyacts/backend-user-management';
 import { BaseEntity } from '@flyacts/backend-core-entities';
-import { Column } from 'typeorm';
+import { OwnableEntity } from '@flyacts/backend-user-management';
 import { IsString } from 'class-validator';
+import { Column, JoinColumn, ManyToOne } from 'typeorm';
+
+import { SetEntity } from './set.entity';
 
 /**
  * Card Entity
@@ -15,12 +17,26 @@ export class CardEntity extends BaseEntity {
     @Column()
     @IsString()
     public name!: string;
+
     @Column()
-    public colors!: string;
+    public colors?: string;
+
     @Column({
-        name: 'mana_cost'
+        name: 'mana_cost',
     })
     public manaCost?: string;
+
+    @Column()
+    public types!: string;
+
+    @ManyToOne(
+        () => SetEntity,
+    )
+    @JoinColumn({
+        name: 'set_id',
+    })
+    public set!: SetEntity;
+
     @Column({
         name: 'import_data',
     })

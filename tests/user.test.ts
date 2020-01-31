@@ -1,9 +1,9 @@
 /*!
- * @copyright FLYACTS GmbH 2018
+ * @copyright Card Librarian Team 2020
  */
 
- // tslint:disable-next-line:max-line-length
- // tslint:disable:no-any no-identical-functions one-variable-per-declaration no-big-function no-duplicate-string no-hardcoded-credentials
+// tslint:disable-next-line:max-line-length
+// tslint:disable:no-any no-identical-functions one-variable-per-declaration no-big-function no-duplicate-string no-hardcoded-credentials
 
 import { expect } from 'chai';
 import { Application } from 'express';

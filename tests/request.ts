@@ -1,5 +1,5 @@
 /*!
- * @copyright FLYACTS GmbH 2018
+ * @copyright Card Librarian Team 2020
  */
 
 // tslint:disable:no-any no-identical-functions one-variable-per-declaration

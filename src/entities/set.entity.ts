@@ -4,16 +4,21 @@
 
 import { BaseEntity } from '@flyacts/backend-core-entities';
 import { OwnableEntity } from '@flyacts/backend-user-management';
-import { IsString, MinLength } from 'class-validator';
 import { Column } from 'typeorm';
 
 /**
- * Library Entity
+ * Set Entity
  */
-@OwnableEntity('card_management.libraries')
-export class LibraryEntity extends BaseEntity {
+@OwnableEntity('sets')
+export class SetEntity extends BaseEntity {
     @Column()
-    @IsString()
-    @MinLength(1)
+    public code?: string;
+
+    @Column()
     public name!: string;
+
+    @Column({
+        name: 'import_data',
+    })
+    public importData!: string;
 }

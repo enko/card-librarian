@@ -7,9 +7,9 @@ import {MigrationInterface, QueryRunner, Table} from 'typeorm';
 import { TableColumnOptions } from 'typeorm/schema-builder/options/TableColumnOptions';
 
 /**
- * Create the libraries table
+ * Create the sets table
  */
-export class AddLibraryEntity1580410016644 implements MigrationInterface {
+export class AddSetEntity1580474129264 implements MigrationInterface {
     // tslint:disable-next-line:completed-docs
     public async up(queryRunner: QueryRunner) {
         const baseEntitySchema: TableColumnOptions[] = [
@@ -33,7 +33,7 @@ export class AddLibraryEntity1580410016644 implements MigrationInterface {
         ];
 
         const table = new Table({
-            name: 'card_management.libraries',
+            name: 'sets',
             columns: [
                 ...baseEntitySchema,
                 {
@@ -47,9 +47,17 @@ export class AddLibraryEntity1580410016644 implements MigrationInterface {
                     isNullable: true,
                 },
                 {
+                    name: 'code',
+                    type: 'text',
+                    isNullable: true,
+                },
+                {
                     name: 'name',
                     type: 'text',
-                    isNullable: false,
+                },
+                {
+                    name: 'import_data',
+                    type: 'jsonb',
                 },
             ],
         });
@@ -59,7 +67,7 @@ export class AddLibraryEntity1580410016644 implements MigrationInterface {
 
     // tslint:disable-next-line:completed-docs
     public async down(queryRunner: QueryRunner) {
-        await queryRunner.dropTable('libraries');
+        await queryRunner.dropTable('sets');
     }
 
 }
