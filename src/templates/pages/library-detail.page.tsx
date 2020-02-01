@@ -5,6 +5,7 @@
 import * as React from 'react';
 
 import { LibraryEntity } from '../../entities/library.entity';
+import { isValue } from '../../helper/funcs';
 import { MainComponent } from '../components/main';
 
 export interface LibraryDetailPageProps {
@@ -23,6 +24,19 @@ export class LibraryDetailPage extends React.Component<LibraryDetailPageProps, {
      * Reacts render method
      */
     public render() {
+
+        const rows = (
+            isValue(this.props.library.cardAssociations) && this.props.library.cardAssociations.length > 0 ?
+                this.props.library.cardAssociations?.map(item => <tr>
+                    <td>{item.card.id}</td>
+                    <td>{item.card.name}</td>
+                    <td>{item.card.colors}</td>
+                    <td>{item.card.manaCost}</td>
+                    <td>{item.amount}</td>
+                </tr>) :
+                null
+        );
+
         return <MainComponent title='Library'>
             <h2 className='title'>{this.props.library.name}</h2>
             <table className='table is-fullwidth'>
@@ -32,10 +46,14 @@ export class LibraryDetailPage extends React.Component<LibraryDetailPageProps, {
                         <th>Name</th>
                         <th>Farbe</th>
                         <th>Kosten</th>
+                        <th>Menge</th>
                     </tr>
                 </thead>
+                <tbody>
+                    {rows}
+                </tbody>
             </table>
-            <form method='post' encType='multipart/form-data'>
+            <form method='post' action={`/libraries/${this.props.library.id}/cards/preview`} encType='multipart/form-data'>
                 <div className='field'>
                     <label className='label'>Cards to import</label>
                     <div className='control'>

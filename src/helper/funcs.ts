@@ -2,13 +2,19 @@
  * @copyright Card Librarian Team 2020
  */
 
+import { NullAble } from '@flyacts/backend';
+
 /**
- * Checks if the sortfield is in the valid sort fields
+ * Checks if the value is nullable
  */
-export function hasValidSortField(sortField?: string, validSortFields: string[] = []): sortField is string {
-    if (typeof sortField === 'undefined') {
+export function isValue<T>(value: NullAble<T>): value is T {
+    if (value === null) {
         return false;
     }
 
-    return validSortFields.includes(sortField);
+    if (typeof value === 'undefined') {
+        return false;
+    }
+
+    return true;
 }

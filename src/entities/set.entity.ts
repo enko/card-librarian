@@ -9,7 +9,7 @@ import { Column } from 'typeorm';
 /**
  * Set Entity
  */
-@OwnableEntity('sets')
+@OwnableEntity('card_management.sets')
 export class SetEntity extends BaseEntity {
     @Column()
     public code?: string;

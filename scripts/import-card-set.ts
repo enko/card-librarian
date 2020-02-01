@@ -53,7 +53,7 @@ import { SetEntity } from '../src/entities/set.entity';
             await connection.manager.save(setEntity);
         }
 
-        const cards = await db.all('SELECT * FROM cards');
+        const cards = await db.all('SELECT * FROM cards WHERE name = ?', 'Chaos Confetti');
 
         for (const card of cards) {
             let cardEntity = await connection

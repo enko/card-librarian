@@ -2,6 +2,8 @@
  * @copyright Card Librarian Team 2020
  */
 
+// tslint:disable:no-duplicate-string
+
 import {
     Controller,
     FormField,
@@ -16,8 +18,11 @@ import * as react from 'react-dom/server';
 import { Service } from 'typedi';
 import { Connection } from 'typeorm';
 
+import { CardToLibraryEntity } from '../entities/card-to-library.entity';
+import { CardEntity } from '../entities/card.entity';
 import { LibraryEntity } from '../entities/library.entity';
 import { LibraryOverviewPage } from '../templates/pages/libary-overview.page';
+import { LibraryCardAddPreviewPage } from '../templates/pages/library-card-add-preview.page';
 import { LibraryDetailPage } from '../templates/pages/library-detail.page';
 
 
@@ -76,10 +81,104 @@ export class LibraryController {
     public async getDetail(
         @Param('id') id: number,
     ) {
+        const library = await this.getLibrary(id);
+
+        return react.renderToStaticMarkup(React.createElement(LibraryDetailPage, { library }));
+    }
+
+    /**
+     * Preview the cards you want to add to your library
+     */
+    @Post('/:id/cards/preview')
+    public async addCard(
+        @Param('id') id: number,
+        @FormField('import') importData: string,
+    ) {
+        const library = await this.getLibrary(id);
+
+        const lines = importData.split(/\r?\n/);
+
+        const cards: CardEntity[] = [];
+
+        for (const line of lines) {
+            const match = await this
+                .connection
+                .getRepository(CardEntity)
+                .createQueryBuilder('c')
+                .innerJoinAndSelect('c.set', 'c__s')
+                .where('c.name = :name', { name: line })
+                .getMany();
+
+            cards.push(...match);
+        }
+
+        return react.renderToStaticMarkup(React.createElement(LibraryCardAddPreviewPage, {
+            cards,
+            library,
+        }));
+    }
+
+    /**
+     * Submit cards to your library
+     */
+    @Post('/:id/cards/submit')
+    @Redirect('/libraries')
+    public async submitCards(
+        @Param('id') id: number,
+        @FormField('card_id') cardIDValues?: string[],
+        @FormField('amount') amountValues?: string[],
+    ) {
+        const library = await this.getLibrary(id);
+
+        const amounts: { [index: string]: number } = {};
+
+        if (Array.isArray(cardIDValues) && Array.isArray(amountValues)) {
+            let index = 0;
+            for (const cardID of cardIDValues) {
+
+                const currentAmount = Number.parseInt(amountValues[index]);
+
+                if (!Number.isNaN(currentAmount)) {
+                    amounts[cardID] = currentAmount;
+                }
+
+                index += 1;
+            }
+        }
+
+        for (const key of Object.keys(amounts)) {
+            const card = await this
+                .connection
+                .getRepository(CardEntity)
+                .createQueryBuilder('c')
+                .where('id = :id', { id: key })
+                .getOne();
+
+            if (!(card instanceof CardEntity)) {
+                continue;
+            }
+            const association = new CardToLibraryEntity();
+
+            association.card = card;
+            association.library = library;
+            association.amount = amounts[key];
+
+            await this.connection.manager.save(association);
+        }
+
+        return `/libraries/${library.id}`;
+    }
+
+    /**
+     * Fetch a library from the db
+     */
+    private async getLibrary(id: number) {
         const library = await this
             .connection
             .getRepository(LibraryEntity)
             .createQueryBuilder('l')
+            .leftJoinAndSelect('l.cardAssociations', 'l__ca')
+            .leftJoinAndSelect('l__ca.card', 'l__ca_c')
             .where('l.id = :id', { id })
             .getOne();
 
@@ -87,6 +186,6 @@ export class LibraryController {
             throw new NotFoundError();
         }
 
-        return react.renderToStaticMarkup(React.createElement(LibraryDetailPage, { library }));
+        return library;
     }
 }

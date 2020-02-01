@@ -5,7 +5,9 @@
 import { BaseEntity } from '@flyacts/backend-core-entities';
 import { OwnableEntity } from '@flyacts/backend-user-management';
 import { IsString, MinLength } from 'class-validator';
-import { Column } from 'typeorm';
+import { Column, OneToMany } from 'typeorm';
+
+import { CardToLibraryEntity } from './card-to-library.entity';
 
 /**
  * Library Entity
@@ -16,4 +18,10 @@ export class LibraryEntity extends BaseEntity {
     @IsString()
     @MinLength(1)
     public name!: string;
+
+    @OneToMany(
+        () => CardToLibraryEntity,
+        (ca) => ca.library,
+    )
+    public cardAssociations?: CardToLibraryEntity[];
 }

@@ -7,9 +7,9 @@ import {MigrationInterface, QueryRunner, Table} from 'typeorm';
 import { TableColumnOptions } from 'typeorm/schema-builder/options/TableColumnOptions';
 
 /**
- * Create the sets table
+ * Create the card_to_libraries table
  */
-export class AddSetEntity1580474129264 implements MigrationInterface {
+export class AddCardToLibraryEntity1580549362358 implements MigrationInterface {
     // tslint:disable-next-line:completed-docs
     public async up(queryRunner: QueryRunner) {
         const baseEntitySchema: TableColumnOptions[] = [
@@ -33,7 +33,7 @@ export class AddSetEntity1580474129264 implements MigrationInterface {
         ];
 
         const table = new Table({
-            name: 'card_management.sets',
+            name: 'card_to_libraries',
             columns: [
                 ...baseEntitySchema,
                 {
@@ -47,17 +47,16 @@ export class AddSetEntity1580474129264 implements MigrationInterface {
                     isNullable: true,
                 },
                 {
-                    name: 'code',
-                    type: 'text',
-                    isNullable: true,
+                    name: 'card_id',
+                    type: 'integer',
                 },
                 {
-                    name: 'name',
-                    type: 'text',
+                    name: 'library_id',
+                    type: 'integer',
                 },
                 {
-                    name: 'import_data',
-                    type: 'jsonb',
+                    name: 'amount',
+                    type: 'integer',
                 },
             ],
         });
@@ -67,7 +66,7 @@ export class AddSetEntity1580474129264 implements MigrationInterface {
 
     // tslint:disable-next-line:completed-docs
     public async down(queryRunner: QueryRunner) {
-        await queryRunner.dropTable('sets');
+        await queryRunner.dropTable('card_to_libraries');
     }
 
 }

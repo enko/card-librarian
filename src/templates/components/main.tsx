@@ -54,7 +54,7 @@ export class MainComponent extends React.Component<MainComponentProps, {}> {
                         </div>
                     </nav>
                     <div className='columns'>
-                        <div className='column is-one-third'>
+                        <div className='column is-one-quarter'>
                             <aside className='menu'>
                                 <p className='menu-label'>
                                     General
@@ -71,7 +71,6 @@ export class MainComponent extends React.Component<MainComponentProps, {}> {
                         </div>
                     </div>
                 </div>
-
             </body>
         </html>;
     }
