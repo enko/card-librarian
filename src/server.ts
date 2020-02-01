@@ -2,18 +2,19 @@
  * @copyright Card Librarian Team 2020
  */
 
-import { Backend, HealthController } from '@flyacts/backend';
+import { Backend } from '@flyacts/backend';
 import { MediaConfiguration } from '@flyacts/backend-media-management';
 import { CreateContextMiddleware, UserManagementMetadata } from '@flyacts/backend-user-management';
 import * as config from 'config';
 import * as fs from 'fs-extra';
 import Container from 'typedi';
 
+import { DashboardController } from './controllers/dashboard.controller';
 import { LibraryController } from './controllers/library.controller';
 import { UserExtensionEntity } from './entities/user-extension.entity';
 
 const controllers = [
-    HealthController,
+    DashboardController,
     LibraryController,
 ];
 
