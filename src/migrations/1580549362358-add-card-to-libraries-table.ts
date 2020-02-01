@@ -59,6 +59,20 @@ export class AddCardToLibraryEntity1580549362358 implements MigrationInterface {
                     type: 'integer',
                 },
             ],
+            foreignKeys: [
+                {
+                    name: 'fk___card_to_libraries___card_id___cards',
+                    columnNames: ['card_id'],
+                    referencedTableName: 'card_management.cards',
+                    referencedColumnNames: ['id'],
+                },
+                {
+                    name: 'fk___card_to_libraries___library_id___libraries',
+                    columnNames: ['library_id'],
+                    referencedTableName: 'card_management.libraries',
+                    referencedColumnNames: ['id'],
+                },
+            ],
         });
 
         await queryRunner.createTable(table);

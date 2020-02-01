@@ -12,8 +12,6 @@ import { TableColumnOptions } from 'typeorm/schema-builder/options/TableColumnOp
 export class AddCardEntity1580409992827 implements MigrationInterface {
     // tslint:disable-next-line:completed-docs
     public async up(queryRunner: QueryRunner) {
-        await queryRunner.query('CREATE SCHEMA card_management');
-
         const baseEntitySchema: TableColumnOptions[] = [
             {
                 name: 'id',
@@ -74,6 +72,14 @@ export class AddCardEntity1580409992827 implements MigrationInterface {
                 {
                     name: 'types',
                     type: 'text',
+                },
+            ],
+            foreignKeys: [
+                {
+                    name: 'fk___cards___set_id___sets',
+                    columnNames: ['set_id'],
+                    referencedTableName: 'card_management.sets',
+                    referencedColumnNames: ['id'],
                 },
             ],
         });

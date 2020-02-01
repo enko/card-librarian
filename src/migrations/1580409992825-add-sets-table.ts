@@ -9,7 +9,7 @@ import { TableColumnOptions } from 'typeorm/schema-builder/options/TableColumnOp
 /**
  * Create the sets table
  */
-export class AddSetEntity1580474129264 implements MigrationInterface {
+export class AddSetEntity1580409992825 implements MigrationInterface {
     // tslint:disable-next-line:completed-docs
     public async up(queryRunner: QueryRunner) {
         const baseEntitySchema: TableColumnOptions[] = [
