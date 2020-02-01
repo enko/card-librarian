@@ -51,10 +51,11 @@ import { SetEntity } from '../src/entities/set.entity';
             setEntity.importData = JSON.stringify(set);
 
             await connection.manager.save(setEntity);
+            logger.info(`Imported set ${set.name}`);
         }
 
-        const cards = await db.all('SELECT * FROM cards WHERE name = ?', 'Chaos Confetti');
-
+        const cards = await db.all('SELECT * FROM cards');
+        let counter = 0;
         for (const card of cards) {
             let cardEntity = await connection
                 .getRepository(CardEntity)
@@ -88,6 +89,10 @@ import { SetEntity } from '../src/entities/set.entity';
             cardEntity.manaCost = card.manaCost;
 
             await connection.manager.save(cardEntity);
+            counter += 1;
+            if ((counter % 200) === 0) {
+                logger.info(`Imported ${counter} of ${cards.length}`);
+            }
         }
 
         process.exit(0);
