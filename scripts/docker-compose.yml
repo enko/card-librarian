@@ -10,7 +10,7 @@ services:
             - NODE_CONFIG_ENV=production
         volumes:
             - /srv/services/mtg.tim.schumacher.im/files:/srv/backend/files/media
-            - /srv/services/mtg.tim.schumacher.im/production.json:/opt/takingstack-backend/config/production.json
+            - /srv/services/mtg.tim.schumacher.im/production.json:/opt/card-librarian/config/production.json
         ports:
             - 127.0.0.1:8014:3001
     db:
