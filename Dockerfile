@@ -16,9 +16,13 @@ FROM node:12.14.1-slim as runner
 
 WORKDIR /opt/card-librarian
 
+RUN chown -R node:node /opt/card-librarian
+
+USER node
+
 COPY tsconfig.json ormconfig.json package* /opt/card-librarian/
 COPY config /opt/card-librarian/config/
-COPY --from=builder /opt/card-librarian/dist /opt/card-librarian/
+COPY --from=builder /opt/card-librarian/dist /opt/card-librarian/dist
 
 RUN npm clean-install --production
 
