@@ -26,6 +26,7 @@
         "plural": "Bibliotheken",
         "cardOverview": {
             "id": "ID",
+            "set": "Set",
             "name": "Name",
             "colors": "Farben",
             "manaCost": "Kosten",
@@ -40,6 +41,9 @@
             "placeholder": "Bibliotheksname",
             "help": "Bitte gebe den Namen der Bibliothek an, z.B. Karton 1"
         }
-
+    },
+    "notfound": {
+        "title": "Seite nicht gefunden",
+        "message": "Diese Seite konnte nicht gefunden werden 🤔"
     }
 }

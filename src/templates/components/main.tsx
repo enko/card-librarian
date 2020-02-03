@@ -28,6 +28,11 @@ class MainComponent extends React.Component<MainComponentProps & WithTranslation
                     href='https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.css'
                     integrity='sha256-XF2msWsEjJwE8ORQ0exG5nFk8jDTntTMbUZKtvPRkgU='
                     crossOrigin='anonymous' />
+                <link
+                    rel='stylesheet'
+                    href='https://cdn.jsdelivr.net/npm/keyrune@3.6.3/css/keyrune.css'
+                    integrity='sha256-62nNl9FZJkhpbUBcBHarLscbVrYFFMHxoCoFPktCi/k='
+                    crossOrigin='anonymous'></link>
             </head>
             <body>
 

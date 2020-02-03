@@ -28,6 +28,9 @@ export class LibraryDetailPage extends React.Component<LibraryDetailPageProps & 
             isValue(this.props.library.cardAssociations) && this.props.library.cardAssociations.length > 0 ?
                 this.props.library.cardAssociations?.map(item => <tr>
                     <td>{item.card.id}</td>
+                    <td>
+                        <i title={item.card.set.name} className={`ss ss-${item.card.set.code}`}></i>
+                    </td>
                     <td>{item.card.name}</td>
                     <td>{item.card.colors}</td>
                     <td>{item.card.manaCost}</td>
@@ -44,6 +47,7 @@ export class LibraryDetailPage extends React.Component<LibraryDetailPageProps & 
                 <thead>
                     <tr>
                         <th>{this.props.t('library.cardOverview.id')}</th>
+                        <th>{this.props.t('library.cardOverview.set')}</th>
                         <th>{this.props.t('library.cardOverview.name')}</th>
                         <th>{this.props.t('library.cardOverview.colors')}</th>
                         <th>{this.props.t('library.cardOverview.manaCost')}</th>

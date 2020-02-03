@@ -117,7 +117,7 @@ export class LibraryController {
                 .getRepository(CardEntity)
                 .createQueryBuilder('c')
                 .innerJoinAndSelect('c.set', 'c__s')
-                .where('c.name = :name', { name: line })
+                .where('c.name ILIKE :name', { name: `%${line}%` })
                 .getMany();
 
             cards.push(...match);
@@ -189,7 +189,8 @@ export class LibraryController {
             .getRepository(LibraryEntity)
             .createQueryBuilder('l')
             .leftJoinAndSelect('l.cardAssociations', 'l__ca')
-            .leftJoinAndSelect('l__ca.card', 'l__ca_c')
+            .leftJoinAndSelect('l__ca.card', 'l__ca__c')
+            .leftJoinAndSelect('l__ca__c.set', 'l__ca__c__s')
             .where('l.id = :id', { id })
             .getOne();
 

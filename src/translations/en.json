@@ -26,6 +26,7 @@
         "plural": "Libraries",
         "cardOverview": {
             "id": "ID",
+            "set": "Set",
             "name": "Name",
             "colors": "Colors",
             "manaCost": "Costs",
@@ -40,5 +41,9 @@
             "placeholder": "Library name",
             "help": "Enter the name of the library, for example Shoebox 1"
         }
+    },
+    "notfound": {
+        "title": "Page not found",
+        "message": "This page could not be found 🤔"
     }
 }

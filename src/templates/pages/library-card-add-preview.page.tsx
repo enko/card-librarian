@@ -46,7 +46,14 @@ export class LibraryCardAddPreviewPage extends React.Component<LibraryCardAddPre
                             <td>{item.name}</td>
                             <td>{item.colors}</td>
                             <td>{item.manaCost}</td>
-                            <td>{item.set.name}</td>
+                            <td>
+                                <div className='tags has-addons'>
+                                    <span className='tag is-dark'>
+                                        <i title={item.set.name} className={`ss ss-${item.set.code}`}></i>
+                                    </span>
+                                    <span className='tag'>{item.set.name}</span>
+                                </div>
+                            </td>
                             <td>
                                 <input type='hidden' name='card_id[]' value={item.id} />
                                 <input type='number' name='amount[]' />
