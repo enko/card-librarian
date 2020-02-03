@@ -23,6 +23,7 @@ USER node
 COPY tsconfig.json ormconfig.json package* /opt/card-librarian/
 COPY config /opt/card-librarian/config/
 COPY --from=builder /opt/card-librarian/dist /opt/card-librarian/dist
+COPY src/translations /opt/card-librarian/dist/translations
 
 RUN npm clean-install --production
 
