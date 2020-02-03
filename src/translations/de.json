@@ -1,0 +1,19 @@
+{
+    "Please log in": "Bitte melde dich an",
+    "user": {
+        "login": {
+            "username": "Benutzername",
+            "password": "Passwort",
+            "login": "Anmelden"
+        }
+    },
+    "dashboard": {
+        "greetings": "Willkommen beim Karten Bibleothekar"
+    },
+    "navbar": {
+        "libraries": "Bibliotheken",
+        "decks": "Decks",
+        "login": "Anmelden",
+        "logout": "Abmelden"
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "Please log in": "Please log in",
+    "user": {
+        "login": {
+            "username": "Username",
+            "password": "Password",
+            "login": "Login"
+        }
+    },
+    "dashboard": {
+        "greetings": "Welcome to the card librarian"
+    },
+    "navbar": {
+        "libraries": "Libraries",
+        "decks": "Decks",
+        "login": "Login",
+        "logout": "Logout"
+    }
+}

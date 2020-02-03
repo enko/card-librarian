@@ -6,6 +6,7 @@
 
 import {
     Controller,
+    CurrentUser,
     FormField,
     Get,
     NotFoundError,
@@ -21,6 +22,7 @@ import { Connection } from 'typeorm';
 import { CardToLibraryEntity } from '../entities/card-to-library.entity';
 import { CardEntity } from '../entities/card.entity';
 import { LibraryEntity } from '../entities/library.entity';
+import { UserExtensionEntity } from '../entities/user-extension.entity';
 import { LibraryOverviewPage } from '../templates/pages/libary-overview.page';
 import { LibraryCardAddPreviewPage } from '../templates/pages/library-card-add-preview.page';
 import { LibraryDetailPage } from '../templates/pages/library-detail.page';
@@ -43,7 +45,9 @@ export class LibraryController {
      * returns certian health statistics
      */
     @Get()
-    public async root() {
+    public async root(
+        @CurrentUser() currentUser?: UserExtensionEntity,
+    ) {
         const libraries = await this
             .connection
             .getRepository(LibraryEntity)
@@ -54,6 +58,7 @@ export class LibraryController {
             LibraryOverviewPage,
             {
                 libraries,
+                currentUser,
             },
         ),
         );
@@ -80,10 +85,16 @@ export class LibraryController {
     @Get('/:id')
     public async getDetail(
         @Param('id') id: number,
+        @CurrentUser() currentUser: UserExtensionEntity,
     ) {
         const library = await this.getLibrary(id);
 
-        return react.renderToStaticMarkup(React.createElement(LibraryDetailPage, { library }));
+        return react.renderToStaticMarkup(
+            React.createElement(LibraryDetailPage, {
+                library,
+                currentUser,
+            }),
+        );
     }
 
     /**

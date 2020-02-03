@@ -2,11 +2,13 @@
  * @copyright Card Librarian Team 2020
  */
 
-
 import * as React from 'react';
+
+import { UserExtensionEntity } from '../../entities/user-extension.entity';
 
 export interface MainComponentProps {
     title: string;
+    currentUser?: UserExtensionEntity;
 }
 
 /**
@@ -63,6 +65,17 @@ export class MainComponent extends React.Component<MainComponentProps, {}> {
                                     <li><a href='/'>Dashboard</a></li>
                                     <li><a href='/libraries'>Libraries</a></li>
                                     <li><a href='/decks'>Decks</a></li>
+                                </ul>
+                                <p className='menu-label'>
+                                    Usermanagement
+                                </p>
+                                <ul className='menu-list'>
+                                    {(this.props.currentUser instanceof UserExtensionEntity ?
+                                        <li>
+                                            <a href='/users/logout'>Abmelden</a>
+                                        </li> : <li>
+                                            <a href='/users/login'>Anmelden</a>
+                                        </li>)}
                                 </ul>
                             </aside>
                         </div>
