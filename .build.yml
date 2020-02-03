@@ -31,9 +31,9 @@ tasks:
       . ~/card-librarian/scripts/setup-ci.sh
       cd ~/card-librarian
       export VERSION=$(node -e 'console.log(require("./package.json").version)')
-      docker build -t card-librarian/backend:$VERSION.$JOB_ID .
-      docker login -u card-librarian -p $(< ~/.docker-secret)
-      docker push card-librarian/backend:$VERSION.$JOB_ID
+      docker build -t cardlibrarian/backend:$VERSION.$JOB_ID .
+      docker login -u cardlibrarian -p $(< ~/.docker-secret)
+      docker push cardlibrarian/backend:$VERSION.$JOB_ID
       echo "[144.76.154.114]:8022 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBD8POT7TLfCHyIlWL6Jcpu8OZv9y6DRYq3o5ds384BtvN1AyvjdECXu6+wgG0BFoFgDUqhcOQBW7uZsCiKvFRpU=" >> ~/.ssh/known_hosts
       npm run generate-compose-file
       /usr/bin/rsync --rsh=ssh docker-compose.yml mtg.tim.schumacher.im@web.node2.datenknoten.me:/srv/services/mtg.tim.schumacher.im
