@@ -3,6 +3,7 @@
  */
 
 import * as React from 'react';
+import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { UserExtensionEntity } from '../../entities/user-extension.entity';
 
@@ -14,18 +15,14 @@ export interface MainComponentProps {
 /**
  * The base html framework
  */
-export class MainComponent extends React.Component<MainComponentProps, {}> {
-    public constructor(props: Readonly<MainComponentProps>) {
-        super(props);
-    }
-
+class MainComponent extends React.Component<MainComponentProps & WithTranslation, {}> {
     /**
      * Reacts render method
      */
     public render() {
         return <html>
             <head>
-                <title>{this.props.title}</title>
+                <title>{this.props.title} - {this.props.t('appName')}</title>
                 <link
                     rel='stylesheet'
                     href='https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.css'
@@ -35,46 +32,26 @@ export class MainComponent extends React.Component<MainComponentProps, {}> {
             <body>
 
                 <div className='container'>
-                    <nav className='navbar' role='navigation' aria-label='main navigation'>
-                        <div className='navbar-brand'>
-                            <a
-                                role='button'
-                                className='navbar-burger burger'
-                                aria-label='menu'
-                                aria-expanded='false'
-                                data-target='navbarBasicExample'>
-                                <span aria-hidden='true'></span>
-                                <span aria-hidden='true'></span>
-                                <span aria-hidden='true'></span>
-                            </a>
-                        </div>
-                        <div id='navbarBasicExample' className='navbar-menu'>
-                            <div className='navbar-start'>
-                                <a href='/' className='navbar-item'>Start</a>
-                                <a href='/libraries' className='navbar-item'>Bibliotheken</a>
-                            </div>
-                        </div>
-                    </nav>
                     <div className='columns'>
                         <div className='column is-one-quarter'>
                             <aside className='menu'>
                                 <p className='menu-label'>
-                                    General
+                                    {this.props.t('navbar.cardManagement')}
                                 </p>
                                 <ul className='menu-list'>
-                                    <li><a href='/'>Dashboard</a></li>
-                                    <li><a href='/libraries'>Libraries</a></li>
-                                    <li><a href='/decks'>Decks</a></li>
+                                    <li><a href='/'>{this.props.t('navbar.dashboard')}</a></li>
+                                    <li><a href='/libraries'>{this.props.t('navbar.libraries')}</a></li>
+                                    <li><a href='/decks'>{this.props.t('navbar.decks')}</a></li>
                                 </ul>
                                 <p className='menu-label'>
-                                    Usermanagement
+                                    {this.props.t('navbar.userManagement')}
                                 </p>
                                 <ul className='menu-list'>
                                     {(this.props.currentUser instanceof UserExtensionEntity ?
                                         <li>
-                                            <a href='/users/logout'>Abmelden</a>
+                                            <a href='/users/logout'>{this.props.t('navbar.logout')}</a>
                                         </li> : <li>
-                                            <a href='/users/login'>Anmelden</a>
+                                            <a href='/users/login'>{this.props.t('navbar.login')}</a>
                                         </li>)}
                                 </ul>
                             </aside>
@@ -88,3 +65,5 @@ export class MainComponent extends React.Component<MainComponentProps, {}> {
         </html>;
     }
 }
+
+export default withTranslation()(MainComponent);

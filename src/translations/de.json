@@ -1,4 +1,6 @@
 {
+    "appName": "Card Librarian",
+    "submit": "Absenden",
     "Please log in": "Bitte melde dich an",
     "user": {
         "login": {
@@ -14,6 +16,30 @@
         "libraries": "Bibliotheken",
         "decks": "Decks",
         "login": "Anmelden",
-        "logout": "Abmelden"
+        "logout": "Abmelden",
+        "dashboard": "Start",
+        "cardManagement": "Karten",
+        "userManagement": "Benutzer"
+    },
+    "library": {
+        "singular": "Bibliothek",
+        "plural": "Bibliotheken",
+        "cardOverview": {
+            "id": "ID",
+            "name": "Name",
+            "colors": "Farben",
+            "manaCost": "Kosten",
+            "amount": "Menge",
+            "import": "Karten zum Importieren",
+            "importHelp": "Gebe eine Karte pro Zeile an."
+        },
+        "overview": {
+            "title": "Bibliotheksübersicht",
+            "id": "ID",
+            "name": "Name",
+            "placeholder": "Bibliotheksname",
+            "help": "Bitte gebe den Namen der Bibliothek an, z.B. Karton 1"
+        }
+
     }
 }

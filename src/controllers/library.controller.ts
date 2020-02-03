@@ -23,9 +23,9 @@ import { CardToLibraryEntity } from '../entities/card-to-library.entity';
 import { CardEntity } from '../entities/card.entity';
 import { LibraryEntity } from '../entities/library.entity';
 import { UserExtensionEntity } from '../entities/user-extension.entity';
-import { LibraryOverviewPage } from '../templates/pages/libary-overview.page';
+import LibraryOverviewPage from '../templates/pages/libary-overview.page';
 import { LibraryCardAddPreviewPage } from '../templates/pages/library-card-add-preview.page';
-import { LibraryDetailPage } from '../templates/pages/library-detail.page';
+import LibraryDetailPage from '../templates/pages/library-detail.page';
 
 
 /**

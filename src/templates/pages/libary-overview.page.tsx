@@ -3,10 +3,11 @@
  */
 
 import * as React from 'react';
+import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { LibraryEntity } from '../../entities/library.entity';
 import { UserExtensionEntity } from '../../entities/user-extension.entity';
-import { MainComponent } from '../components/main';
+import MainComponent from '../components/main';
 
 export interface LibraryOverviewPageProps {
     libraries: LibraryEntity[];
@@ -16,18 +17,15 @@ export interface LibraryOverviewPageProps {
 /**
  * Render a libray overview
  */
-export class LibraryOverviewPage extends React.Component<LibraryOverviewPageProps, {}> {
-    public constructor(props: Readonly<LibraryOverviewPageProps>) {
-        super(props);
-    }
-
+class LibraryOverviewPage extends React.Component<LibraryOverviewPageProps & WithTranslation, {}> {
     /**
      * Reacts render method
      */
     public render() {
         return <MainComponent
-            title='Library'
+            title={this.props.t('navbar.libraries')}
             currentUser={this.props.currentUser}>
+            <h2 className='title'>{this.props.t('library.overview.title')}</h2>
             <table className='table is-fullwidth'>
                 <thead>
                     <tr>
@@ -55,17 +53,22 @@ export class LibraryOverviewPage extends React.Component<LibraryOverviewPageProp
             {(this.props.currentUser instanceof UserExtensionEntity ?
                 <form method='post' encType='multipart/form-data'>
                     <div className='field'>
-                        <label className='label'>Name</label>
+                        <label className='label'>{this.props.t('library.overview.name')}</label>
                         <div className='control'>
-                            <input className='input' placeholder='Library name' name='name' />
+                            <input
+                                className='input'
+                                placeholder={this.props.t('library.overview.placeholder')}
+                                name='name' />
                         </div>
-                        <p className='help'>Enter the name of the library, for example Shoebox 1</p>
+                        <p className='help'>{this.props.t('library.overview.help')}</p>
                     </div>
 
-                    <button className='button' type='submit'>Submit</button>
+                    <button className='button' type='submit'>{this.props.t('submit')}</button>
                 </form>
                 : null)}
 
         </MainComponent>;
     }
 }
+
+export default withTranslation()(LibraryOverviewPage);

@@ -6,7 +6,7 @@ import * as React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { isValue } from '../../helper/funcs';
-import { MainComponent } from '../components/main';
+import MainComponent from '../components/main';
 
 
 interface UserloginPageProps {

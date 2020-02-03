@@ -6,7 +6,7 @@ import * as React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { UserExtensionEntity } from '../../entities/user-extension.entity';
-import { MainComponent } from '../components/main';
+import MainComponent from '../components/main';
 
 interface DashboardPageProps {
     currentUser?: UserExtensionEntity;

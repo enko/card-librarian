@@ -1,4 +1,6 @@
 {
+    "appName": "Card Librarian",
+    "submit": "Absenden",
     "Please log in": "Please log in",
     "user": {
         "login": {
@@ -14,6 +16,29 @@
         "libraries": "Libraries",
         "decks": "Decks",
         "login": "Login",
-        "logout": "Logout"
+        "logout": "Logout",
+        "dashboard": "Start",
+        "cardManagement": "Cards",
+        "userManagement": "Users"
+    },
+    "library": {
+        "singular": "Library",
+        "plural": "Libraries",
+        "cardOverview": {
+            "id": "ID",
+            "name": "Name",
+            "colors": "Colors",
+            "manaCost": "Costs",
+            "amount": "Amount",
+            "import": "Cards to import",
+            "importHelp": "Please enter one card per line."
+        },
+        "overview": {
+            "title": "Library Overview",
+            "id": "ID",
+            "name": "Name",
+            "placeholder": "Library name",
+            "help": "Enter the name of the library, for example Shoebox 1"
+        }
     }
 }

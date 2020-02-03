@@ -6,7 +6,7 @@ import * as React from 'react';
 
 import { CardEntity } from '../../entities/card.entity';
 import { LibraryEntity } from '../../entities/library.entity';
-import { MainComponent } from '../components/main';
+import MainComponent from '../components/main';
 
 export interface LibraryCardAddPreviewProps {
     library: LibraryEntity;
