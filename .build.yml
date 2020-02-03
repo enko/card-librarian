@@ -1,0 +1,40 @@
+image: archlinux
+sources:
+  - https://git.sr.ht/~xaffe/card-librarian
+secrets:
+  - 5a47b616-c112-4670-b09d-edf81df628a0
+  - 22c56a11-980b-401d-9522-b07d4e3e4f3d
+  - c4af631b-92bd-4d2b-862c-b1f6ebad7e3d
+packages:
+  - nvm
+  - docker
+  - rsync
+tasks:
+  - setup: |
+      . ~/card-librarian/scripts/setup-docker.sh
+      . ~/card-librarian/scripts/setup-ci.sh
+      cd ~/card-librarian
+      npm ci
+
+  - checking-backend-sources: |
+      . ~/card-librarian/scripts/setup-ci.sh
+      cd ~/card-librarian
+      npm run lint
+      npm run build
+      docker build .
+      # if not on develop branch the next stages
+      if [ "$(git rev-parse origin/develop)" != "$(git rev-parse HEAD)" ]; then \
+        complete-build; \
+      fi
+
+  - deploy-backend: |
+      . ~/card-librarian/scripts/setup-ci.sh
+      cd ~/card-librarian
+      export VERSION=$(node -e 'console.log(require("./package.json").version)')
+      docker build -t card-librarian/backend:$VERSION.$JOB_ID .
+      docker login -u card-librarian -p $(< ~/.docker-secret)
+      docker push card-librarian/backend:$VERSION.$JOB_ID
+      echo "[144.76.154.114]:8022 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBD8POT7TLfCHyIlWL6Jcpu8OZv9y6DRYq3o5ds384BtvN1AyvjdECXu6+wgG0BFoFgDUqhcOQBW7uZsCiKvFRpU=" >> ~/.ssh/known_hosts
+      npm run generate-compose-file
+      /usr/bin/rsync --rsh=ssh docker-compose.yml mtg.tim.schumacher.im@web.node2.datenknoten.me:/srv/services/mtg.tim.schumacher.im
+      ssh -l mtg.tim.schumacher.im -p 8022 web.node2.datenknoten.me sudo systemctl restart mtg.tim.schumacher.im

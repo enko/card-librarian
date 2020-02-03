@@ -1,17 +1,25 @@
-FROM node:10.9
+FROM node:12.14.1 as builder
 
-WORKDIR /opt/flyacts-backend
-EXPOSE 3000
+WORKDIR /opt/card-librarian
 
-RUN mkdir -p /opt/flyacts-backend && chown node /opt/flyacts-backend
+RUN mkdir -p /opt/card-librarian && chown node /opt/card-librarian
 
-
-COPY src /opt/flyacts-backend/src/
-COPY config /opt/flyacts-backend/config/
-COPY tsconfig.json ormconfig.json package* /opt/flyacts-backend/
-RUN chown -R node /opt/flyacts-backend
+COPY src /opt/card-librarian/src/
+COPY config /opt/card-librarian/config/
+COPY tsconfig.json ormconfig.json package* /opt/card-librarian/
+RUN chown -R node /opt/card-librarian
 
 USER node
-RUN npm ci && npm run build && rm -R src
+RUN npm clean-install && npm run build
 
-ENTRYPOINT [ "/usr/local/bin/npm", "run", "start:prod" ]
+FROM node:12.14.1-slim as runner
+
+WORKDIR /opt/card-librarian
+
+COPY tsconfig.json ormconfig.json package* /opt/card-librarian/
+COPY config /opt/card-librarian/config/
+COPY --from=builder /opt/card-librarian/dist /opt/card-librarian/
+
+RUN npm clean-install --production
+
+ENTRYPOINT [ "/usr/local/bin/npm", "run" ]

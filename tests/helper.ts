@@ -5,7 +5,7 @@
 import { RequestContext } from '@flyacts/request-context';
 import * as cls from 'cls-hooked';
 import { Application } from 'express-serve-static-core';
-import * as request from 'supertest';
+import request from 'supertest';
 import { Container } from 'typedi';
 import { Connection, getConnectionManager } from 'typeorm';
 
