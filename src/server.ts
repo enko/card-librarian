@@ -16,6 +16,7 @@ import { DashboardController } from './controllers/dashboard.controller';
 import { LibraryController } from './controllers/library.controller';
 import { UserController } from './controllers/user.controller';
 import { UserExtensionEntity } from './entities/user-extension.entity';
+import { ErrorHandlerMiddleware } from './middlewares/error-handler.middleware';
 
 const controllers = [
     DashboardController,
@@ -54,12 +55,19 @@ export async function startApp() {
         controllers,
         [
             CreateContextMiddleware,
+            ErrorHandlerMiddleware,
         ],
         {
             name: '',
             description: '',
             version: '',
         },
+        undefined,
+        undefined,
+        true,
+        true,
+        true,
+        false,
     );
 }
 
