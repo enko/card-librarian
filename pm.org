@@ -1,28 +1,31 @@
 #+TITLE: Project Management
-
-
 * Bugs
-** TODO Wenn beim Import eine leere Zeile ist, werden alle Karten für die Vorschau geladen
+** DONE Wenn beim Import eine leere Zeile ist, werden alle Karten für die Vorschau geladen
+- State "DONE"       from "STARTED"    [2020-02-04 Di 19:34]
+- State "STARTED"    from "STARTED"    [2020-02-04 Di 19:29]
+:LOGBOOK:
+CLOCK: [2020-02-04 Di 19:29]--[2020-02-04 Di 19:34] =>  0:05
+:END:
 * UserStories
 ** Card Management
-*** Als Benutzer möchte ich die Anzahl der Karten in einer Bibliothek ändern
-*** Als Benutzer möchte ich die Karten einer Bibliothek filtern
-*** Als Benutzer möchte ich die Karten einer Bibliothek paginiert betrachten
-*** Als Benutzer möchte ich eine Bibliothek veröffentlichen
-*** Als Benutzer erwarte ich eine Zugangsbeschränkung zu meinen Bibliotheken
+*** TODO Als Benutzer möchte ich die Anzahl der Karten in einer Bibliothek ändern
+*** TODO Als Benutzer möchte ich die Karten einer Bibliothek filtern
+*** TODO Als Benutzer möchte ich die Karten einer Bibliothek paginiert betrachten
+*** TODO Als Benutzer möchte ich eine Bibliothek veröffentlichen
+*** TODO Als Benutzer erwarte ich eine Zugangsbeschränkung zu meinen Bibliotheken
 ** Deck Management
-*** Als Benutzer möchte ich eine Übersicht der Decks haben
-*** Als Benutzer möchte ich die Decks filtern
-*** Als Benutzer möchte ich die Decks paginiert betrachten
-*** Als Benutzer möchte ich die Decks sortieren
-*** Als Benutzer möchte ich mir Details einer Decks ansehen
-*** Als Benutzer möchte ich die Karten eines Decks ansehen
-*** Als Benutzer möchte ich ein neues Deck hinzufügen
-*** Als Benutzer möchte ich Karten zu einem Deck hinzufügen
-*** Als Benutzer möchte ich ein Deck veröffentlichen
-*** Als Benutzer erwarte ich eine Zugangsbeschränkung zu meinen Decks
+*** TODO Als Benutzer möchte ich eine Übersicht der Decks haben
+*** TODO Als Benutzer möchte ich die Decks filtern
+*** TODO Als Benutzer möchte ich die Decks paginiert betrachten
+*** TODO Als Benutzer möchte ich die Decks sortieren
+*** TODO Als Benutzer möchte ich mir Details einer Decks ansehen
+*** TODO Als Benutzer möchte ich die Karten eines Decks ansehen
+*** TODO Als Benutzer möchte ich ein neues Deck hinzufügen
+*** TODO Als Benutzer möchte ich Karten zu einem Deck hinzufügen
+*** TODO Als Benutzer möchte ich ein Deck veröffentlichen
+*** TODO Als Benutzer erwarte ich eine Zugangsbeschränkung zu meinen Decks
 ** User Management
-*** Als Benutzer möchte ich mein Passwort ändern
+*** TODO Als Benutzer möchte ich mein Passwort ändern
 * Rollen
 ** Besucher: Jemand der die Anwendung ohne Authorisierung ansurft.
 ** Benutzer: Jemand der sich bei der Anwendung angemeldet hat.

@@ -111,7 +111,13 @@ export class LibraryController {
 
         const cards: CardEntity[] = [];
 
-        for (const line of lines) {
+        for (let line of lines) {
+            line = line.trim();
+
+            if (line.length === 0) {
+                continue;
+            }
+
             const match = await this
                 .connection
                 .getRepository(CardEntity)
