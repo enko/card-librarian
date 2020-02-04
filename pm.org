@@ -1,0 +1,29 @@
+#+TITLE: Project Management
+
+
+* Bugs
+** TODO Wenn beim Import eine leere Zeile ist, werden alle Karten für die Vorschau geladen
+* UserStories
+** Card Management
+*** Als Benutzer möchte ich die Anzahl der Karten in einer Bibliothek ändern
+*** Als Benutzer möchte ich die Karten einer Bibliothek filtern
+*** Als Benutzer möchte ich die Karten einer Bibliothek paginiert betrachten
+*** Als Benutzer möchte ich eine Bibliothek veröffentlichen
+*** Als Benutzer erwarte ich eine Zugangsbeschränkung zu meinen Bibliotheken
+** Deck Management
+*** Als Benutzer möchte ich eine Übersicht der Decks haben
+*** Als Benutzer möchte ich die Decks filtern
+*** Als Benutzer möchte ich die Decks paginiert betrachten
+*** Als Benutzer möchte ich die Decks sortieren
+*** Als Benutzer möchte ich mir Details einer Decks ansehen
+*** Als Benutzer möchte ich die Karten eines Decks ansehen
+*** Als Benutzer möchte ich ein neues Deck hinzufügen
+*** Als Benutzer möchte ich Karten zu einem Deck hinzufügen
+*** Als Benutzer möchte ich ein Deck veröffentlichen
+*** Als Benutzer erwarte ich eine Zugangsbeschränkung zu meinen Decks
+** User Management
+*** Als Benutzer möchte ich mein Passwort ändern
+* Rollen
+** Besucher: Jemand der die Anwendung ohne Authorisierung ansurft.
+** Benutzer: Jemand der sich bei der Anwendung angemeldet hat.
+** Admin: Ein Benutzer der andere Benutzer anlegen kann
