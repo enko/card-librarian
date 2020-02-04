@@ -3,7 +3,7 @@
  */
 
 import { Logger } from '@flyacts/backend';
-import * as config from 'config';
+import config from 'config';
 import minimist = require('minimist');
 import * as sqlite from 'sqlite';
 import { createConnection } from 'typeorm';
