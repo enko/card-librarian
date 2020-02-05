@@ -6,6 +6,13 @@
 :LOGBOOK:
 CLOCK: [2020-02-04 Di 19:29]--[2020-02-04 Di 19:34] =>  0:05
 :END:
+** DONE Unique-Constrain für Library-ID und Card-ID einführen
+- State "DONE"       from "STARTED"    [2020-02-05 Mi 21:18]
+- State "STARTED"    from "STARTED"    [2020-02-05 Mi 20:44]
+:LOGBOOK:
+CLOCK: [2020-02-05 Mi 20:44]--[2020-02-05 Mi 21:18] =>  0:34
+:END:
+** TODO Eingabe von Karten beim Import in anderen Sprachen
 * UserStories
 ** Card Management
 *** TODO Als Benutzer möchte ich die Anzahl der Karten in einer Bibliothek ändern
