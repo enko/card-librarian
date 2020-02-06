@@ -12,7 +12,12 @@ CLOCK: [2020-02-04 Di 19:29]--[2020-02-04 Di 19:34] =>  0:05
 :LOGBOOK:
 CLOCK: [2020-02-05 Mi 20:44]--[2020-02-05 Mi 21:18] =>  0:34
 :END:
-** TODO Eingabe von Karten beim Import in anderen Sprachen
+** DONE Eingabe von Karten beim Import in anderen Sprachen
+- State "DONE"       from "TODO"       [2020-02-06 Do 22:07]
+- State "STARTED"    from "STARTED"    [2020-02-06 Do 22:07]
+:LOGBOOK:
+CLOCK: [2020-02-06 Do 19:57]--[2020-02-06 Do 22:07] =>  2:10
+:END:
 * UserStories
 ** Card Management
 *** TODO Als Benutzer möchte ich die Anzahl der Karten in einer Bibliothek ändern
