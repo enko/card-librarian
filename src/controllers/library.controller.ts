@@ -123,7 +123,11 @@ export class LibraryController {
                 .getRepository(CardEntity)
                 .createQueryBuilder('c')
                 .innerJoinAndSelect('c.set', 'c__s')
+                .leftJoinAndSelect('c.translations', 'c__t')
                 .where('c.name ILIKE :name', { name: `%${line}%` })
+                .orWhere('c__t.name ILIKE :translatedName', {
+                    translatedName: `%${line}%`,
+                })
                 .getMany();
 
             cards.push(...match);

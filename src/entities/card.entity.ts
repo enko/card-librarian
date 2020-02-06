@@ -8,6 +8,7 @@ import { IsString } from 'class-validator';
 import { Column, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { CardToLibraryEntity } from './card-to-library.entity';
+import { ForeignCardDataEntity } from './foreign-card-data.entity';
 import { SetEntity } from './set.entity';
 
 /**
@@ -30,6 +31,9 @@ export class CardEntity extends BaseEntity {
     @Column()
     public types!: string;
 
+    @Column()
+    public uuid!: string;
+
     @ManyToOne(
         () => SetEntity,
     )
@@ -43,6 +47,12 @@ export class CardEntity extends BaseEntity {
         (ca) => ca.card,
     )
     public cardAssociations?: CardToLibraryEntity[];
+
+    @OneToMany(
+        () => ForeignCardDataEntity,
+        (fcd => fcd.card),
+    )
+    public translations?: ForeignCardDataEntity[];
 
     @Column({
         name: 'import_data',
