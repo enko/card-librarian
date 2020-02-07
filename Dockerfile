@@ -12,6 +12,8 @@ RUN chown -R node /opt/card-librarian
 USER node
 RUN npm clean-install && npm run build
 
+RUN cp -v /opt/card-librarian/src/migrations/*.sql /opt/card-librarian/dist/migrations/
+
 FROM node:12.14.1-slim as runner
 
 WORKDIR /opt/card-librarian
