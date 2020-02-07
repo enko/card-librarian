@@ -14,7 +14,7 @@ services:
         ports:
             - 127.0.0.1:8014:3001
     db:
-        image: postgres:12
+        image: postgres:10
         volumes:
             - /srv/services/mtg.tim.schumacher.im/database:/usr/local/var/lib/postgresql
         environment:
