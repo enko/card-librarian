@@ -32,7 +32,18 @@
             "manaCost": "Costs",
             "amount": "Amount",
             "import": "Cards to import",
-            "importHelp": "Please enter one card per line."
+            "importHelp": "Please enter one card per line.",
+            "isFoil": "Foil"
+        },
+        "cardPreview": {
+            "id": "ID",
+            "type": "Type",
+            "name": "Name",
+            "color": "Color",
+            "manaCost": "Mana Costs",
+            "set": "Set",
+            "amount": "Amount",
+            "isFoil": "Foil"
         },
         "overview": {
             "title": "Library Overview",

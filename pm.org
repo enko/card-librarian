@@ -18,6 +18,8 @@ CLOCK: [2020-02-05 Mi 20:44]--[2020-02-05 Mi 21:18] =>  0:34
 :LOGBOOK:
 CLOCK: [2020-02-06 Do 19:57]--[2020-02-06 Do 22:07] =>  2:10
 :END:
+** DONE Beim hinzufügen von Karten, möchte ich sagen können, ob die Karte eine Foil-Karte ist.
+- State "DONE"       from "TODO"       [2020-02-08 Sa 09:27]
 * UserStories
 ** Card Management
 *** TODO Als Benutzer möchte ich die Anzahl der Karten in einer Bibliothek ändern

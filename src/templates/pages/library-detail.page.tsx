@@ -35,6 +35,9 @@ export class LibraryDetailPage extends React.Component<LibraryDetailPageProps & 
                     <td>{item.card.colors}</td>
                     <td>{item.card.manaCost}</td>
                     <td>{item.amount}</td>
+                    <td>
+                        <input type='checkbox' checked={item.isFoil} disabled={true} />
+                    </td>
                 </tr>) :
                 null
         );
@@ -52,6 +55,7 @@ export class LibraryDetailPage extends React.Component<LibraryDetailPageProps & 
                         <th>{this.props.t('library.cardOverview.colors')}</th>
                         <th>{this.props.t('library.cardOverview.manaCost')}</th>
                         <th>{this.props.t('library.cardOverview.amount')}</th>
+                        <th>{this.props.t('library.cardOverview.isFoil')}</th>
                     </tr>
                 </thead>
                 <tbody>

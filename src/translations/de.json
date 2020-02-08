@@ -32,7 +32,18 @@
             "manaCost": "Kosten",
             "amount": "Menge",
             "import": "Karten zum Importieren",
-            "importHelp": "Gebe eine Karte pro Zeile an."
+            "importHelp": "Gebe eine Karte pro Zeile an.",
+            "isFoil": "Foil"
+        },
+        "cardPreview": {
+            "id": "ID",
+            "type": "Typ",
+            "name": "Name",
+            "color": "Farbe",
+            "manaCost": "Kosten",
+            "set": "Set",
+            "amount": "Menge",
+            "isFoil": "Foil"
         },
         "overview": {
             "title": "Bibliotheksübersicht",

@@ -32,4 +32,9 @@ export class CardToLibraryEntity extends BaseEntity {
 
     @Column()
     public amount!: number;
+
+    @Column({
+        name: 'is_foil',
+    })
+    public isFoil: boolean = false;
 }

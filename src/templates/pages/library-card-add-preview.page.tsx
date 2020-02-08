@@ -3,6 +3,7 @@
  */
 
 import * as React from 'react';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { CardEntity } from '../../entities/card.entity';
 import { LibraryEntity } from '../../entities/library.entity';
@@ -16,11 +17,7 @@ export interface LibraryCardAddPreviewProps {
 /**
  * Render a libray Detail
  */
-export class LibraryCardAddPreviewPage extends React.Component<LibraryCardAddPreviewProps, {}> {
-    public constructor(props: Readonly<LibraryCardAddPreviewProps>) {
-        super(props);
-    }
-
+class LibraryCardAddPreviewPage extends React.Component<LibraryCardAddPreviewProps & WithTranslation, {}> {
     /**
      * Reacts render method
      */
@@ -30,13 +27,14 @@ export class LibraryCardAddPreviewPage extends React.Component<LibraryCardAddPre
                 <table className='table is-fullwidth'>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Type</th>
-                            <th>Name</th>
-                            <th>Farbe</th>
-                            <th>Kosten</th>
-                            <th>Set</th>
-                            <th>Amount</th>
+                            <th>{this.props.t('library.cardPreview.id')}</th>
+                            <th>{this.props.t('library.cardPreview.type')}</th>
+                            <th>{this.props.t('library.cardPreview.name')}</th>
+                            <th>{this.props.t('library.cardPreview.color')}</th>
+                            <th>{this.props.t('library.cardPreview.manaCost')}</th>
+                            <th>{this.props.t('library.cardPreview.set')}</th>
+                            <th>{this.props.t('library.cardPreview.amount')}</th>
+                            <th>{this.props.t('library.cardPreview.isFoil')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +56,9 @@ export class LibraryCardAddPreviewPage extends React.Component<LibraryCardAddPre
                                 <input type='hidden' name='card_id[]' value={item.id} />
                                 <input type='number' name='amount[]' />
                             </td>
+                            <td>
+                                <input type='checkbox' name='isFoil[]' />
+                            </td>
                         </tr>)}
                     </tbody>
                 </table>
@@ -66,3 +67,5 @@ export class LibraryCardAddPreviewPage extends React.Component<LibraryCardAddPre
         </MainComponent>;
     }
 }
+
+export default withTranslation()(LibraryCardAddPreviewPage);

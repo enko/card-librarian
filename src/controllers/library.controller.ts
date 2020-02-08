@@ -4,6 +4,7 @@
 
 // tslint:disable:no-duplicate-string
 
+import { Logger } from '@flyacts/backend';
 import {
     Controller,
     CurrentUser,
@@ -24,7 +25,7 @@ import { CardEntity } from '../entities/card.entity';
 import { LibraryEntity } from '../entities/library.entity';
 import { UserExtensionEntity } from '../entities/user-extension.entity';
 import LibraryOverviewPage from '../templates/pages/libary-overview.page';
-import { LibraryCardAddPreviewPage } from '../templates/pages/library-card-add-preview.page';
+import LibraryCardAddPreviewPage from '../templates/pages/library-card-add-preview.page';
 import LibraryDetailPage from '../templates/pages/library-detail.page';
 
 
@@ -37,6 +38,7 @@ export class LibraryController {
 
     public constructor(
         private connection: Connection,
+        private logger: Logger,
     ) {
 
     }
@@ -144,23 +146,32 @@ export class LibraryController {
      */
     @Post('/:id/cards/submit')
     @Redirect('/libraries')
+    // tslint:disable-next-line:cognitive-complexity
     public async submitCards(
         @Param('id') id: number,
         @FormField('card_id') cardIDValues?: string[],
         @FormField('amount') amountValues?: string[],
+        @FormField('isFoil') isFoilValues?: string[],
     ) {
+        this.logger.debug('data', { amountValues, isFoilValues });
         const library = await this.getLibrary(id);
 
-        const amounts: { [index: string]: number } = {};
+        const amounts: { [index: string]: { amount: number, isFoil: boolean } } = {};
 
-        if (Array.isArray(cardIDValues) && Array.isArray(amountValues)) {
+        if (
+            Array.isArray(cardIDValues) &&
+            Array.isArray(amountValues)) {
             let index = 0;
             for (const cardID of cardIDValues) {
 
                 const currentAmount = Number.parseInt(amountValues[index]);
+                const isFoil = (Array.isArray(isFoilValues) ? isFoilValues[index] === 'on' : false);
 
                 if (!Number.isNaN(currentAmount)) {
-                    amounts[cardID] = currentAmount;
+                    amounts[cardID] = {
+                        amount: currentAmount,
+                        isFoil: isFoil,
+                    };
                 }
 
                 index += 1;
@@ -178,11 +189,32 @@ export class LibraryController {
             if (!(card instanceof CardEntity)) {
                 continue;
             }
-            const association = new CardToLibraryEntity();
 
-            association.card = card;
-            association.library = library;
-            association.amount = amounts[key];
+            let association = await this
+                .connection
+                .getRepository(CardToLibraryEntity)
+                .createQueryBuilder('c2l')
+                .innerJoinAndSelect('c2l.card', 'c2l__c')
+                .innerJoinAndSelect('c2l.library', 'c2l__l')
+                .where('c2l__c.id = :cardId')
+                .andWhere('c2l__l.id = :libraryId')
+                .andWhere('c2l.is_foil = :isFoil')
+                .setParameters({
+                    cardId: card.id,
+                    libraryId: library.id,
+                    isFoil: amounts[key].isFoil,
+                })
+                .getOne();
+
+            if (association instanceof CardToLibraryEntity) {
+                association.amount += amounts[key].amount;
+            } else {
+                association = new CardToLibraryEntity();
+                association.card = card;
+                association.library = library;
+                association.amount = amounts[key].amount;
+                association.isFoil = amounts[key].isFoil;
+            }
 
             await this.connection.manager.save(association);
         }
