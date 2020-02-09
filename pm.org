@@ -20,8 +20,10 @@ CLOCK: [2020-02-06 Do 19:57]--[2020-02-06 Do 22:07] =>  2:10
 :END:
 ** DONE Beim hinzufügen von Karten, möchte ich sagen können, ob die Karte eine Foil-Karte ist.
 - State "DONE"       from "TODO"       [2020-02-08 Sa 09:27]
+** DONE Beim importieren von Karten sollte der Set-Code casinsensitive sein
+- State "DONE"       from "TODO"       [2020-02-09 So 17:23]
 * UserStories
-** Card Management
+** Library Management
 *** TODO Als Benutzer möchte ich die Anzahl der Karten in einer Bibliothek ändern
 *** TODO Als Benutzer möchte ich die Karten einer Bibliothek filtern
 *** TODO Als Benutzer möchte ich die Karten einer Bibliothek paginiert betrachten
@@ -29,6 +31,7 @@ CLOCK: [2020-02-06 Do 19:57]--[2020-02-06 Do 22:07] =>  2:10
 *** TODO Als Benutzer erwarte ich eine Zugangsbeschränkung zu meinen Bibliotheken
 *** DONE Als Benutzer möchte ich Karten anhand ihrer Set-Nummer und Set importieren können
 - State "DONE"       from "TODO"       [2020-02-09 So 12:54]
+*** TODO Als Benutzer möchte ich sehen wie viele Karten ich in einer Bibliothek habe.
 ** Deck Management
 *** TODO Als Benutzer möchte ich eine Übersicht der Decks haben
 *** TODO Als Benutzer möchte ich die Decks filtern
@@ -42,6 +45,17 @@ CLOCK: [2020-02-06 Do 19:57]--[2020-02-06 Do 22:07] =>  2:10
 *** TODO Als Benutzer erwarte ich eine Zugangsbeschränkung zu meinen Decks
 ** User Management
 *** TODO Als Benutzer möchte ich mein Passwort ändern
+** Set Management
+*** Als Benutzer möchte ich alle Sets sehen um zu sehen welche Sets es alles gibt
+Hier sollte Neben dem Icon auch der Code sichtbar sein, damit man diesen für den
+Import benutzen kann.
+** Card Management
+*** TODO Als Benutzer möchte ich alle Karten sehen damit ich entdecken kann, welche Karten ich für meine Decks noch benutzen könnte.
+*** TODO Als Benutzer möchte ich die Karten filtern
+Nach welchen Kriterien möchte ich filtern?
+*** TODO Als Benutzer möchte ich die Karten paginiert betrachten
+*** TODO Als Benutzer möchte ich die Karten sortieren
+Nach welchen Kriterien möchte sortieren?
 * Rollen
 ** Besucher: Jemand der die Anwendung ohne Authorisierung ansurft.
 ** Benutzer: Jemand der sich bei der Anwendung angemeldet hat.
