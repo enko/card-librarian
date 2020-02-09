@@ -24,6 +24,7 @@ import { CardToLibraryEntity } from '../entities/card-to-library.entity';
 import { CardEntity } from '../entities/card.entity';
 import { LibraryEntity } from '../entities/library.entity';
 import { UserExtensionEntity } from '../entities/user-extension.entity';
+import { CardProvider } from '../providers/card.provider';
 import LibraryOverviewPage from '../templates/pages/libary-overview.page';
 import LibraryCardAddPreviewPage from '../templates/pages/library-card-add-preview.page';
 import LibraryDetailPage from '../templates/pages/library-detail.page';
@@ -39,6 +40,7 @@ export class LibraryController {
     public constructor(
         private connection: Connection,
         private logger: Logger,
+        private cardProvider: CardProvider,
     ) {
 
     }
@@ -120,19 +122,15 @@ export class LibraryController {
                 continue;
             }
 
-            const match = await this
-                .connection
-                .getRepository(CardEntity)
-                .createQueryBuilder('c')
-                .innerJoinAndSelect('c.set', 'c__s')
-                .leftJoinAndSelect('c.translations', 'c__t')
-                .where('c.name ILIKE :name', { name: `%${line}%` })
-                .orWhere('c__t.name ILIKE :translatedName', {
-                    translatedName: `%${line}%`,
-                })
-                .getMany();
-
-            cards.push(...match);
+            if (line.startsWith('#')) {
+                cards.push(
+                    ...(await this.cardProvider.exactMatch(line)),
+                );
+            } else {
+                cards.push(
+                    ...(await this.cardProvider.fuzzyMatch(line)),
+                );
+            }
         }
 
         return react.renderToStaticMarkup(React.createElement(LibraryCardAddPreviewPage, {

@@ -27,6 +27,8 @@ CLOCK: [2020-02-06 Do 19:57]--[2020-02-06 Do 22:07] =>  2:10
 *** TODO Als Benutzer möchte ich die Karten einer Bibliothek paginiert betrachten
 *** TODO Als Benutzer möchte ich eine Bibliothek veröffentlichen
 *** TODO Als Benutzer erwarte ich eine Zugangsbeschränkung zu meinen Bibliotheken
+*** DONE Als Benutzer möchte ich Karten anhand ihrer Set-Nummer und Set importieren können
+- State "DONE"       from "TODO"       [2020-02-09 So 12:54]
 ** Deck Management
 *** TODO Als Benutzer möchte ich eine Übersicht der Decks haben
 *** TODO Als Benutzer möchte ich die Decks filtern
