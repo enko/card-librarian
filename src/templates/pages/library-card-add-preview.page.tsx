@@ -8,6 +8,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { CardEntity } from '../../entities/card.entity';
 import { LibraryEntity } from '../../entities/library.entity';
 import MainComponent from '../components/main';
+import SetComponent from '../components/set';
 
 export interface LibraryCardAddPreviewProps {
     library: LibraryEntity;
@@ -45,12 +46,7 @@ class LibraryCardAddPreviewPage extends React.Component<LibraryCardAddPreviewPro
                             <td>{item.colors}</td>
                             <td>{item.manaCost}</td>
                             <td>
-                                <div className='tags has-addons'>
-                                    <span className='tag is-dark'>
-                                        <i title={item.set.name} className={`ss ss-${item.set.code}`}></i>
-                                    </span>
-                                    <span className='tag'>{item.set.name}</span>
-                                </div>
+                                <SetComponent set={item.set} showIcon={true} showText={true} />
                             </td>
                             <td>
                                 <input type='hidden' name='card_id[]' value={item.id} />

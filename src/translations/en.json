@@ -25,7 +25,7 @@
         "singular": "Library",
         "plural": "Libraries",
         "cardOverview": {
-            "id": "ID",
+            "setNumber": "Set-Nummer",
             "set": "Set",
             "name": "Name",
             "colors": "Colors",

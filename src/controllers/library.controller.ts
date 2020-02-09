@@ -233,6 +233,8 @@ export class LibraryController {
             .leftJoinAndSelect('l.cardAssociations', 'l__ca')
             .leftJoinAndSelect('l__ca.card', 'l__ca__c')
             .leftJoinAndSelect('l__ca__c.set', 'l__ca__c__s')
+            .orderBy('l__ca__c__s.name', 'ASC')
+            .addOrderBy('l__ca__c.set_number', 'ASC')
             .where('l.id = :id', { id })
             .getOne();
 

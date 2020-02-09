@@ -9,6 +9,7 @@ import { LibraryEntity } from '../../entities/library.entity';
 import { UserExtensionEntity } from '../../entities/user-extension.entity';
 import { isValue } from '../../helper/funcs';
 import MainComponent from '../components/main';
+import SetComponent from '../components/set';
 
 export interface LibraryDetailPageProps {
     library: LibraryEntity;
@@ -27,10 +28,10 @@ export class LibraryDetailPage extends React.Component<LibraryDetailPageProps & 
         const rows = (
             isValue(this.props.library.cardAssociations) && this.props.library.cardAssociations.length > 0 ?
                 this.props.library.cardAssociations?.map(item => <tr>
-                    <td>{item.card.id}</td>
                     <td>
-                        <i title={item.card.set.name} className={`ss ss-${item.card.set.code}`}></i>
+                        <SetComponent set={item.card.set} showIcon={true} showText={true} />
                     </td>
+                    <td>{item.card.setNumber}</td>
                     <td>{item.card.name}</td>
                     <td>{item.card.colors}</td>
                     <td>{item.card.manaCost}</td>
@@ -49,8 +50,8 @@ export class LibraryDetailPage extends React.Component<LibraryDetailPageProps & 
             <table className='table is-fullwidth'>
                 <thead>
                     <tr>
-                        <th>{this.props.t('library.cardOverview.id')}</th>
                         <th>{this.props.t('library.cardOverview.set')}</th>
+                        <th>{this.props.t('library.cardOverview.setNumber')}</th>
                         <th>{this.props.t('library.cardOverview.name')}</th>
                         <th>{this.props.t('library.cardOverview.colors')}</th>
                         <th>{this.props.t('library.cardOverview.manaCost')}</th>

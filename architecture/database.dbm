@@ -235,7 +235,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="cards" layer="0" collapse-mode="2" max-obj-count="14">
+<table name="cards" layer="0" collapse-mode="2" max-obj-count="15">
 	<schema name="card_management"/>
 	<role name="postgres"/>
 	<position x="380" y="60"/>
@@ -272,6 +272,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="uuid" not-null="true">
 		<type name="uuid" length="0"/>
 	</column>
+	<column name="set_number" not-null="true">
+		<type name="text" length="0"/>
+		<comment><![CDATA[A unique number inside a set that is printed on every card.]]></comment>
+	</column>
 	<column name="set_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -288,7 +292,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="libraries" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="card_management"/>
 	<role name="postgres"/>
-	<position x="1400" y="100"/>
+	<position x="1520" y="60"/>
 	<column name="id" not-null="true" sequence="card_management.libraries_id_seq">
 		<type name="integer" length="0"/>
 	</column>

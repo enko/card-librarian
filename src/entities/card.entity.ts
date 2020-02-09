@@ -34,6 +34,11 @@ export class CardEntity extends BaseEntity {
     @Column()
     public uuid!: string;
 
+    @Column({
+        name: 'set_number',
+    })
+    public setNumber!: string;
+
     @ManyToOne(
         () => SetEntity,
     )

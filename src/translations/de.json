@@ -25,7 +25,7 @@
         "singular": "Bibliothek",
         "plural": "Bibliotheken",
         "cardOverview": {
-            "id": "ID",
+            "setNumber": "Set-Nummer",
             "set": "Set",
             "name": "Name",
             "colors": "Farben",
