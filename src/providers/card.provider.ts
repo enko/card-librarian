@@ -44,7 +44,7 @@ export class CardProvider {
             return [];
         }
 
-        const setCode = results[0].slice(1);
+        const setCode = results[0].slice(1).toUpperCase();
         const setNumber = results[1];
 
         return this
