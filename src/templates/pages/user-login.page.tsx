@@ -3,7 +3,7 @@
  */
 
 import * as React from 'react';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import { isValue } from '../../helper/funcs';
 import MainComponent from '../components/main';
@@ -18,69 +18,66 @@ interface UserloginPageProps {
 /**
  * Render a libray overview
  */
-class UserLoginPage extends React.Component<UserloginPageProps & WithTranslation, {}> {
-    /**
-     * Reacts render method
-     */
-    public render() {
-        return <MainComponent title='Login'>
-            <div className='card-content'>
-                <form
-                    action='/users/login'
-                    method='post'
-                    encType='multipart/form-data'
-                    className='form-signin'>
-                    <h2 className='title has-text-centered is-size-3'>
-                        {this.props.t('Please log in')}
-                    </h2>
-                    {(isValue(this.props.errors) ?
-                        <div className='notification is-danger'>
-                            {this.props.errors}
-                        </div> : null)}
-                    <div className='field'>
-                        <label className='label' htmlFor='username'>
-                            {this.props.t('user.login.username')}
-                        </label>
-                        <div className='control'>
-                            <input
-                                className='input'
-                                type='text'
-                                id='username'
-                                name='username'
-                                required={true}
-                                placeholder={this.props.t('user.login.username')}
-                                value={this.props.username} />
-                        </div>
-                    </div>
+const renderUserLoginPage: React.FC<UserloginPageProps> = (props) => {
+    const { t } = useTranslation();
 
-                    <div className='field'>
-                        <label
-                            className='label'
-                            htmlFor='password'>
-                            {this.props.t('user.login.password')}
-                            </label>
+    return <MainComponent title='Login'>
+        <div className='card-content'>
+            <form
+                action='/users/login'
+                method='post'
+                encType='multipart/form-data'
+                className='form-signin'>
+                <h2 className='title has-text-centered is-size-3'>
+                    {t('Please log in')}
+                </h2>
+                {(isValue(props.errors) ?
+                    <div className='notification is-danger'>
+                        {props.errors}
+                    </div> : null)}
+                <div className='field'>
+                    <label className='label' htmlFor='username'>
+                        {t('user.login.username')}
+                    </label>
+                    <div className='control'>
                         <input
                             className='input'
-                            type='password'
-                            id='password'
-                            name='password'
+                            type='text'
+                            id='username'
+                            name='username'
                             required={true}
-                            placeholder={this.props.t('user.login.password')}
-                            value={this.props.password}
-                            />
+                            placeholder={t('user.login.username')}
+                            value={props.username} />
                     </div>
+                </div>
 
-                    <div className='field'>
-                        <button
-                            className='button is-medium is-primary is-fullwidth'
-                            type='submit'>
-                            {this.props.t('user.login.login')}
-                            </button>
-                    </div>
-                </form>
-            </div>
-        </MainComponent>;
-    }
-}
+                <div className='field'>
+                    <label
+                        className='label'
+                        htmlFor='password'>
+                        {t('user.login.password')}
+                    </label>
+                    <input
+                        className='input'
+                        type='password'
+                        id='password'
+                        name='password'
+                        required={true}
+                        placeholder={t('user.login.password')}
+                        value={props.password}
+                    />
+                </div>
 
-export default withTranslation()(UserLoginPage);
+                <div className='field'>
+                    <button
+                        className='button is-medium is-primary is-fullwidth'
+                        type='submit'>
+                        {t('user.login.login')}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </MainComponent>;
+};
+
+export default renderUserLoginPage;
