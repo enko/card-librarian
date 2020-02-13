@@ -4,12 +4,14 @@
 
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { CellProps, Column } from 'react-table';
 
+import { CardToLibraryEntity } from '../../entities/card-to-library.entity';
 import { LibraryEntity } from '../../entities/library.entity';
 import { UserExtensionEntity } from '../../entities/user-extension.entity';
-import { isValue } from '../../helper/funcs';
 import MainComponent from '../components/main';
 import SetComponent from '../components/set';
+import TableComponent from '../components/table';
 
 export interface LibraryDetailPageProps {
     library: LibraryEntity;
@@ -22,44 +24,59 @@ export interface LibraryDetailPageProps {
 const renderLibraryDetailPage: React.FC<LibraryDetailPageProps> = (props) => {
     const { t } = useTranslation();
 
-    const rows = (
-        isValue(props.library.cardAssociations) && props.library.cardAssociations.length > 0 ?
-            props.library.cardAssociations?.map(item => <tr>
-                <td>
-                    <SetComponent set={item.card.set} showIcon={true} showText={true} />
-                </td>
-                <td>{item.card.setNumber}</td>
-                <td>{item.card.name}</td>
-                <td>{item.card.colors}</td>
-                <td>{item.card.manaCost}</td>
-                <td>{item.amount}</td>
-                <td>
-                    <input type='checkbox' checked={item.isFoil} disabled={true} />
-                </td>
-            </tr>) :
-            null
+    const columns = React.useMemo(
+        (): Array<Column<CardToLibraryEntity>> => [
+            {
+                Header: t('library.cardOverview.set') as string,
+                Cell: (cellProps: CellProps<CardToLibraryEntity>) => {
+                    return <SetComponent
+                        set={cellProps.row.original.card.set}
+                        showIcon={true}
+                        showText={true} />;
+                },
+            },
+            {
+                Header: t('library.cardOverview.setNumber') as string,
+                accessor: 'card.setNumber',
+            },
+            {
+                Header: t('library.cardOverview.name') as string,
+                accessor: 'card.name',
+            },
+            {
+                Header: t('library.cardOverview.colors') as string,
+                accessor: 'card.colors',
+            },
+            {
+                Header: t('library.cardOverview.manaCost') as string,
+                accessor: 'card.manaCost',
+            },
+            {
+                Header: t('library.cardOverview.amount') as string,
+                accessor: 'amount',
+            },
+            {
+                Header: t('library.cardOverview.isFoil') as string,
+                Cell: (cellProps: CellProps<CardToLibraryEntity>) => {
+                    return <input
+                        type='checkbox'
+                        checked={cellProps.row.original.isFoil}
+                        disabled={true} />;
+                },
+            },
+        ],
+        [],
     );
+
+    const cardAssociations = props.library.cardAssociations;
 
     return <MainComponent
         currentUser={props.currentUser}
         title={`${t('library.singular')} ${props.library.name}`}>
         <h2 className='title'>{props.library.name}</h2>
-        <table className='table is-fullwidth'>
-            <thead>
-                <tr>
-                    <th>{t('library.cardOverview.set')}</th>
-                    <th>{t('library.cardOverview.setNumber')}</th>
-                    <th>{t('library.cardOverview.name')}</th>
-                    <th>{t('library.cardOverview.colors')}</th>
-                    <th>{t('library.cardOverview.manaCost')}</th>
-                    <th>{t('library.cardOverview.amount')}</th>
-                    <th>{t('library.cardOverview.isFoil')}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {rows}
-            </tbody>
-        </table>
+        {(Array.isArray(cardAssociations)) ?
+            <TableComponent<CardToLibraryEntity> columns={columns} data={cardAssociations} /> :
+            <p>No Cards today.</p>}
         {(props.currentUser instanceof UserExtensionEntity ?
             <form method='post' action={`/libraries/${props.library.id}/cards/preview`} encType='multipart/form-data'>
                 <div className='field'>
