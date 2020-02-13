@@ -4,6 +4,7 @@
     "license": "SEE LICENSE IN LICENSE",
     "private": true,
     "scripts": {
+        "build:fe": "react-scripts build",
         "build": "rimraf ./dist && tsc -p tsconfig.json",
         "debug": "node --inspect -r ts-node/register src/server",
         "democontent": "teardown-database && sudo rimraf ./database && setup-database -- --persistant && democontent",
@@ -70,6 +71,7 @@
         "react": "16.12.0",
         "react-dom": "16.12.0",
         "react-i18next": "11.3.1",
+        "react-table": "7.0.0-rc.15",
         "reflect-metadata": "0.1.13",
         "serialize-error": "5.0.0",
         "sqlite": "3.0.3",
@@ -100,6 +102,7 @@
         "@types/pg": "7.14.1",
         "@types/react": "16.9.19",
         "@types/react-dom": "16.9.5",
+        "@types/react-table": "7.0.5",
         "@types/sparkpost": "2.1.4",
         "@types/supertest": "2.0.8",
         "@types/zxcvbn": "4.4.0",
@@ -116,10 +119,11 @@
         "node-notifier-cli": "1.2.0",
         "nodemon": "2.0.2",
         "supertest": "4.0.2",
+        "react-scripts": "3.3.1",
         "ts-node": "8.6.2",
         "tslint": "6.0.0",
-        "typescript-tslint-plugin": "0.5.5",
-        "typescript": "3.7.5",
-        "typescript-formatter": "7.2.2"
+        "typescript": "^3.8.1-rc",
+        "typescript-formatter": "7.2.2",
+        "typescript-tslint-plugin": "0.5.5"
     }
 }
