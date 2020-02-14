@@ -60,3 +60,8 @@ Nach welchen Kriterien möchte sortieren?
 ** Besucher: Jemand der die Anwendung ohne Authorisierung ansurft.
 ** Benutzer: Jemand der sich bei der Anwendung angemeldet hat.
 ** Admin: Ein Benutzer der andere Benutzer anlegen kann
+* R&D
+** Als Entwickler möchte ich auch erweiterte Frontend funktionalitäten haben
+Eine Möglichkeit währe das ich die React Komponenten sowohl im Backend als auch
+im Frontend benutze und dann die Frontend-Komponten das gerenderte HTML
+übernehmen.
