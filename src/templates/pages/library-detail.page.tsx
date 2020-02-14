@@ -27,6 +27,7 @@ const renderLibraryDetailPage: React.FC<LibraryDetailPageProps> = (props) => {
     const columns = React.useMemo(
         (): Array<Column<CardToLibraryEntity>> => [
             {
+                // tslint:disable-next-line:no-useless-cast
                 Header: t('library.cardOverview.set') as string,
                 Cell: (cellProps: CellProps<CardToLibraryEntity>) => {
                     return <SetComponent
@@ -36,26 +37,32 @@ const renderLibraryDetailPage: React.FC<LibraryDetailPageProps> = (props) => {
                 },
             },
             {
+                // tslint:disable-next-line:no-useless-cast
                 Header: t('library.cardOverview.setNumber') as string,
                 accessor: 'card.setNumber',
             },
             {
+                // tslint:disable-next-line:no-useless-cast
                 Header: t('library.cardOverview.name') as string,
                 accessor: 'card.name',
             },
             {
+                // tslint:disable-next-line:no-useless-cast
                 Header: t('library.cardOverview.colors') as string,
                 accessor: 'card.colors',
             },
             {
+                // tslint:disable-next-line:no-useless-cast
                 Header: t('library.cardOverview.manaCost') as string,
                 accessor: 'card.manaCost',
             },
             {
+                // tslint:disable-next-line:no-useless-cast
                 Header: t('library.cardOverview.amount') as string,
                 accessor: 'amount',
             },
             {
+                // tslint:disable-next-line:no-useless-cast
                 Header: t('library.cardOverview.isFoil') as string,
                 Cell: (cellProps: CellProps<CardToLibraryEntity>) => {
                     return <input
