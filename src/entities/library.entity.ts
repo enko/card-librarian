@@ -12,7 +12,7 @@ import { CardToLibraryEntity } from './card-to-library.entity';
 /**
  * Library Entity
  */
-@OwnableEntity('card_management.libraries')
+@OwnableEntity('library_management.libraries')
 export class LibraryEntity extends BaseEntity {
     @Column()
     @IsString()

@@ -12,7 +12,7 @@ import { LibraryEntity } from './library.entity';
 /**
  * CardToLibrary Entity
  */
-@OwnableEntity('card_management.card_to_libraries')
+@OwnableEntity('library_management.card_to_libraries')
 export class CardToLibraryEntity extends BaseEntity {
     @ManyToOne(
         () => CardEntity,

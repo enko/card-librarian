@@ -21,7 +21,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="migrations" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="60" y="1040"/>
+	<position x="80" y="1120"/>
 	<column name="id" not-null="true" sequence="public.migrations_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -44,7 +44,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="users" layer="0" collapse-mode="2" max-obj-count="10">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="420" y="820"/>
+	<position x="440" y="900"/>
 	<column name="id" not-null="true" sequence="public.users_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -91,7 +91,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="roles" layer="0" collapse-mode="2" max-obj-count="4">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1320" y="860"/>
+	<position x="1340" y="940"/>
 	<column name="id" not-null="true" sequence="public.roles_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -112,7 +112,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="user_roles" layer="0" collapse-mode="2" max-obj-count="2">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="900" y="840"/>
+	<position x="920" y="920"/>
 	<column name="users_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -129,7 +129,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tokens" layer="0" collapse-mode="2" max-obj-count="8">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="840" y="1000"/>
+	<position x="860" y="1080"/>
 	<column name="id" not-null="true" sequence="public.tokens_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -164,7 +164,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="user_extensions" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="60" y="820"/>
+	<position x="80" y="900"/>
 	<column name="id" not-null="true" sequence="public.user_extensions_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -200,7 +200,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="sets" layer="0" collapse-mode="2" max-obj-count="9">
 	<schema name="card_management"/>
 	<role name="postgres"/>
-	<position x="60" y="100"/>
+	<position x="80" y="80"/>
 	<column name="id" not-null="true" sequence="card_management.sets_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -238,7 +238,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="cards" layer="0" collapse-mode="2" max-obj-count="15">
 	<schema name="card_management"/>
 	<role name="postgres"/>
-	<position x="380" y="60"/>
+	<position x="380" y="80"/>
 	<column name="id" not-null="true" sequence="card_management.cards_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -284,48 +284,25 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
+<schema name="library_management" layer="0" rect-visible="true" fill-color="#2971b1">
+	<role name="postgres"/>
+</schema>
+
 <sequence name="libraries_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
-	<schema name="card_management"/>
+	<schema name="library_management"/>
 	<role name="postgres"/>
 </sequence>
 
-<table name="libraries" layer="0" collapse-mode="2" max-obj-count="7">
-	<schema name="card_management"/>
-	<role name="postgres"/>
-	<position x="980" y="480"/>
-	<column name="id" not-null="true" sequence="card_management.libraries_id_seq">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="createdAt" not-null="true" default-value="CURRENT_TIMESTAMP">
-		<type name="timestamp" length="0"/>
-	</column>
-	<column name="updatedAt" not-null="true" default-value="CURRENT_TIMESTAMP">
-		<type name="timestamp" length="0"/>
-	</column>
-	<column name="created_by">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="updated_by">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="name" not-null="true">
-		<type name="text" length="0"/>
-	</column>
-	<constraint name="pk___libraries___id" type="pk-constr" table="card_management.libraries">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-</table>
-
 <sequence name="card_to_libraries_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
-	<schema name="card_management"/>
+	<schema name="library_management"/>
 	<role name="postgres"/>
 </sequence>
 
 <table name="card_to_libraries" layer="0" collapse-mode="2" max-obj-count="10">
-	<schema name="card_management"/>
+	<schema name="library_management"/>
 	<role name="postgres"/>
-	<position x="860" y="60"/>
-	<column name="id" not-null="true" sequence="card_management.card_to_libraries_id_seq">
+	<position x="1260" y="360"/>
+	<column name="id" not-null="true" sequence="library_management.card_to_libraries_id_seq">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="createdAt" not-null="true" default-value="CURRENT_TIMESTAMP">
@@ -352,10 +329,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="is_foil" not-null="true" default-value="false">
 		<type name="bool" length="0"/>
 	</column>
-	<constraint name="pk___card_to_libraries___id" type="pk-constr" table="card_management.card_to_libraries">
+	<constraint name="pk___card_to_libraries___id" type="pk-constr" table="library_management.card_to_libraries">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
-	<constraint name="uq___card_to_libaries___card_id___library_id___is_foil" type="uq-constr" table="card_management.card_to_libraries">
+	<constraint name="uq___card_to_libaries___card_id___library_id___is_foil" type="uq-constr" table="library_management.card_to_libraries">
 		<columns names="card_id,library_id,is_foil" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -364,11 +341,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="card_management"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Contains translation of card data]]></comment>
-	<position x="340" y="440"/>
+	<position x="280" y="500"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="createdAt" not-null="true" default-value="NOW()">
+	<column name="createdAt" not-null="true" default-value="CURRENT_TIMESTAMP">
 		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<column name="updatedAt">
@@ -413,11 +390,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="decks" layer="0" collapse-mode="2" max-obj-count="8">
 	<schema name="deck_management"/>
 	<role name="postgres"/>
-	<position x="1500" y="60"/>
+	<position x="860" y="100"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="createdAt" not-null="true" default-value="NOW()">
+	<column name="createdAt" not-null="true" default-value="CURRENT_TIMESTAMP">
 		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<column name="updatedAt">
@@ -443,7 +420,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="cards_to_decks" layer="0" collapse-mode="2" max-obj-count="9">
 	<schema name="deck_management"/>
 	<role name="postgres"/>
-	<position x="1460" y="360"/>
+	<position x="780" y="380"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -469,6 +446,33 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer" length="0"/>
 	</column>
 	<constraint name="pk___cards_to_decks___id" type="pk-constr" table="deck_management.cards_to_decks">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="libraries" layer="0" collapse-mode="2" max-obj-count="7">
+	<schema name="library_management"/>
+	<role name="postgres"/>
+	<position x="1380" y="100"/>
+	<column name="id" not-null="true" sequence="library_management.libraries_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="createdAt" not-null="true" default-value="CURRENT_TIMESTAMP">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="updatedAt" not-null="true" default-value="CURRENT_TIMESTAMP">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="created_by">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="updated_by">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="pk___libraries___id" type="pk-constr" table="library_management.libraries">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -504,13 +508,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </constraint>
 
 <constraint name="fk___card_to_libraries___card_id___cards" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="card_management.cards" table="card_management.card_to_libraries">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="card_management.cards" table="library_management.card_to_libraries">
 	<columns names="card_id" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="fk___card_to_libraries___library_id___libraries" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="card_management.libraries" table="card_management.card_to_libraries">
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="library_management.libraries" table="library_management.card_to_libraries">
 	<columns names="library_id" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
@@ -565,15 +569,19 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <relationship name="rel_card_to_libraries_cards" type="relfk" layer="0"
 	 custom-color="#0dbbee"
-	 src-table="card_management.card_to_libraries"
+	 src-table="library_management.card_to_libraries"
 	 dst-table="card_management.cards" reference-fk="fk___card_to_libraries___card_id___cards"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_card_to_libraries_libraries" type="relfk" layer="0"
-	 custom-color="#80ac62"
-	 src-table="card_management.card_to_libraries"
-	 dst-table="card_management.libraries" reference-fk="fk___card_to_libraries___library_id___libraries"
-	 src-required="false" dst-required="false"/>
+	 custom-color="#000000"
+	 src-table="library_management.card_to_libraries"
+	 dst-table="library_management.libraries" reference-fk="fk___card_to_libraries___library_id___libraries"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-5.99396" y="-4.28521"/>
+	</label>
+</relationship>
 
 <relationship name="rel_foreign_card_data_cards" type="relfk" layer="0"
 	 src-table="card_management.foreign_card_data"
