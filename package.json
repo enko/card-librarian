@@ -13,7 +13,7 @@
         "migrations": "migrate-database",
         "migrations:dev": "node -r ts-node/register -r reflect-metadata node_modules/.bin/migrate-database",
         "notify": "notify",
-        "schematics": "schematics",
+        "schematics": "node -r ts-node/register ./node_modules/.bin/schematics --debug=false",
         "start:dev": "rimraf ./dist && nodemon",
         "start:prod": "node dist/server",
         "start": "node -r ts-node/register -r reflect-metadata src/server",
@@ -125,5 +125,6 @@
         "typescript": "^3.8.1-rc",
         "typescript-formatter": "7.2.2",
         "typescript-tslint-plugin": "0.5.5"
-    }
+    },
+    "schematics": "./collection.json"
 }
