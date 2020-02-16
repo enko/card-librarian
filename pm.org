@@ -33,16 +33,20 @@ CLOCK: [2020-02-06 Do 19:57]--[2020-02-06 Do 22:07] =>  2:10
 - State "DONE"       from "TODO"       [2020-02-09 So 12:54]
 *** TODO Als Benutzer möchte ich sehen wie viele Karten ich in einer Bibliothek habe.
 ** Deck Management
-*** TODO Als Benutzer möchte ich eine Übersicht der Decks haben
+*** DONE Als Benutzer möchte ich eine Übersicht der Decks haben
+- State "DONE"       from "TODO"       [2020-02-16 So 12:14]
 *** TODO Als Benutzer möchte ich die Decks filtern
 *** TODO Als Benutzer möchte ich die Decks paginiert betrachten
 *** TODO Als Benutzer möchte ich die Decks sortieren
 *** TODO Als Benutzer möchte ich mir Details einer Decks ansehen
 *** TODO Als Benutzer möchte ich die Karten eines Decks ansehen
-*** TODO Als Benutzer möchte ich ein neues Deck hinzufügen
+*** DONE Als Benutzer möchte ich ein neues Deck hinzufügen
+- State "DONE"       from "TODO"       [2020-02-16 So 12:14]
 *** TODO Als Benutzer möchte ich Karten zu einem Deck hinzufügen
-*** TODO Als Benutzer möchte ich ein Deck veröffentlichen
-*** TODO Als Benutzer erwarte ich eine Zugangsbeschränkung zu meinen Decks
+*** DONE Als Benutzer möchte ich ein Deck veröffentlichen
+- State "DONE"       from "TODO"       [2020-02-16 So 12:14]
+*** DONE Als Benutzer erwarte ich eine Zugangsbeschränkung zu meinen Decks
+- State "DONE"       from "TODO"       [2020-02-16 So 12:14]
 ** User Management
 *** TODO Als Benutzer möchte ich mein Passwort ändern
 ** Set Management

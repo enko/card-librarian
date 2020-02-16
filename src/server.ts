@@ -13,6 +13,7 @@ import { initReactI18next } from 'react-i18next';
 import Container from 'typedi';
 
 import { DashboardController } from './controllers/dashboard.controller';
+import { DeckController } from './controllers/deck.controller';
 import { LibraryController } from './controllers/library.controller';
 import { UserController } from './controllers/user.controller';
 import { UserExtensionEntity } from './entities/user-extension.entity';
@@ -22,9 +23,11 @@ const controllers = [
     DashboardController,
     LibraryController,
     UserController,
+    DeckController,
 ];
 
 UserManagementMetadata.instance.userClass = UserExtensionEntity;
+UserManagementMetadata.instance.enforceOwnableContent = true;
 
 if (typeof process.env.NODE_ENV === 'undefined') {
     process.env.NODE_ENV = 'development';

@@ -33,34 +33,35 @@ const renderMainComponent: React.FC<MainComponentProps> = (props) => {
                 crossOrigin='anonymous'></link>
         </head>
         <body>
-
-            <div className='container'>
-                <div className='columns'>
-                    <div className='column is-one-quarter'>
-                        <aside className='menu'>
-                            <p className='menu-label'>
-                                {t('navbar.cardManagement')}
-                            </p>
-                            <ul className='menu-list'>
-                                <li><a href='/'>{t('navbar.dashboard')}</a></li>
-                                <li><a href='/libraries'>{t('navbar.libraries')}</a></li>
-                                <li><a href='/decks'>{t('navbar.decks')}</a></li>
-                            </ul>
-                            <p className='menu-label'>
-                                {t('navbar.userManagement')}
-                            </p>
-                            <ul className='menu-list'>
-                                {(props.currentUser instanceof UserExtensionEntity ?
-                                    <li>
-                                        <a href='/users/logout'>{t('navbar.logout')}</a>
-                                    </li> : <li>
-                                        <a href='/users/login'>{t('navbar.login')}</a>
-                                    </li>)}
-                            </ul>
-                        </aside>
-                    </div>
-                    <div className='column'>
-                        {props.children}
+            <div className='section'>
+                <div className='container'>
+                    <div className='columns'>
+                        <div className='column is-one-quarter'>
+                            <aside className='menu'>
+                                <p className='menu-label'>
+                                    {t('navbar.cardManagement')}
+                                </p>
+                                <ul className='menu-list'>
+                                    <li><a href='/'>{t('navbar.dashboard')}</a></li>
+                                    <li><a href='/libraries'>{t('navbar.libraries')}</a></li>
+                                    <li><a href='/decks'>{t('navbar.decks')}</a></li>
+                                </ul>
+                                <p className='menu-label'>
+                                    {t('navbar.userManagement')}
+                                </p>
+                                <ul className='menu-list'>
+                                    {(props.currentUser instanceof UserExtensionEntity ?
+                                        <li>
+                                            <a href='/users/logout'>{t('navbar.logout')}</a>
+                                        </li> : <li>
+                                            <a href='/users/login'>{t('navbar.login')}</a>
+                                        </li>)}
+                                </ul>
+                            </aside>
+                        </div>
+                        <div className='column'>
+                            {props.children}
+                        </div>
                     </div>
                 </div>
             </div>

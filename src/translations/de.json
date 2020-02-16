@@ -56,5 +56,24 @@
     "notfound": {
         "title": "Seite nicht gefunden",
         "message": "Diese Seite konnte nicht gefunden werden 🤔"
+    },
+    "deck": {
+        "attributes": {
+            "id": {
+                "label": "ID"
+            },
+            "name": {
+                "label": "Name",
+                "placeholder": "Name des Decks",
+                "help": "Gebe dem Deck einen Namen"
+            },
+            "isPublic": {
+                "label": "Öffentlich",
+                "help": "Gebe an, ob das das Deck für die Öffentlichkeit bestimmt ist."
+            }
+        },
+        "overview": {
+            "title": "Decks"
+        }
     }
 }
