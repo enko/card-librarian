@@ -16,6 +16,7 @@ import TableComponent from '../../components/table';
 export interface DeckDetailPageProps {
     deck: DeckEntity;
     currentUser?: UserExtensionEntity;
+    cards?: CardToDeckEntity[];
 }
 
 /**
@@ -65,7 +66,7 @@ const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
         [],
     );
 
-    const cardAssociations = props.deck.cardAssociations;
+    const cardAssociations = props.cards;
 
     return <MainComponent
         currentUser={props.currentUser}

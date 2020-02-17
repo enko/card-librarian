@@ -116,12 +116,23 @@ export class DeckController {
             throw new NotFoundError();
         }
 
+        const cards = await this
+            .connection
+            .getRepository(CardToDeckEntity)
+            .createQueryBuilder('c2d')
+            .innerJoinAndSelect('c2d.card', 'c2d__c')
+            .innerJoinAndSelect('c2d__c.set', 'c2c__c__s')
+            .innerJoinAndSelect('c2d.deck', 'c2d__d')
+            .andWhere('c2d__d.id = :deckId', { deckId: deck.id })
+            .getMany();
+
         return react.renderToStaticMarkup(
             React.createElement(
                 DeckDetailPage,
                 {
                     deck,
                     currentUser,
+                    cards,
                 },
             ),
         );
