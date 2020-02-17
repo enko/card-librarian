@@ -25,11 +25,6 @@
         "singular": "Bibliothek",
         "plural": "Bibliotheken",
         "cardOverview": {
-            "setNumber": "Set-Nummer",
-            "set": "Set",
-            "name": "Name",
-            "colors": "Farben",
-            "manaCost": "Kosten",
             "amount": "Menge",
             "import": "Karten zum Importieren",
             "importHelp": "Gebe eine Karte pro Zeile an.",
@@ -51,6 +46,14 @@
             "name": "Name",
             "placeholder": "Bibliotheksname",
             "help": "Bitte gebe den Namen der Bibliothek an, z.B. Karton 1"
+        },
+        "attributes": {
+            "amount": {
+                "label": "Menge"
+            },
+            "isFoil": {
+                "label": "Foil"
+            }
         }
     },
     "notfound": {
@@ -59,7 +62,24 @@
     },
     "card": {
         "singular": "Karte",
-        "plural": "Karten"
+        "plural": "Karten",
+        "attributes": {
+            "colors": {
+                "label": "Farben"
+            },
+            "name": {
+                "label": "Name"
+            },
+            "manaCost": {
+                "label": "Kosten"
+            },
+            "set": {
+                "label": "Set"
+            },
+            "setNumber": {
+                "label": "Set-Nummer"
+            }
+        }
     },
     "deck": {
         "singular": "Deck",
@@ -76,6 +96,9 @@
             "isPublic": {
                 "label": "Öffentlich",
                 "help": "Gebe an, ob das das Deck für die Öffentlichkeit bestimmt ist."
+            },
+            "amount": {
+                "label": "Menge"
             }
         },
         "overview": {
