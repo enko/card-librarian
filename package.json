@@ -36,7 +36,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-push": "npm run -s lint && npm run -s build && rm -R dist && npm run -s test",
+            "pre-push": "npm run -s lint && npm run -s build && rm -R dist",
             "pre-commit": "npm run -s lint",
             "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
         }
