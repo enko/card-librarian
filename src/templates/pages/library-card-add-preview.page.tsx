@@ -26,14 +26,14 @@ const renderLibraryCardAddPreviewPage: React.FC<LibraryCardAddPreviewProps> = (p
             <table className='table is-fullwidth'>
                 <thead>
                     <tr>
-                        <th>{t('library.cardPreview.id')}</th>
-                        <th>{t('library.cardPreview.type')}</th>
-                        <th>{t('library.cardPreview.name')}</th>
-                        <th>{t('library.cardPreview.color')}</th>
-                        <th>{t('library.cardPreview.manaCost')}</th>
-                        <th>{t('library.cardPreview.set')}</th>
-                        <th>{t('library.cardPreview.amount')}</th>
-                        <th>{t('library.cardPreview.isFoil')}</th>
+                        <th>{t('card.attributes.id.label')}</th>
+                        <th>{t('card.attributes.type.label')}</th>
+                        <th>{t('card.attributes.name.label')}</th>
+                        <th>{t('card.attributes.colors.label')}</th>
+                        <th>{t('card.attributes.manaCost.label')}</th>
+                        <th>{t('card.attributes.set.label')}</th>
+                        <th>{t('library.attributes.amount.label')}</th>
+                        <th>{t('library.attributes.isFoil.label')}</th>
                     </tr>
                 </thead>
                 <tbody>

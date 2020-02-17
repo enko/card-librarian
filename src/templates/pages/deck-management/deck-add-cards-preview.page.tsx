@@ -33,7 +33,7 @@ function generateColumns(t: TFunction) {
     return [
         {
             // tslint:disable-next-line:no-useless-cast
-            Header: t('library.cardOverview.set') as string,
+            Header: t('card.attributes.set.label') as string,
             Cell: (cellProps: CellProps<CardAssignment>) => {
                 return <SetComponent
                     set={cellProps.row.original.card.set}
@@ -43,27 +43,27 @@ function generateColumns(t: TFunction) {
         },
         {
             // tslint:disable-next-line:no-useless-cast
-            Header: t('library.cardOverview.setNumber') as string,
+            Header: t('card.attributes.setNumber.label') as string,
             accessor: 'card.setNumber',
         },
         {
             // tslint:disable-next-line:no-useless-cast
-            Header: t('library.cardOverview.name') as string,
+            Header: t('card.attributes.name.label') as string,
             accessor: 'card.name',
         },
         {
             // tslint:disable-next-line:no-useless-cast
-            Header: t('library.cardOverview.colors') as string,
+            Header: t('card.attributes.colors.label') as string,
             accessor: 'card.colors',
         },
         {
             // tslint:disable-next-line:no-useless-cast
-            Header: t('library.cardOverview.manaCost') as string,
+            Header: t('card.attributes.manaCost.label') as string,
             accessor: 'card.manaCost',
         },
         {
             // tslint:disable-next-line:no-useless-cast
-            Header: t('library.cardOverview.amount') as string,
+            Header: t('deck.attributes.amount.label') as string,
             Cell: (cellProps: CellProps<CardAssignment>) => {
                 return [
                     <input type='hidden' name='card_id[]' value={cellProps.row.original.card.id} />,

@@ -30,16 +30,6 @@
             "importHelp": "Gebe eine Karte pro Zeile an.",
             "isFoil": "Foil"
         },
-        "cardPreview": {
-            "id": "ID",
-            "type": "Typ",
-            "name": "Name",
-            "color": "Farbe",
-            "manaCost": "Kosten",
-            "set": "Set",
-            "amount": "Menge",
-            "isFoil": "Foil"
-        },
         "overview": {
             "title": "Bibliotheksübersicht",
             "id": "ID",
@@ -64,6 +54,9 @@
         "singular": "Karte",
         "plural": "Karten",
         "attributes": {
+            "id": {
+                "label": "ID"
+            },
             "colors": {
                 "label": "Farben"
             },
@@ -78,6 +71,9 @@
             },
             "setNumber": {
                 "label": "Set-Nummer"
+            },
+            "type": {
+                "label": "Typ"
             }
         }
     },
