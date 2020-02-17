@@ -1,0 +1,15 @@
+h2.title {
+    border-bottom: 1px solid #dbdbdb;
+}
+
+h2.title .button {
+    float: right;
+}
+
+h2.title .button {
+    margin-right: 1rem;
+}
+
+h2.title .button:first-child {
+    margin-right: 0;
+}

@@ -8,80 +8,15 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CellProps, Column } from 'react-table';
 
-import { DeckEntity } from '../../entities/deck.entity';
-import { UserExtensionEntity } from '../../entities/user-extension.entity';
-import MainComponent from '../components/main';
-import TableComponent from '../components/table';
+import { DeckEntity } from '../../../entities/deck.entity';
+import { UserExtensionEntity } from '../../../entities/user-extension.entity';
+import MainComponent from '../../components/main';
+import TableComponent from '../../components/table';
 
 export interface DeckOverviewPageProps {
     decks: DeckEntity[];
     currentUser?: UserExtensionEntity;
     validationErrors?: ValidationError[];
-}
-
-/**
- * Render potential errors
- */
-function renderErrors(validationErrors?: ValidationError[]) {
-    if (!Array.isArray(validationErrors)) {
-        return null;
-    }
-
-    if (validationErrors.length === 0) {
-        return null;
-    }
-
-    return <div className='notification is-danger is-light'>
-        <ul>
-            {validationErrors
-                .map(item => Object.values(item.constraints))
-                .map(item => <li>{item}</li>)}
-        </ul>
-    </div>;
-
-}
-
-/**
- * Render the form to create new decks
- */
-function renderCreateForm(
-    t: TFunction,
-    currentUser?: UserExtensionEntity,
-    validationErrors?: ValidationError[],
-) {
-    if (!(currentUser instanceof UserExtensionEntity)) {
-        return null;
-    }
-
-    return <form method='post' encType='multipart/form-data'>
-        {renderErrors(validationErrors)}
-        <div className='field'>
-            <label htmlFor='input-deck-name' className='label'>{t('deck.attributes.name.label')}</label>
-            <div className='control'>
-                <input
-                    id='input-deck-name'
-                    className='input'
-                    placeholder={t('deck.attributes.name.placeholder')}
-                    name='name' />
-            </div>
-            <p className='help'>{t('deck.attributes.name.help')}</p>
-        </div>
-
-        <div className='field'>
-            <label htmlFor='input-is-public' className='label'>
-                {t('deck.attributes.isPublic.label')}
-            </label>
-            <div className='control'>
-                <input
-                    id='input-is-public'
-                    type='checkbox'
-                    name='isPublic' />
-            </div>
-            <p className='help'>{t('deck.attributes.isPublic.help')}</p>
-        </div>
-
-        <button className='button' type='submit'>{t('submit')}</button>
-    </form>;
 }
 
 /**
@@ -148,12 +83,15 @@ const renderDeckOverviewPage: React.FC<DeckOverviewPageProps> = (props) => {
     return <MainComponent
         title={t('navbar.decks')}
         currentUser={props.currentUser}>
-        <h2 className='title'>{t('deck.overview.title')}</h2>
+        <h2 className='title'>
+            {t('deck.overview.title')}
+            {props.currentUser instanceof UserExtensionEntity ?
+                <a href='/decks/add' className='button is-small'>Deck hinzufügen</a> :
+                null}
+        </h2>
         <TableComponent<DeckEntity>
             columns={columns}
             data={props.decks} />
-        {renderCreateForm(t, props.currentUser)}
-
     </MainComponent>;
 };
 

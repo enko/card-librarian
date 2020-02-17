@@ -5,14 +5,14 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { CardEntity } from '../../entities/card.entity';
 import { LibraryEntity } from '../../entities/library.entity';
+import { CardAssignment } from '../../models/card-assignment.model';
 import MainComponent from '../components/main';
 import SetComponent from '../components/set';
 
 export interface LibraryCardAddPreviewProps {
     library: LibraryEntity;
-    cards: CardEntity[];
+    cards: CardAssignment[];
 }
 
 /**
@@ -38,20 +38,20 @@ const renderLibraryCardAddPreviewPage: React.FC<LibraryCardAddPreviewProps> = (p
                 </thead>
                 <tbody>
                     {props.cards.map(item => <tr>
-                        <td>{item.id}</td>
-                        <td>{item.types}</td>
-                        <td>{item.name}</td>
-                        <td>{item.colors}</td>
-                        <td>{item.manaCost}</td>
+                        <td>{item.card.id}</td>
+                        <td>{item.card.types}</td>
+                        <td>{item.card.name}</td>
+                        <td>{item.card.colors}</td>
+                        <td>{item.card.manaCost}</td>
                         <td>
-                            <SetComponent set={item.set} showIcon={true} showText={true} />
+                            <SetComponent set={item.card.set} showIcon={true} showText={true} />
                         </td>
                         <td>
-                            <input type='hidden' name='card_id[]' value={item.id} />
-                            <input type='number' name='amount[]' />
+                            <input type='hidden' name='card_id[]' value={item.card.id} />
+                            <input type='number' name='amount[]' value={item.amount} />
                         </td>
                         <td>
-                            <input type='checkbox' name='isFoil[]' />
+                            <input type='checkbox' name='isFoil[]' checked={item.isFoil} />
                         </td>
                     </tr>)}
                 </tbody>

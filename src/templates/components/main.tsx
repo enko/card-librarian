@@ -31,6 +31,9 @@ const renderMainComponent: React.FC<MainComponentProps> = (props) => {
                 href='https://cdn.jsdelivr.net/npm/keyrune@3.6.3/css/keyrune.css'
                 integrity='sha256-62nNl9FZJkhpbUBcBHarLscbVrYFFMHxoCoFPktCi/k='
                 crossOrigin='anonymous'></link>
+            <link
+                rel='stylesheet'
+                href='/assets/styles.css' />
         </head>
         <body>
             <div className='section'>

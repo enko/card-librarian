@@ -111,30 +111,8 @@ export class LibraryController {
     ) {
         const library = await this.getLibrary(id);
 
-        const lines = importData.split(/\r?\n/);
-
-        const cards: CardEntity[] = [];
-
-        for (let line of lines) {
-            line = line.trim();
-
-            if (line.length === 0) {
-                continue;
-            }
-
-            if (line.startsWith('#')) {
-                cards.push(
-                    ...(await this.cardProvider.exactMatch(line)),
-                );
-            } else {
-                cards.push(
-                    ...(await this.cardProvider.fuzzyMatch(line)),
-                );
-            }
-        }
-
         return react.renderToStaticMarkup(React.createElement(LibraryCardAddPreviewPage, {
-            cards,
+            cards: await this.cardProvider.resolveCards(importData),
             library,
         }));
     }

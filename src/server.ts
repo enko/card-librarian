@@ -6,6 +6,7 @@ import { Backend } from '@flyacts/backend';
 import { MediaConfiguration } from '@flyacts/backend-media-management';
 import { CreateContextMiddleware, UserManagementMetadata } from '@flyacts/backend-user-management';
 import config from 'config';
+import * as express from 'express';
 import * as fs from 'fs-extra';
 import i18next from 'i18next';
 import * as path from 'path';
@@ -114,6 +115,8 @@ if (process.env.NODE_ENV !== 'test') {
     (async function() {
         try {
             const be = await startApp();
+
+            be.express.use('/assets', express.static(path.resolve(__dirname, 'assets')));
 
             await be.start();
         } catch (error) {

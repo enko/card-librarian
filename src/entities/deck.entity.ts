@@ -7,7 +7,7 @@ import { OwnableEntity } from '@flyacts/backend-user-management';
 import { IsBoolean, IsString, MinLength } from 'class-validator';
 import { Column, OneToMany } from 'typeorm';
 
-import { CardToLibraryEntity } from './card-to-library.entity';
+import { CardToDeckEntity } from './card-to-deck.entity';
 
 /**
  * Library Entity
@@ -26,8 +26,8 @@ export class DeckEntity extends BaseEntity {
     public isPublic: boolean = false;
 
     @OneToMany(
-        () => CardToLibraryEntity,
-        (ca) => ca.library,
+        () => CardToDeckEntity,
+        (ca) => ca.deck,
     )
-    public cardAssociations?: CardToLibraryEntity[];
+    public cardAssociations?: CardToDeckEntity[];
 }

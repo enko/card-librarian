@@ -38,11 +38,14 @@ CLOCK: [2020-02-06 Do 19:57]--[2020-02-06 Do 22:07] =>  2:10
 *** TODO Als Benutzer möchte ich die Decks filtern
 *** TODO Als Benutzer möchte ich die Decks paginiert betrachten
 *** TODO Als Benutzer möchte ich die Decks sortieren
-*** TODO Als Benutzer möchte ich mir Details einer Decks ansehen
-*** TODO Als Benutzer möchte ich die Karten eines Decks ansehen
+*** DONE Als Benutzer möchte ich mir Details einer Decks ansehen
+- State "DONE"       from "TODO"       [2020-02-17 Mo 11:55]
+*** DONE Als Benutzer möchte ich die Karten eines Decks ansehen
+- State "DONE"       from "TODO"       [2020-02-17 Mo 11:55]
 *** DONE Als Benutzer möchte ich ein neues Deck hinzufügen
 - State "DONE"       from "TODO"       [2020-02-16 So 12:14]
-*** TODO Als Benutzer möchte ich Karten zu einem Deck hinzufügen
+*** DONE Als Benutzer möchte ich Karten zu einem Deck hinzufügen
+- State "DONE"       from "TODO"       [2020-02-17 Mo 11:55]
 *** DONE Als Benutzer möchte ich ein Deck veröffentlichen
 - State "DONE"       from "TODO"       [2020-02-16 So 12:14]
 *** DONE Als Benutzer erwarte ich eine Zugangsbeschränkung zu meinen Decks

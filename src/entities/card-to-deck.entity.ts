@@ -26,7 +26,7 @@ export class CardToDeckEntity extends BaseEntity {
         () => DeckEntity,
     )
     @JoinColumn({
-        name: 'library_id',
+        name: 'deck_id',
     })
     public deck!: DeckEntity;
 
