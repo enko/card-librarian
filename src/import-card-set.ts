@@ -10,11 +10,11 @@ import { serializeError } from 'serialize-error';
 import * as sqlite from 'sqlite';
 import { createConnection, QueryRunner } from 'typeorm';
 
-import { CardEntity } from '../src/entities/card.entity';
-import { ForeignCardDataEntity } from '../src/entities/foreign-card-data.entity';
-import { LegalityFormatEntity } from '../src/entities/legality-format.entity';
-import { LegalityEntity } from '../src/entities/legality.entity';
-import { SetEntity } from '../src/entities/set.entity';
+import { CardEntity } from './entities/card.entity';
+import { ForeignCardDataEntity } from './entities/foreign-card-data.entity';
+import { LegalityFormatEntity } from './entities/legality-format.entity';
+import { LegalityEntity } from './entities/legality.entity';
+import { SetEntity } from './entities/set.entity';
 
 /**
  * Import all the sets
