@@ -22,7 +22,7 @@
         "tsfmt": "tsfmt",
         "typeorm": "node -r ts-node/register node_modules/typeorm/cli.js",
         "import-card-set": "node -r ts-node/register src/import-card-set.ts",
-        "import-card-set:prod": "node -r reflect-metadata dist/import-card-set.ts"
+        "import-card-set:prod": "node -r reflect-metadata dist/import-card-set"
     },
     "lint-staged": {
         "src/**/*.ts": [
