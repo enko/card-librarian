@@ -413,4 +413,42 @@ export class DeckController {
 
         return `/decks/${deck.id}`;
     }
+
+    /**
+     * Delete a deck
+     */
+    @Authorized()
+    @Redirect('/decks')
+    @Post('/:id([0-9]+)/delete')
+    public async deleteDeck(
+        @Param('id') id: number,
+        @CurrentUser() currentUser: UserExtensionEntity,
+    ) {
+        const deck = await this.deckProvider.getDeck(id, currentUser);
+
+        if (!(deck instanceof DeckEntity)) {
+            throw new NotFoundError();
+        }
+
+        const qr = this.connection.createQueryRunner();
+
+        try {
+            await qr.startTransaction();
+
+            if (Array.isArray(deck.cardAssociations)) {
+                for (const assignment of deck.cardAssociations) {
+                    await qr.manager.remove(assignment);
+                }
+            }
+
+            await qr.manager.remove(deck);
+
+            await qr.commitTransaction();
+        } catch (error) {
+            this.logger.error('Failed to delete deck', serializeError(error));
+            await qr.rollbackTransaction();
+        } finally {
+            await qr.release();
+        }
+    }
 }

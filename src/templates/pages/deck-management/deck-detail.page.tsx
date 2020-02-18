@@ -111,10 +111,15 @@ const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
 
             {props.currentUser instanceof UserExtensionEntity ?
                 [
-                    <a href={`/decks/${props.deck.id}/cards/add`} className='button is-small' accessKey='a'>
+                    <a href={`/decks/${props.deck.id}/cards/add`} className='button is-small is-action' accessKey='a'>
                         K<u>a</u>rten hinzufügen
                     </a>,
-                    <a href={`/decks/${props.deck.id}/edit`} className='button is-small'>Deck bearbeiten</a>,
+                    <a href={`/decks/${props.deck.id}/edit`} className='button is-small is-action'>Deck bearbeiten</a>,
+                    <form action={`/decks/${props.deck.id}/delete`} className='is-action' method='post'>
+                        <button type='submit' className='button is-small is-danger'>
+                            Löschen
+                        </button>
+                    </form>,
                 ] :
                 null}
         </h2>

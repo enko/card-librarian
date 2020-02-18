@@ -2,14 +2,14 @@ h2.title {
     border-bottom: 1px solid #dbdbdb;
 }
 
-h2.title .button {
+h2.title > .is-action {
     float: right;
 }
 
-h2.title .button {
+h2.title > .is-action {
     margin-right: 1rem;
 }
 
-h2.title .button:first-child {
+h2.title > .is-action:first-child {
     margin-right: 0;
 }

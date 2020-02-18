@@ -86,7 +86,7 @@ const renderDeckOverviewPage: React.FC<DeckOverviewPageProps> = (props) => {
         <h2 className='title'>
             {t('deck.overview.title')}
             {props.currentUser instanceof UserExtensionEntity ?
-                <a href='/decks/add' className='button is-small'>Deck hinzufügen</a> :
+                <a href='/decks/add' className='button is-small is-action'>Deck hinzufügen</a> :
                 null}
         </h2>
         <TableComponent<DeckEntity>
