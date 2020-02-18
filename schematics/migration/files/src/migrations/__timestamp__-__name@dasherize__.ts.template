@@ -21,7 +21,7 @@ export class <%= classify(name) %><%= timestamp %> implements MigrationInterface
     /**
      * TypeORMs migration down
      */
-    public async down(queryRunner: QueryRunner) {
+    public async down(_queryRunner: QueryRunner) {
         throw new Error('Not Possible');
     }
 
