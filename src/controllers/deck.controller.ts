@@ -379,9 +379,11 @@ export class DeckController {
                 .innerJoinAndSelect('c2d.deck', 'c2d__d')
                 .where('c2d__c.id = :cardId')
                 .andWhere('c2d__d.id = :deckId')
+                .andWhere('c2d.type = :type')
                 .setParameters({
                     cardId: card.id,
                     deckId: deck.id,
+                    type: amounts[key].type,
                 })
                 .getOne();
 
