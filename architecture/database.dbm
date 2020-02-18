@@ -301,7 +301,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="card_to_libraries" layer="0" collapse-mode="2" max-obj-count="10">
 	<schema name="library_management"/>
 	<role name="postgres"/>
-	<position x="1620" y="340"/>
+	<position x="1660" y="340"/>
 	<column name="id" not-null="true" sequence="library_management.card_to_libraries_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -417,43 +417,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="cards_to_decks" layer="0" collapse-mode="2" max-obj-count="9">
+<usertype name="enum___cards_to_decks___type" configuration="enumeration">
 	<schema name="deck_management"/>
 	<role name="postgres"/>
-	<position x="1140" y="360"/>
-	<column name="id" not-null="true">
-		<type name="serial" length="0"/>
-	</column>
-	<column name="createdAt" not-null="true" default-value="CURRENT_TIMESTAMP">
-		<type name="timestamp with time zone" length="0" with-timezone="true"/>
-	</column>
-	<column name="updatedAt">
-		<type name="timestamp with time zone" length="0" with-timezone="true"/>
-	</column>
-	<column name="created_by">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="updated_by">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="deck_id" not-null="true">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="card_id" not-null="true">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="amount" not-null="true">
-		<type name="integer" length="0"/>
-	</column>
-	<constraint name="pk___cards_to_decks___id" type="pk-constr" table="deck_management.cards_to_decks">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-</table>
+	<enumeration values="main,sideboard"/>
+</usertype>
 
 <table name="libraries" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="library_management"/>
 	<role name="postgres"/>
-	<position x="1740" y="80"/>
+	<position x="1780" y="80"/>
 	<column name="id" not-null="true" sequence="library_management.libraries_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -473,6 +446,42 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="text" length="0"/>
 	</column>
 	<constraint name="pk___libraries___id" type="pk-constr" table="library_management.libraries">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="cards_to_decks" layer="0" collapse-mode="2" max-obj-count="10">
+	<schema name="deck_management"/>
+	<role name="postgres"/>
+	<position x="1140" y="360"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="createdAt" not-null="true" default-value="CURRENT_TIMESTAMP">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="updatedAt">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="created_by">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="updated_by">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="amount" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="type" not-null="true">
+		<type name="deck_management.enum___cards_to_decks___type" length="0"/>
+	</column>
+	<column name="deck_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="card_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="pk___cards_to_decks___id" type="pk-constr" table="deck_management.cards_to_decks">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>

@@ -95,6 +95,9 @@
             },
             "amount": {
                 "label": "Menge"
+            },
+            "type": {
+                "label": "Typ"
             }
         },
         "overview": {

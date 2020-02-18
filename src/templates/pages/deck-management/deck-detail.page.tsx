@@ -59,6 +59,11 @@ const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
         (): Array<Column<CardToDeckEntity>> => [
             {
                 // tslint:disable-next-line:no-useless-cast
+                Header: t('deck.attributes.type.label') as string,
+                accessor: 'type',
+            },
+            {
+                // tslint:disable-next-line:no-useless-cast
                 Header: t('card.attributes.set.label') as string,
                 Cell: (cellProps: CellProps<CardToDeckEntity>) => {
                     return <SetComponent
@@ -106,7 +111,9 @@ const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
 
             {props.currentUser instanceof UserExtensionEntity ?
                 [
-                    <a href={`/decks/${props.deck.id}/cards/add`} className='button is-small'>Karten hinzufügen</a>,
+                    <a href={`/decks/${props.deck.id}/cards/add`} className='button is-small' accessKey='a'>
+                        K<u>a</u>rten hinzufügen
+                    </a>,
                     <a href={`/decks/${props.deck.id}/edit`} className='button is-small'>Deck bearbeiten</a>,
                 ] :
                 null}

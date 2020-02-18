@@ -2,6 +2,7 @@
  * @copyright Card Librarian Team 2020
  */
 
+import { Logger } from '@flyacts/backend';
 import {
     Authorized,
     Controller,
@@ -18,6 +19,7 @@ import { validate } from 'class-validator';
 import { Response } from 'express';
 import React = require('react');
 import * as react from 'react-dom/server';
+import { serializeError } from 'serialize-error';
 import { Service } from 'typedi';
 import { Connection } from 'typeorm';
 
@@ -27,6 +29,7 @@ import { DeckEntity } from '../entities/deck.entity';
 import { LegalityFormatEntity } from '../entities/legality-format.entity';
 import { LegalityEntity } from '../entities/legality.entity';
 import { UserExtensionEntity } from '../entities/user-extension.entity';
+import { CardToDeckType } from '../enums/card-to-deck-type.enum';
 import { LegalityStatus } from '../enums/legality-status.enum';
 import { CardProvider } from '../providers/card.provider';
 import { DeckProvider } from '../providers/deck.provider';
@@ -46,6 +49,7 @@ export class DeckController {
         private connection: Connection,
         private deckProvider: DeckProvider,
         private cardProvider: CardProvider,
+        private logger: Logger,
     ) { }
 
     /**
@@ -124,9 +128,12 @@ export class DeckController {
             .getRepository(CardToDeckEntity)
             .createQueryBuilder('c2d')
             .innerJoinAndSelect('c2d.card', 'c2d__c')
-            .innerJoinAndSelect('c2d__c.set', 'c2c__c__s')
+            .innerJoinAndSelect('c2d__c.set', 'c2d__c__s')
             .innerJoinAndSelect('c2d.deck', 'c2d__d')
             .andWhere('c2d__d.id = :deckId', { deckId: deck.id })
+            .orderBy('c2d.type', 'ASC')
+            .addOrderBy('c2d__c__s.name', 'ASC')
+            .addOrderBy('c2d__c.set_number', 'ASC')
             .getMany();
 
         const legalities: LegalityFormatEntity[] = [];
@@ -315,11 +322,13 @@ export class DeckController {
     @Post('/:id([0-9]+)/cards/submit')
     @Authorized()
     @Redirect('/decks')
+    // tslint:disable-next-line
     public async submitCardsToDeck(
         @Param('id') id: number,
         @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
         @FormField('card_id') cardIDValues?: string[],
         @FormField('amount') amountValues?: string[],
+        @FormField('type') typeValues?: string[],
     ) {
         const deck = await this.deckProvider.getDeck(id, currentUser);
 
@@ -327,19 +336,22 @@ export class DeckController {
             throw new NotFoundError();
         }
 
-        const amounts: { [index: string]: { amount: number } } = {};
+        const amounts: { [index: string]: { amount: number, type: string } } = {};
 
         if (
             Array.isArray(cardIDValues) &&
+            Array.isArray(typeValues) &&
             Array.isArray(amountValues)) {
             let index = 0;
             for (const cardID of cardIDValues) {
 
                 const currentAmount = Number.parseInt(amountValues[index]);
+                const currentType = typeValues[index];
 
                 if (!Number.isNaN(currentAmount)) {
                     amounts[cardID] = {
                         amount: currentAmount,
+                        type: currentType,
                     };
                 }
 
@@ -379,7 +391,19 @@ export class DeckController {
                 association = new CardToDeckEntity();
                 association.card = card;
                 association.deck = deck;
+                if (amounts[key].type === 'main') {
+                    association.type = CardToDeckType.Main;
+                } else if (amounts[key].type === 'sideboard') {
+                    association.type = CardToDeckType.SideBoard;
+                }
                 association.amount = amounts[key].amount;
+            }
+
+            const validationErrors = await validate(association);
+
+            if (validationErrors.length > 0) {
+                this.logger.error('Failed to add association', validationErrors.map(serializeError));
+                continue;
             }
 
             await this.connection.manager.save(association);

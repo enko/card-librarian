@@ -63,6 +63,16 @@ function generateColumns(t: TFunction) {
         },
         {
             // tslint:disable-next-line:no-useless-cast
+            Header: t('deck.attributes.type.label') as string,
+            Cell: () => {
+                return <select name='type[]'>
+                    <option selected={true} value='main'>Main</option>
+                    <option value='sideboard'>Sideboard</option>
+                </select>;
+            },
+        },
+        {
+            // tslint:disable-next-line:no-useless-cast
             Header: t('deck.attributes.amount.label') as string,
             Cell: (cellProps: CellProps<CardAssignment>) => {
                 return [

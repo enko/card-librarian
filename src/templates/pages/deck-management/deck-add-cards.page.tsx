@@ -31,7 +31,7 @@ const renderDeckEditPage: React.FC<DeckEditPageProps> = (props) => {
             <div className='field'>
                 <label className='label'>{t('card.plural')}</label>
                 <div className='control'>
-                    <textarea className='textarea' name='cards' />
+                    <textarea className='textarea' name='cards' autoFocus={true} />
                 </div>
                 <div className='content'>
                     <p>
