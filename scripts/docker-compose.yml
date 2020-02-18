@@ -11,6 +11,7 @@ services:
         volumes:
             - /srv/services/mtg.tim.schumacher.im/files:/srv/backend/files/media
             - /srv/services/mtg.tim.schumacher.im/production.json:/opt/card-librarian/config/production.json
+            - /srv/services/mtg.tim.schumacher.im/AllPrintings.sqlite:/tmp/AllPrintings.sqlite
         ports:
             - 127.0.0.1:8014:3000
     db:
