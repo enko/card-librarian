@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" last-position="0,0" last-zoom="0.8" max-obj-count="15"
+<dbmodel pgmodeler-ver="0.9.2" last-position="0,0" last-zoom="0.8" max-obj-count="18"
 	 default-schema="public" default-owner="postgres">
 <database name="mtg_app" encoding="UTF8" lc-collate="de_DE.UTF-8" lc-ctype="de_DE.UTF-8" is-template="false" allow-conns="true">
 	<role name="postgres"/>
@@ -21,7 +21,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="migrations" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="80" y="1120"/>
+	<position x="1140" y="880"/>
 	<column name="id" not-null="true" sequence="public.migrations_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -44,7 +44,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="users" layer="0" collapse-mode="2" max-obj-count="10">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="440" y="900"/>
+	<position x="1500" y="660"/>
 	<column name="id" not-null="true" sequence="public.users_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -91,7 +91,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="roles" layer="0" collapse-mode="2" max-obj-count="4">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1340" y="940"/>
+	<position x="2400" y="700"/>
 	<column name="id" not-null="true" sequence="public.roles_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -112,7 +112,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="user_roles" layer="0" collapse-mode="2" max-obj-count="2">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="920" y="920"/>
+	<position x="1980" y="680"/>
 	<column name="users_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -129,7 +129,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tokens" layer="0" collapse-mode="2" max-obj-count="8">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="860" y="1080"/>
+	<position x="1920" y="840"/>
 	<column name="id" not-null="true" sequence="public.tokens_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -164,7 +164,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="user_extensions" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="80" y="900"/>
+	<position x="1140" y="660"/>
 	<column name="id" not-null="true" sequence="public.user_extensions_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -200,7 +200,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="sets" layer="0" collapse-mode="2" max-obj-count="9">
 	<schema name="card_management"/>
 	<role name="postgres"/>
-	<position x="80" y="80"/>
+	<position x="160" y="80"/>
 	<column name="id" not-null="true" sequence="card_management.sets_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -238,7 +238,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="cards" layer="0" collapse-mode="2" max-obj-count="15">
 	<schema name="card_management"/>
 	<role name="postgres"/>
-	<position x="380" y="80"/>
+	<position x="620" y="80"/>
 	<column name="id" not-null="true" sequence="card_management.cards_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -301,7 +301,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="card_to_libraries" layer="0" collapse-mode="2" max-obj-count="10">
 	<schema name="library_management"/>
 	<role name="postgres"/>
-	<position x="1260" y="360"/>
+	<position x="1620" y="340"/>
 	<column name="id" not-null="true" sequence="library_management.card_to_libraries_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -341,7 +341,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="card_management"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Contains translation of card data]]></comment>
-	<position x="280" y="500"/>
+	<position x="660" y="500"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -390,7 +390,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="decks" layer="0" collapse-mode="2" max-obj-count="8">
 	<schema name="deck_management"/>
 	<role name="postgres"/>
-	<position x="860" y="100"/>
+	<position x="1220" y="80"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -420,11 +420,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="cards_to_decks" layer="0" collapse-mode="2" max-obj-count="9">
 	<schema name="deck_management"/>
 	<role name="postgres"/>
-	<position x="780" y="380"/>
+	<position x="1140" y="360"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="createdAt" not-null="true" default-value="NOW()">
+	<column name="createdAt" not-null="true" default-value="CURRENT_TIMESTAMP">
 		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<column name="updatedAt">
@@ -453,7 +453,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="libraries" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="library_management"/>
 	<role name="postgres"/>
-	<position x="1380" y="100"/>
+	<position x="1740" y="80"/>
 	<column name="id" not-null="true" sequence="library_management.libraries_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -473,6 +473,75 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="text" length="0"/>
 	</column>
 	<constraint name="pk___libraries___id" type="pk-constr" table="library_management.libraries">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<usertype name="enum___legalities___status" configuration="enumeration">
+	<schema name="card_management"/>
+	<role name="postgres"/>
+	<enumeration values="Legal,Banned,Restricted"/>
+</usertype>
+
+<table name="legalities" layer="0" collapse-mode="2" max-obj-count="9">
+	<schema name="card_management"/>
+	<role name="postgres"/>
+	<position x="60" y="500"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="createdAt" not-null="true" default-value="CURRENT_TIMESTAMP">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="updatedAt">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="created_by">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="updated_by">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="status">
+		<type name="card_management.enum___legalities___status" length="0"/>
+	</column>
+	<column name="card_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="legality_format_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="pk___legalities___id" type="pk-constr" table="card_management.legalities">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="legality_formats" layer="0" collapse-mode="2" max-obj-count="8">
+	<schema name="card_management"/>
+	<role name="postgres"/>
+	<position x="160" y="840"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="createdAt" not-null="true" default-value="CURRENT_TIMESTAMP">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="updatedAt">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="created_by">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="updated_by">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="code" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="pk___legality_formats___id" type="pk-constr" table="card_management.legality_formats">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -534,6 +603,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <constraint name="fk___cards_to_decks___deck_id___decks" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="deck_management.decks" table="deck_management.cards_to_decks">
 	<columns names="deck_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk___legalities___card_id___cards" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="card_management.cards" table="card_management.legalities">
+	<columns names="card_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk___legalities___legality_format_id___legalities_formats" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="card_management.legality_formats" table="card_management.legalities">
+	<columns names="legality_format_id" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
@@ -600,6 +681,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="rel_cards_to_decks_decks" type="relfk" layer="0"
 	 src-table="deck_management.cards_to_decks"
 	 dst-table="deck_management.decks" reference-fk="fk___cards_to_decks___deck_id___decks"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_legalities_cards" type="relfk" layer="0"
+	 src-table="card_management.legalities"
+	 dst-table="card_management.cards" reference-fk="fk___legalities___card_id___cards"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_legalities_legality_formats" type="relfk" layer="0"
+	 src-table="card_management.legalities"
+	 dst-table="card_management.legality_formats" reference-fk="fk___legalities___legality_format_id___legalities_formats"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>

@@ -7,8 +7,10 @@ import { OwnableEntity } from '@flyacts/backend-user-management';
 import { IsString } from 'class-validator';
 import { Column, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
+import { CardToDeckEntity } from './card-to-deck.entity';
 import { CardToLibraryEntity } from './card-to-library.entity';
 import { ForeignCardDataEntity } from './foreign-card-data.entity';
+import { LegalityEntity } from './legality.entity';
 import { SetEntity } from './set.entity';
 
 /**
@@ -63,4 +65,16 @@ export class CardEntity extends BaseEntity {
         name: 'import_data',
     })
     public importData!: string;
+
+    @OneToMany(
+        () => LegalityEntity,
+        (entity) => entity.card,
+    )
+    public legalities!: LegalityEntity[];
+
+    @OneToMany(
+        () => CardToDeckEntity,
+        (entity) => entity.card,
+    )
+    public deckAssignments!: CardToDeckEntity[];
 }

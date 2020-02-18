@@ -24,7 +24,10 @@ import { Connection } from 'typeorm';
 import { CardToDeckEntity } from '../entities/card-to-deck.entity';
 import { CardEntity } from '../entities/card.entity';
 import { DeckEntity } from '../entities/deck.entity';
+import { LegalityFormatEntity } from '../entities/legality-format.entity';
+import { LegalityEntity } from '../entities/legality.entity';
 import { UserExtensionEntity } from '../entities/user-extension.entity';
+import { LegalityStatus } from '../enums/legality-status.enum';
 import { CardProvider } from '../providers/card.provider';
 import { DeckProvider } from '../providers/deck.provider';
 import DeckAddCardsPreviewPage from '../templates/pages/deck-management/deck-add-cards-preview.page';
@@ -126,6 +129,28 @@ export class DeckController {
             .andWhere('c2d__d.id = :deckId', { deckId: deck.id })
             .getMany();
 
+        const legalities: LegalityFormatEntity[] = [];
+
+        const formats = await this.connection.manager.find(LegalityFormatEntity);
+
+        for (const format of formats) {
+            const legalAmount = await this
+                .connection
+                .getRepository(LegalityEntity)
+                .createQueryBuilder('l')
+                .innerJoin('l.card', 'l__c')
+                .innerJoin('l__c.deckAssignments', 'l__c__da')
+                .innerJoin('l.legalityFormat', 'l__lf')
+                .where('l__c__da.deck_id = :deckId', { deckId: deck.id })
+                .andWhere('l.status = :status', { status: LegalityStatus.Legal })
+                .andWhere('l__lf.id = :formatId', { formatId: format.id })
+                .getMany();
+
+            if (legalAmount.length === cards.length) {
+                legalities.push(format);
+            }
+        }
+
         return react.renderToStaticMarkup(
             React.createElement(
                 DeckDetailPage,
@@ -133,6 +158,7 @@ export class DeckController {
                     deck,
                     currentUser,
                     cards,
+                    legalities,
                 },
             ),
         );

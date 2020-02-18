@@ -109,6 +109,11 @@
         },
         "new": {
             "title": "Lege ein neues Deck an"
+        },
+        "widgets": {
+            "legalities": {
+                "title": "Gültig für"
+            }
         }
     }
 }

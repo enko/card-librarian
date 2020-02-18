@@ -2,12 +2,14 @@
  * @copyright Card Librarian Team 2020
  */
 
+import { TFunction } from 'i18next';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CellProps, Column } from 'react-table';
 
 import { CardToDeckEntity } from '../../../entities/card-to-deck.entity';
 import { DeckEntity } from '../../../entities/deck.entity';
+import { LegalityFormatEntity } from '../../../entities/legality-format.entity';
 import { UserExtensionEntity } from '../../../entities/user-extension.entity';
 import MainComponent from '../../components/main';
 import SetComponent from '../../components/set';
@@ -17,6 +19,34 @@ export interface DeckDetailPageProps {
     deck: DeckEntity;
     currentUser?: UserExtensionEntity;
     cards?: CardToDeckEntity[];
+    legalities: LegalityFormatEntity[];
+}
+
+/**
+ * Render a block of legalities
+ */
+function renderLegality(
+    t: TFunction,
+    legalities: LegalityFormatEntity[],
+) {
+    return <div className='card'>
+        <header className='card-header'>
+            <p className='card-header-title'>
+                {t('deck.widgets.legalities.title')}
+            </p>
+        </header>
+        <div className='card-content'>
+            <div className='content'>
+                <div className='tags'>
+                    {legalities.map(item => {
+                        return <span key={item.id} className='tag'>
+                            {item.name}
+                        </span>;
+                    })}
+                </div>
+            </div>
+        </div>
+    </div>;
 }
 
 /**
@@ -81,6 +111,11 @@ const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
                 ] :
                 null}
         </h2>
+        <div className='columns'>
+            <div className='column'>
+                {renderLegality(t, props.legalities)}
+            </div>
+        </div>
         {(Array.isArray(cardAssociations)) ?
             <TableComponent<CardToDeckEntity> columns={columns} data={cardAssociations} /> :
             <p>No Cards today.</p>}
