@@ -19,7 +19,8 @@
         "logout": "Abmelden",
         "dashboard": "Start",
         "cardManagement": "Karten",
-        "userManagement": "Benutzer"
+        "userManagement": "Benutzer",
+        "sets": "Sets"
     },
     "library": {
         "singular": "Bibliothek",
@@ -116,6 +117,18 @@
         "widgets": {
             "legalities": {
                 "title": "Gültig für"
+            }
+        }
+    },
+    "set": {
+        "singular": "Set",
+        "plural": "Sets",
+        "attributes": {
+            "code": {
+                "label": "Kürzel"
+            },
+            "name": {
+                "label": "Name"
             }
         }
     }

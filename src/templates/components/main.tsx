@@ -48,6 +48,7 @@ const renderMainComponent: React.FC<MainComponentProps> = (props) => {
                                     <li><a href='/'>{t('navbar.dashboard')}</a></li>
                                     <li><a href='/libraries'>{t('navbar.libraries')}</a></li>
                                     <li><a href='/decks'>{t('navbar.decks')}</a></li>
+                                    <li><a href='/sets'>{t('navbar.sets')}</a></li>
                                 </ul>
                                 <p className='menu-label'>
                                     {t('navbar.userManagement')}

@@ -16,6 +16,7 @@ import Container from 'typedi';
 import { DashboardController } from './controllers/dashboard.controller';
 import { DeckController } from './controllers/deck.controller';
 import { LibraryController } from './controllers/library.controller';
+import { SetController } from './controllers/set.controller';
 import { UserController } from './controllers/user.controller';
 import { UserExtensionEntity } from './entities/user-extension.entity';
 import { ErrorHandlerMiddleware } from './middlewares/error-handler.middleware';
@@ -25,6 +26,7 @@ const controllers = [
     LibraryController,
     UserController,
     DeckController,
+    SetController,
 ];
 
 UserManagementMetadata.instance.userClass = UserExtensionEntity;
