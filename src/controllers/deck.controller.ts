@@ -136,24 +136,38 @@ export class DeckController {
             .addOrderBy('c2d__c.set_number', 'ASC')
             .getMany();
 
+        let cardAmount = 0;
+
+        for (const card of cards) {
+            cardAmount += card.amount;
+        }
+
         const legalities: LegalityFormatEntity[] = [];
 
         const formats = await this.connection.manager.find(LegalityFormatEntity);
 
         for (const format of formats) {
-            const legalAmount = await this
+            const legalAssignments = await this
                 .connection
                 .getRepository(LegalityEntity)
                 .createQueryBuilder('l')
-                .innerJoin('l.card', 'l__c')
-                .innerJoin('l__c.deckAssignments', 'l__c__da')
-                .innerJoin('l.legalityFormat', 'l__lf')
+                .innerJoinAndSelect('l.card', 'l__c')
+                .innerJoinAndSelect('l__c.deckAssignments', 'l__c__da')
+                .innerJoinAndSelect('l.legalityFormat', 'l__lf')
                 .where('l__c__da.deck_id = :deckId', { deckId: deck.id })
                 .andWhere('l.status = :status', { status: LegalityStatus.Legal })
                 .andWhere('l__lf.id = :formatId', { formatId: format.id })
                 .getMany();
 
-            if (legalAmount.length === cards.length) {
+            let legalAmount = 0;
+
+            for (const assignment of legalAssignments) {
+                for (const deckAsssignment of assignment.card.deckAssignments) {
+                    legalAmount += deckAsssignment.amount;
+                }
+            }
+
+            if (cardAmount === legalAmount) {
                 legalities.push(format);
             }
         }
