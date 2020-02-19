@@ -11,6 +11,7 @@ import { CardToDeckEntity } from '../../../entities/card-to-deck.entity';
 import { DeckEntity } from '../../../entities/deck.entity';
 import { LegalityFormatEntity } from '../../../entities/legality-format.entity';
 import { UserExtensionEntity } from '../../../entities/user-extension.entity';
+import { CardToDeckType } from '../../../enums/card-to-deck-type.enum';
 import MainComponent from '../../components/main';
 import SetComponent from '../../components/set';
 import TableComponent from '../../components/table';
@@ -50,32 +51,15 @@ function renderLegality(
 }
 
 /**
- * Render a libray Detail
+ * Build the columns for the table
  */
-const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
-    const { t } = useTranslation();
-
-    const columns = React.useMemo(
+function getColumns(t: TFunction) {
+    return React.useMemo(
         (): Array<Column<CardToDeckEntity>> => [
             {
                 // tslint:disable-next-line:no-useless-cast
-                Header: t('deck.attributes.type.label') as string,
-                accessor: 'type',
-            },
-            {
-                // tslint:disable-next-line:no-useless-cast
-                Header: t('card.attributes.set.label') as string,
-                Cell: (cellProps: CellProps<CardToDeckEntity>) => {
-                    return <SetComponent
-                        set={cellProps.row.original.card.set}
-                        showIcon={true}
-                        showText={true} />;
-                },
-            },
-            {
-                // tslint:disable-next-line:no-useless-cast
-                Header: t('card.attributes.setNumber.label') as string,
-                accessor: 'card.setNumber',
+                Header: t('deck.attributes.amount.label') as string,
+                accessor: 'amount',
             },
             {
                 // tslint:disable-next-line:no-useless-cast
@@ -94,14 +78,67 @@ const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
             },
             {
                 // tslint:disable-next-line:no-useless-cast
-                Header: t('deck.attributes.amount.label') as string,
-                accessor: 'amount',
+                Header: t('card.attributes.set.label') as string,
+                Cell: (cellProps: CellProps<CardToDeckEntity>) => {
+                    return <SetComponent
+                        set={cellProps.row.original.card.set}
+                        showIcon={true}
+                        showText={false} />;
+                },
             },
         ],
         [],
     );
+}
 
-    const cardAssociations = props.cards;
+/**
+ * Render a Table for the cards of a deck
+ */
+function renderTables(t: TFunction, cardAssociations?: CardToDeckEntity[]) {
+    if (!Array.isArray(cardAssociations)) {
+        return <p>{t('deck.noCards')}</p>;
+    }
+
+    if (cardAssociations.length === 0) {
+        return <p>{t('deck.noCards')}</p>;
+    }
+
+    const returnValue = [];
+
+    const main = cardAssociations.filter(item => item.type === CardToDeckType.Main);
+
+    if (main.length > 0) {
+        returnValue.push(
+            ...[
+                <h3 className='title'>Main</h3>,
+                <TableComponent<CardToDeckEntity> columns={getColumns(t)} data={main} />,
+            ],
+        );
+    }
+
+    const sideboard = cardAssociations.filter(item => item.type === CardToDeckType.SideBoard);
+
+    if (sideboard.length > 0) {
+        returnValue.push(
+            ...[
+                <h3 className='title'>Sideboard</h3>,
+                <TableComponent<CardToDeckEntity> columns={getColumns(t)} data={sideboard} />,
+            ],
+        );
+    }
+
+    return returnValue;
+}
+
+/**
+ * Render a libray Detail
+ */
+const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
+    const { t } = useTranslation();
+
+    const styles: React.CSSProperties = {
+        width: '100%',
+    };
 
     return <MainComponent
         currentUser={props.currentUser}
@@ -123,14 +160,12 @@ const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
                 ] :
                 null}
         </h2>
-        <div className='columns'>
+        <div className='columns is-gapless' style={styles}>
             <div className='column'>
                 {renderLegality(t, props.legalities)}
             </div>
         </div>
-        {(Array.isArray(cardAssociations)) ?
-            <TableComponent<CardToDeckEntity> columns={columns} data={cardAssociations} /> :
-            <p>No Cards today.</p>}
+        {renderTables(t, props.cards)}
     </MainComponent>;
 };
 
