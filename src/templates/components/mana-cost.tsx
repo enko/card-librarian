@@ -6,14 +6,14 @@
 import React from 'react';
 
 interface ManaCostComponentsProps {
-    manaCost?: string;
+    manaCost?: string | null;
 }
 
 /**
  * Show the set formated as a tag
  */
 function renderManaCostComponent(props: ManaCostComponentsProps) {
-    if (typeof props.manaCost === 'undefined') {
+    if (typeof props.manaCost === 'undefined' || props.manaCost === null) {
         return null;
     }
 
