@@ -13,6 +13,7 @@ import { LegalityFormatEntity } from '../../../entities/legality-format.entity';
 import { UserExtensionEntity } from '../../../entities/user-extension.entity';
 import { CardToDeckType } from '../../../enums/card-to-deck-type.enum';
 import MainComponent from '../../components/main';
+import ManaCostComponent from '../../components/mana-cost';
 import SetComponent from '../../components/set';
 import TableComponent from '../../components/table';
 
@@ -38,6 +39,9 @@ function renderLegality(
         </header>
         <div className='card-content'>
             <div className='content'>
+                <p>
+
+                </p>
                 <div className='tags'>
                     {legalities.map(item => {
                         return <span key={item.id} className='tag'>
@@ -60,25 +64,34 @@ function getColumns(t: TFunction) {
                 // tslint:disable-next-line:no-useless-cast
                 Header: t('deck.attributes.amount.label') as string,
                 accessor: 'amount',
+                width: '20px',
             },
             {
                 // tslint:disable-next-line:no-useless-cast
                 Header: t('card.attributes.name.label') as string,
                 accessor: 'card.name',
+                width: undefined,
             },
             {
                 // tslint:disable-next-line:no-useless-cast
                 Header: t('card.attributes.colors.label') as string,
                 accessor: 'card.colors',
+                width: '20px',
             },
             {
                 // tslint:disable-next-line:no-useless-cast
                 Header: t('card.attributes.manaCost.label') as string,
                 accessor: 'card.manaCost',
+                width: '100px',
+                Cell: (cellProps: CellProps<CardToDeckEntity>) => {
+                    return <ManaCostComponent
+                        manaCost={cellProps.row.original.card.manaCost} />;
+                },
             },
             {
                 // tslint:disable-next-line:no-useless-cast
                 Header: t('card.attributes.set.label') as string,
+                width: '20px',
                 Cell: (cellProps: CellProps<CardToDeckEntity>) => {
                     return <SetComponent
                         set={cellProps.row.original.card.set}

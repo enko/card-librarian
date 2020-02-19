@@ -33,6 +33,11 @@ const renderMainComponent: React.FC<MainComponentProps> = (props) => {
                 crossOrigin='anonymous'></link>
             <link
                 rel='stylesheet'
+                href='https://cdn.jsdelivr.net/npm/mana-font@1.6.0/css/mana.css'
+                integrity='sha256-7xF/sY4Jf/ZKQ4u12ImG7ZwkTmJVRvZ9+U1urvI3Sp8='
+                crossOrigin='anonymous' />
+            <link
+                rel='stylesheet'
                 href='/assets/styles.css' />
             <meta name='viewport' content='width=device-width, initial-scale=1.0' />
         </head>

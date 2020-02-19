@@ -35,9 +35,15 @@ function renderTableComponent<T extends object>({
             <thead>
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                        ))}
+                        {headerGroup.headers.map(column => {
+                            const style: React.CSSProperties = {
+                                width: column.width,
+                            };
+
+                            return (
+                                <th {...column.getHeaderProps()} style={style}>{column.render('Header')}</th>
+                            );
+                        })}
                     </tr>
                 ))}
             </thead>
