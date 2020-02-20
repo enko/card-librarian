@@ -43,7 +43,7 @@ const renderMainComponent: React.FC<MainComponentProps> = (props) => {
             <link
                 rel='apple-touch-icon'
                 sizes='180x180'
-                href='/assets/apple-touch-icon.png' />
+                href='/assets/icon.svg' />
             <link
                 rel='icon'
                 type='image/png'
