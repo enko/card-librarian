@@ -22,6 +22,8 @@ CLOCK: [2020-02-06 Do 19:57]--[2020-02-06 Do 22:07] =>  2:10
 - State "DONE"       from "TODO"       [2020-02-08 Sa 09:27]
 ** DONE Beim importieren von Karten sollte der Set-Code casinsensitive sein
 - State "DONE"       from "TODO"       [2020-02-09 So 17:23]
+** TODO Logo-Author attributieren
+https://thenounproject.com/search/?q=cards&i=2418260
 * UserStories
 ** Library Management
 *** TODO Als Benutzer möchte ich die Anzahl der Karten in einer Bibliothek ändern
