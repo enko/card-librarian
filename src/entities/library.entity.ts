@@ -4,7 +4,7 @@
 
 import { BaseEntity } from '@flyacts/backend-core-entities';
 import { OwnableEntity } from '@flyacts/backend-user-management';
-import { IsString, MinLength } from 'class-validator';
+import { IsBoolean, IsString, MinLength } from 'class-validator';
 import { Column, OneToMany } from 'typeorm';
 
 import { CardToLibraryEntity } from './card-to-library.entity';
@@ -18,6 +18,12 @@ export class LibraryEntity extends BaseEntity {
     @IsString()
     @MinLength(1)
     public name!: string;
+
+    @Column({
+        name: 'is_public',
+    })
+    @IsBoolean()
+    public isPublic!: boolean;
 
     @OneToMany(
         () => CardToLibraryEntity,

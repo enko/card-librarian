@@ -21,7 +21,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="migrations" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1140" y="880"/>
+	<position x="1180" y="900"/>
 	<column name="id" not-null="true" sequence="public.migrations_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -44,7 +44,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="users" layer="0" collapse-mode="2" max-obj-count="10">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1500" y="660"/>
+	<position x="1540" y="680"/>
 	<column name="id" not-null="true" sequence="public.users_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -91,7 +91,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="roles" layer="0" collapse-mode="2" max-obj-count="4">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2400" y="700"/>
+	<position x="2440" y="720"/>
 	<column name="id" not-null="true" sequence="public.roles_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -112,7 +112,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="user_roles" layer="0" collapse-mode="2" max-obj-count="2">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1980" y="680"/>
+	<position x="2020" y="700"/>
 	<column name="users_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -129,7 +129,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tokens" layer="0" collapse-mode="2" max-obj-count="8">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1920" y="840"/>
+	<position x="1960" y="860"/>
 	<column name="id" not-null="true" sequence="public.tokens_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -164,7 +164,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="user_extensions" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1140" y="660"/>
+	<position x="1180" y="680"/>
 	<column name="id" not-null="true" sequence="public.user_extensions_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -301,7 +301,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="card_to_libraries" layer="0" collapse-mode="2" max-obj-count="10">
 	<schema name="library_management"/>
 	<role name="postgres"/>
-	<position x="1660" y="340"/>
+	<position x="1720" y="340"/>
 	<column name="id" not-null="true" sequence="library_management.card_to_libraries_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -341,7 +341,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="card_management"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Contains translation of card data]]></comment>
-	<position x="660" y="500"/>
+	<position x="680" y="500"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -390,7 +390,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="decks" layer="0" collapse-mode="2" max-obj-count="8">
 	<schema name="deck_management"/>
 	<role name="postgres"/>
-	<position x="1220" y="80"/>
+	<position x="1260" y="80"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -423,10 +423,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<enumeration values="main,sideboard"/>
 </usertype>
 
-<table name="libraries" layer="0" collapse-mode="2" max-obj-count="7">
+<table name="libraries" layer="0" collapse-mode="2" max-obj-count="8">
 	<schema name="library_management"/>
 	<role name="postgres"/>
-	<position x="1780" y="80"/>
+	<position x="1840" y="80"/>
 	<column name="id" not-null="true" sequence="library_management.libraries_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -445,6 +445,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="name" not-null="true">
 		<type name="text" length="0"/>
 	</column>
+	<column name="public" not-null="true" default-value="false">
+		<type name="boolean" length="0"/>
+	</column>
 	<constraint name="pk___libraries___id" type="pk-constr" table="library_management.libraries">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
@@ -453,7 +456,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="cards_to_decks" layer="0" collapse-mode="2" max-obj-count="10">
 	<schema name="deck_management"/>
 	<role name="postgres"/>
-	<position x="1140" y="360"/>
+	<position x="1180" y="360"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>

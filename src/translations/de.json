@@ -44,7 +44,26 @@
             },
             "isFoil": {
                 "label": "Foil"
+            },
+            "name": {
+                "label": "Name",
+                "placeholder": "Name der Bibliothek",
+                "help": "Gebe der Bibliothek einen Namen"
+            },
+            "isPublic": {
+                "label": "Öffentlich",
+                "help": "Gebe an, ob die Bibliothek für die Öffentlichkeit bestimmt ist."
             }
+        },
+        "edit": {
+            "title": "Bearbeite Bibliothek {{libraryName}}"
+        },
+        "new": {
+            "title": "Lege eine neue Bibliothek an"
+        },
+        "addCards": {
+            "title": "Karten zur Bibliothek '{{libraryName}}' hinzufügen",
+            "importHelp": "Gebe eine Karte pro Zeile an."
         }
     },
     "notfound": {

@@ -6,10 +6,10 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CellProps, Column } from 'react-table';
 
-import { LibraryEntity } from '../../entities/library.entity';
-import { UserExtensionEntity } from '../../entities/user-extension.entity';
-import MainComponent from '../components/main';
-import TableComponent from '../components/table';
+import { LibraryEntity } from '../../../entities/library.entity';
+import { UserExtensionEntity } from '../../../entities/user-extension.entity';
+import MainComponent from '../../components/main';
+import TableComponent from '../../components/table';
 
 export interface LibraryOverviewPageProps {
     libraries: LibraryEntity[];
@@ -27,6 +27,7 @@ const renderLibraryOverviewPage: React.FC<LibraryOverviewPageProps> = (props) =>
             {
                 Header: 'ID',
                 accessor: 'id',
+                width: '80px',
                 Cell: (cellProps: CellProps<LibraryEntity>) => {
                     return <a href={`/libraries/${cellProps.row.original.id}`}>
                         {cellProps.row.original.id}
@@ -36,6 +37,7 @@ const renderLibraryOverviewPage: React.FC<LibraryOverviewPageProps> = (props) =>
             {
                 Header: 'Name',
                 accessor: 'name',
+                width: undefined,
                 Cell: (cellProps: CellProps<LibraryEntity>) => {
                     return <a href={`/libraries/${cellProps.row.original.id}`}>
                         {cellProps.row.original.name}
@@ -49,27 +51,24 @@ const renderLibraryOverviewPage: React.FC<LibraryOverviewPageProps> = (props) =>
     return <MainComponent
         title={t('navbar.libraries')}
         currentUser={props.currentUser}>
-        <h2 className='title'>{t('library.overview.title')}</h2>
-        <TableComponent<LibraryEntity>
-            columns={columns}
-            data={props.libraries} />
-        {(props.currentUser instanceof UserExtensionEntity ?
-            <form method='post' encType='multipart/form-data'>
-                <div className='field'>
-                    <label className='label'>{t('library.overview.name')}</label>
-                    <div className='control'>
-                        <input
-                            className='input'
-                            placeholder={t('library.overview.placeholder')}
-                            name='name' />
-                    </div>
-                    <p className='help'>{t('library.overview.help')}</p>
-                </div>
+        <h2 className='title'>
+            {t('library.overview.title')}
 
-                <button className='button' type='submit'>{t('submit')}</button>
-            </form>
-            : null)}
-
+            {props.currentUser instanceof UserExtensionEntity ?
+                <a
+                    href='/libraries/add'
+                    className='button is-small is-action'
+                    accessKey='a'
+                >
+                    Bibliothek hinzufügen
+                    </a> :
+                null}
+        </h2>
+        {(Array.isArray(props.libraries) && props.libraries.length > 0) ?
+            <TableComponent<LibraryEntity>
+                columns={columns}
+                data={props.libraries} /> :
+            <p>No libraries today</p>}
     </MainComponent>;
 };
 

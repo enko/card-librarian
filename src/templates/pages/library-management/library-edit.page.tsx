@@ -6,29 +6,29 @@ import { ValidationError } from 'class-validator';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { DeckEntity } from '../../../entities/deck.entity';
+import { LibraryEntity } from '../../../entities/library.entity';
 import { UserExtensionEntity } from '../../../entities/user-extension.entity';
 import MainComponent from '../../components/main';
 import { renderErrors } from '../../components/render-errors';
 
-interface DeckEditPageProps {
-    deck?: DeckEntity;
+interface LibraryEditPageProps {
+    library?: LibraryEntity;
     validationErrors?: ValidationError[];
     currentUser: UserExtensionEntity;
 }
 
-const renderDeckEditPage: React.FC<DeckEditPageProps> = (props) => {
+const renderDeckEditPage: React.FC<LibraryEditPageProps> = (props) => {
     const { t } = useTranslation();
 
     let submissionUrl: string;
     let title: string;
 
-    if (props.deck instanceof DeckEntity) {
-        submissionUrl = `/decks/${props.deck.id}`;
-        title = t('deck.edit.title', { deckName: props.deck.name });
+    if (props.library instanceof LibraryEntity) {
+        submissionUrl = `/libraries/${props.library.id}`;
+        title = t('library.edit.title', { libraryName: props.library.name });
     } else {
-        submissionUrl = `/decks`;
-        title = t('deck.new.title');
+        submissionUrl = `/libraries`;
+        title = t('library.new.title');
     }
 
     return <MainComponent
@@ -38,37 +38,37 @@ const renderDeckEditPage: React.FC<DeckEditPageProps> = (props) => {
         <form method='POST' action={submissionUrl} encType='multipart/form-data'>
             {renderErrors(props.validationErrors)}
             <div className='field'>
-                <label htmlFor='input-deck-name' className='label'>{t('deck.attributes.name.label')}</label>
+                <label htmlFor='input-library-name' className='label'>{t('library.attributes.name.label')}</label>
                 <div className='control'>
                     <input
-                        id='input-deck-name'
+                        id='input-library-name'
                         className='input'
-                        placeholder={t('deck.attributes.name.placeholder')}
+                        placeholder={t('library.attributes.name.placeholder')}
+                        value={props.library instanceof LibraryEntity ? props.library.name : undefined}
                         autoFocus={true}
-                        value={props.deck instanceof DeckEntity ? props.deck.name : undefined}
                         name='name' />
                 </div>
-                <p className='help'>{t('deck.attributes.name.help')}</p>
+                <p className='help'>{t('library.attributes.name.help')}</p>
             </div>
 
             <div className='field'>
                 <label htmlFor='input-is-public' className='label'>
-                    {t('deck.attributes.isPublic.label')}
+                    {t('library.attributes.isPublic.label')}
                 </label>
                 <div className='control'>
                     <input
                         id='input-is-public'
                         type='checkbox'
                         name='isPublic'
-                        checked={props.deck instanceof DeckEntity ? props.deck.isPublic : undefined} />
+                        checked={props.library instanceof LibraryEntity ? props.library.isPublic : undefined} />
                 </div>
-                <p className='help'>{t('deck.attributes.isPublic.help')}</p>
+                <p className='help'>{t('library.attributes.isPublic.help')}</p>
             </div>
 
             <button
                 className='button'
-                accessKey='s'
-                type='submit'>
+                type='submit'
+                accessKey='s'>
                 {t('submit')}
             </button>
         </form>

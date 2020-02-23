@@ -4,8 +4,8 @@
 
 // tslint:disable:no-duplicate-string
 
-import { Logger } from '@flyacts/backend';
 import {
+    Authorized,
     Controller,
     CurrentUser,
     FormField,
@@ -14,7 +14,10 @@ import {
     Param,
     Post,
     Redirect,
+    Res,
 } from '@flyacts/routing-controllers';
+import { validate } from 'class-validator';
+import { Response } from 'express';
 import React = require('react');
 import * as react from 'react-dom/server';
 import { Service } from 'typedi';
@@ -25,9 +28,12 @@ import { CardEntity } from '../entities/card.entity';
 import { LibraryEntity } from '../entities/library.entity';
 import { UserExtensionEntity } from '../entities/user-extension.entity';
 import { CardProvider } from '../providers/card.provider';
-import LibraryOverviewPage from '../templates/pages/libary-overview.page';
-import LibraryCardAddPreviewPage from '../templates/pages/library-card-add-preview.page';
-import LibraryDetailPage from '../templates/pages/library-detail.page';
+import { LibraryProvider } from '../providers/library.provider';
+import LibraryOverviewPage from '../templates/pages/library-management/libary-overview.page';
+import LibraryAddCardsPage from '../templates/pages/library-management/library-add-cards.page';
+import LibraryCardAddPreviewPage from '../templates/pages/library-management/library-card-add-preview.page';
+import LibraryDetailPage from '../templates/pages/library-management/library-detail.page';
+import LibraryEditPage from '../templates/pages/library-management/library-edit.page';
 
 
 /**
@@ -39,8 +45,8 @@ export class LibraryController {
 
     public constructor(
         private connection: Connection,
-        private logger: Logger,
         private cardProvider: CardProvider,
+        private libraryProvider: LibraryProvider,
     ) {
 
     }
@@ -52,11 +58,7 @@ export class LibraryController {
     public async root(
         @CurrentUser() currentUser?: UserExtensionEntity,
     ) {
-        const libraries = await this
-            .connection
-            .getRepository(LibraryEntity)
-            .createQueryBuilder('l')
-            .getMany();
+        const libraries = await this.libraryProvider.getLibraries(currentUser);
 
         return react.renderToStaticMarkup(React.createElement(
             LibraryOverviewPage,
@@ -75,10 +77,12 @@ export class LibraryController {
     @Redirect('/libraries')
     public async save(
         @FormField('name') name: string,
+        @FormField('is_public') isPublic: string,
     ) {
         const library = new LibraryEntity();
 
         library.name = name;
+        library.isPublic = isPublic === 'on';
 
         await this.connection.manager.save(library);
     }
@@ -86,12 +90,19 @@ export class LibraryController {
     /**
      * Get a library detail page
      */
-    @Get('/:id')
+    @Get('/:id([0-9]+)')
     public async getDetail(
         @Param('id') id: number,
         @CurrentUser() currentUser: UserExtensionEntity,
     ) {
-        const library = await this.getLibrary(id);
+        const library = await this.libraryProvider.getLibrary(
+            id,
+            currentUser,
+        );
+
+        if (!(library instanceof LibraryEntity)) {
+            throw new NotFoundError();
+        }
 
         return react.renderToStaticMarkup(
             React.createElement(LibraryDetailPage, {
@@ -104,17 +115,32 @@ export class LibraryController {
     /**
      * Preview the cards you want to add to your library
      */
-    @Post('/:id/cards/preview')
+    @Post('/:id/cards/add')
+    @Authorized()
     public async addCard(
         @Param('id') id: number,
-        @FormField('import') importData: string,
+        @FormField('cards') importData: string,
+        @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
     ) {
-        const library = await this.getLibrary(id);
+        const library = await this.libraryProvider.getLibrary(
+            id,
+            currentUser,
+        );
 
-        return react.renderToStaticMarkup(React.createElement(LibraryCardAddPreviewPage, {
-            cards: await this.cardProvider.resolveCards(importData),
-            library,
-        }));
+        if (!(library instanceof LibraryEntity)) {
+            throw new NotFoundError();
+        }
+
+        return react
+            .renderToStaticMarkup(
+                React.createElement(
+                    LibraryCardAddPreviewPage,
+                    {
+                        cards: await this.cardProvider.resolveCards(importData),
+                        library,
+                    },
+                ),
+            );
     }
 
     /**
@@ -122,15 +148,23 @@ export class LibraryController {
      */
     @Post('/:id/cards/submit')
     @Redirect('/libraries')
+    @Authorized()
     // tslint:disable-next-line:cognitive-complexity
     public async submitCards(
         @Param('id') id: number,
+        @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
         @FormField('card_id') cardIDValues?: string[],
         @FormField('amount') amountValues?: string[],
         @FormField('isFoil') isFoilValues?: string[],
     ) {
-        this.logger.debug('data', { amountValues, isFoilValues });
-        const library = await this.getLibrary(id);
+        const library = await this.libraryProvider.getLibrary(
+            id,
+            currentUser,
+        );
+
+        if (!(library instanceof LibraryEntity)) {
+            throw new NotFoundError();
+        }
 
         const amounts: { [index: string]: { amount: number, isFoil: boolean } } = {};
 
@@ -199,25 +233,115 @@ export class LibraryController {
     }
 
     /**
-     * Fetch a library from the db
+     * Rendere a form for editing a library
      */
-    private async getLibrary(id: number) {
-        const library = await this
-            .connection
-            .getRepository(LibraryEntity)
-            .createQueryBuilder('l')
-            .leftJoinAndSelect('l.cardAssociations', 'l__ca')
-            .leftJoinAndSelect('l__ca.card', 'l__ca__c')
-            .leftJoinAndSelect('l__ca__c.set', 'l__ca__c__s')
-            .orderBy('l__ca__c__s.name', 'ASC')
-            .addOrderBy('l__ca__c.set_number', 'ASC')
-            .where('l.id = :id', { id })
-            .getOne();
+    @Get('/:id([0-9]+)/edit')
+    @Authorized()
+    public async getLibraryEditDetailForm(
+        @Param('id') id: number,
+        @CurrentUser() currentUser: UserExtensionEntity,
+    ) {
+        const library = await this.libraryProvider.getLibrary(id, currentUser);
 
         if (!(library instanceof LibraryEntity)) {
             throw new NotFoundError();
         }
 
-        return library;
+        return react.renderToStaticMarkup(
+            React.createElement(
+                LibraryEditPage,
+                {
+                    library,
+                    currentUser,
+                },
+            ),
+        );
+    }
+
+    /**
+     * Update a existing deck
+     */
+    @Post('/:id([0-9]+)')
+    @Authorized()
+    public async updateDeck(
+        @Param('id') id: number,
+        @FormField('name') name: string,
+        @FormField('isPublic') isPublic: string,
+        @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
+        @Res() response: Response,
+    ) {
+        const library = await this.libraryProvider.getLibrary(id, currentUser);
+
+        if (!(library instanceof LibraryEntity)) {
+            throw new NotFoundError();
+        }
+
+        library.name = name;
+        library.isPublic = isPublic === 'on';
+
+        const validationErrors = await validate(library);
+
+        if (validationErrors.length > 0) {
+            return react.renderToStaticMarkup(
+                React.createElement(
+                    LibraryEditPage,
+                    {
+                        library,
+                        currentUser,
+                        validationErrors,
+                    },
+                ),
+            );
+        }
+
+        await this.connection.manager.save(library);
+
+        response.status(303);
+        response.header('Location', `/libraries/${library.id}`);
+        return;
+    }
+
+    /**
+     * Preview adding cards to a deck
+     */
+    @Get('/:id([0-9]+)/cards/add')
+    @Authorized()
+    public async previewAddCardsToLibrary(
+        @Param('id') id: number,
+        @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
+    ) {
+        const library = await this.libraryProvider.getLibrary(id, currentUser);
+
+        if (!(library instanceof LibraryEntity)) {
+            throw new NotFoundError();
+        }
+
+        return react.renderToStaticMarkup(
+            React.createElement(
+                LibraryAddCardsPage,
+                {
+                    library,
+                    currentUser,
+                },
+            ),
+        );
+    }
+
+    /**
+     * Rendere a form for creating a deck
+     */
+    @Get('/add')
+    @Authorized()
+    public async addLibraryForm(
+        @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
+    ) {
+        return react.renderToStaticMarkup(
+            React.createElement(
+                LibraryEditPage,
+                {
+                    currentUser,
+                },
+            ),
+        );
     }
 }
