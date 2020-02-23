@@ -40,4 +40,5 @@ tasks:
       npm run generate-compose-file
       /usr/bin/rsync --rsh=ssh docker-compose.yml mtg.tim.schumacher.im@web.node2.datenknoten.me:/srv/services/mtg.tim.schumacher.im
       ssh -l mtg.tim.schumacher.im -p 8022 web.node2.datenknoten.me sudo systemctl restart mtg.tim.schumacher.im
+      . ~/card-librarian/scripts/wait-for-backend.sh
       curl -v -X POST $(< ~/slack-webhook-url) -d '{ "text": "Successfully deployed app to https://mtg.tim.schumacher.im", "format": "plain", "displayName": "Card Librarian CI", "avatarUrl": "https://mtg.tim.schumacher.im/assets/apple-touch-icon.png" }' -H 'Content-Type: application/json'
