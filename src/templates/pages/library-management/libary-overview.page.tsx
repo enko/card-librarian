@@ -8,6 +8,7 @@ import { CellProps, Column } from 'react-table';
 
 import { LibraryEntity } from '../../../entities/library.entity';
 import { UserExtensionEntity } from '../../../entities/user-extension.entity';
+import { ActionModel } from '../../../models/action.model';
 import MainComponent from '../../components/main';
 import TableComponent from '../../components/table';
 
@@ -48,22 +49,20 @@ const renderLibraryOverviewPage: React.FC<LibraryOverviewPageProps> = (props) =>
         [],
     );
 
+    const action = new ActionModel();
+    action.elment = <a
+        href='/libraries/add'
+        className='button is-fullwidth'
+        accessKey='a'
+    >
+        Bibliothek hinzufügen
+    </a>;
+    action.isVisible = () => props.currentUser instanceof UserExtensionEntity;
+
     return <MainComponent
         title={t('navbar.libraries')}
-        currentUser={props.currentUser}>
-        <h2 className='title'>
-            {t('library.overview.title')}
-
-            {props.currentUser instanceof UserExtensionEntity ?
-                <a
-                    href='/libraries/add'
-                    className='button is-small is-action'
-                    accessKey='a'
-                >
-                    Bibliothek hinzufügen
-                    </a> :
-                null}
-        </h2>
+        currentUser={props.currentUser}
+        actions={[action]}>
         {(Array.isArray(props.libraries) && props.libraries.length > 0) ?
             <TableComponent<LibraryEntity>
                 columns={columns}

@@ -9,6 +9,7 @@ import { CellProps, Column } from 'react-table';
 import { CardToLibraryEntity } from '../../../entities/card-to-library.entity';
 import { LibraryEntity } from '../../../entities/library.entity';
 import { UserExtensionEntity } from '../../../entities/user-extension.entity';
+import { ActionModel } from '../../../models/action.model';
 import MainComponent from '../../components/main';
 import ManaCostComponent from '../../components/mana-cost';
 import SetComponent from '../../components/set';
@@ -17,6 +18,38 @@ import TableComponent from '../../components/table';
 export interface LibraryDetailPageProps {
     library: LibraryEntity;
     currentUser?: UserExtensionEntity;
+}
+
+/**
+ * Compose all the actions
+ */
+function composeActions(props: LibraryDetailPageProps) {
+    return [
+        <a
+            href={`/libraries/${props.library.id}/cards/add`}
+            className='button is-fullwidth'
+            accessKey='a'>
+            K<u>a</u>rten hinzufügen
+        </a>,
+        <a
+            href={`/libraries/${props.library.id}/edit`}
+            className='button is-fullwidth'>
+            Bibliothek bearbeiten
+                    </a>,
+        <form action={`/libraries/${props.library.id}/delete`} method='post'>
+            <button type='submit' className='button is-danger is-fullwidth'>
+                Löschen
+                        </button>
+        </form>,
+    ].map(item => {
+        const action = new ActionModel();
+        action.elment = item;
+        action.isVisible = () => {
+            return props.currentUser instanceof UserExtensionEntity;
+        };
+
+        return action;
+    });
 }
 
 /**
@@ -91,31 +124,8 @@ const renderLibraryDetailPage: React.FC<LibraryDetailPageProps> = (props) => {
 
     return <MainComponent
         currentUser={props.currentUser}
+        actions={composeActions(props)}
         title={`${t('library.singular')} ${props.library.name}`}>
-        <h2 className='title'>
-            {props.library.name}
-
-            {props.currentUser instanceof UserExtensionEntity ?
-                [
-                    <a
-                        href={`/libraries/${props.library.id}/cards/add`}
-                        className='button is-small is-action'
-                        accessKey='a'>
-                        K<u>a</u>rten hinzufügen
-                    </a>,
-                    <a
-                        href={`/libraries/${props.library.id}/edit`}
-                        className='button is-small is-action'>
-                        Bibliothek bearbeiten
-                    </a>,
-                    <form action={`/libraries/${props.library.id}/delete`} className='is-action' method='post'>
-                        <button type='submit' className='button is-small is-danger'>
-                            Löschen
-                        </button>
-                    </form>,
-                ] :
-                null}
-        </h2>
         {(Array.isArray(cardAssociations) && cardAssociations.length > 0) ?
             <TableComponent<CardToLibraryEntity> columns={columns} data={cardAssociations} /> :
             <p>No Cards today.</p>}

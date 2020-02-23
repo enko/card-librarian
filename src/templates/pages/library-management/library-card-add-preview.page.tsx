@@ -88,7 +88,8 @@ function generateColumns(t: TFunction) {
 const renderLibraryCardAddPreviewPage: React.FC<LibraryCardAddPreviewProps> = (props) => {
     const { t } = useTranslation();
 
-    return <MainComponent title='Library'>
+    return <MainComponent
+        title={t('library.addCards.title', { libraryName: props.library.name })}>
         <form method='post' action={`/libraries/${props.library.id}/cards/submit`} encType='multipart/form-data'>
             <TableComponent<CardAssignment>
                 columns={generateColumns(t)}

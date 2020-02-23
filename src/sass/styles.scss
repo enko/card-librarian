@@ -7,13 +7,24 @@ $ms_font_path: '/assets/fonts' !default;
 
 h2.title {
   border-bottom: 1px solid #dbdbdb;
+}
 
-  & > .is-action {
-    float: right;
-    margin-right: 1rem;
-  }
+.actions {
+    border-left: 1px solid #dbdbdb;
+    padding-top: 0;
 
-  & > .is-action:first-child {
-    margin-right: 0;
-  }
+    .action-item {
+        display: block;
+
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .action-item:first-child {
+        padding-top: 0;
+    }
+
+    .action-item:last-child {
+        padding-bottom: 0;
+    }
 }

@@ -97,15 +97,12 @@ const renderDeckAddCardsPreviewPage: React.FC<DeckAddCardsPreviewPageProps> = (p
     return <MainComponent
         title={t('deck.addCards.title', { deckName: props.deck.name })}
         currentUser={props.currentUser}>
-        <h2 className='title'>
-            {t('deck.addCards.title', { deckName: props.deck.name })}
-        </h2>
         <form method='post' action={`/decks/${props.deck.id}/cards/submit
         `} encType='multipart/form-data'>
             <TableComponent<CardAssignment>
                 columns={generateColumns(t)}
                 data={props.cardAssignments} />
-            <button className='button' type='submit'>Submit</button>
+            <button className='button' type='submit' accessKey='s'>Submit</button>
         </form>
     </MainComponent>;
 };

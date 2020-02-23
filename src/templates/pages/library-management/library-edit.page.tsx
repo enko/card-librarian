@@ -34,7 +34,6 @@ const renderDeckEditPage: React.FC<LibraryEditPageProps> = (props) => {
     return <MainComponent
         title={title}
         currentUser={props.currentUser}>
-        <h2 className='title'>{title}</h2>
         <form method='POST' action={submissionUrl} encType='multipart/form-data'>
             {renderErrors(props.validationErrors)}
             <div className='field'>

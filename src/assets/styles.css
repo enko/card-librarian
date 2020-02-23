@@ -8968,8 +8968,15 @@ span.ms-half {
 
 h2.title {
   border-bottom: 1px solid #dbdbdb; }
-  h2.title > .is-action {
-    float: right;
-    margin-right: 1rem; }
-  h2.title > .is-action:first-child {
-    margin-right: 0; }
+
+.actions {
+  border-left: 1px solid #dbdbdb;
+  padding-top: 0; }
+  .actions .action-item {
+    display: block;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem; }
+  .actions .action-item:first-child {
+    padding-top: 0; }
+  .actions .action-item:last-child {
+    padding-bottom: 0; }

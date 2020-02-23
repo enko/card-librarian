@@ -23,9 +23,6 @@ const renderLibraryAddCardsPage: React.FC<LibraryAddCardsPageProps> = (props) =>
     return <MainComponent
         title={t('library.addCards.title', { libraryName: props.library.name })}
         currentUser={props.currentUser}>
-        <h2 className='title'>
-            {t('library.addCards.title', { libraryName: props.library.name })}
-        </h2>
         <form method='POST' action={`/libraries/${props.library.id}/cards/add`} encType='multipart/form-data'>
             {renderErrors(props.validationErrors)}
             <div className='field'>

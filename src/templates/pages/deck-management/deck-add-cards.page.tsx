@@ -23,9 +23,6 @@ const renderDeckEditPage: React.FC<DeckEditPageProps> = (props) => {
     return <MainComponent
         title={t('deck.addCards.title', { deckName: props.deck.name })}
         currentUser={props.currentUser}>
-        <h2 className='title'>
-            {t('deck.addCards.title', { deckName: props.deck.name })}
-        </h2>
         <form method='POST' action={`/decks/${props.deck.id}/cards/add`} encType='multipart/form-data'>
             {renderErrors(props.validationErrors)}
             <div className='field'>
@@ -40,7 +37,7 @@ const renderDeckEditPage: React.FC<DeckEditPageProps> = (props) => {
                 </div>
             </div>
 
-            <button className='button' type='submit'>{t('submit')}</button>
+            <button accessKey='s' className='button' type='submit'>{t('submit')}</button>
         </form>
     </MainComponent>;
 };

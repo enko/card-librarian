@@ -31,6 +31,7 @@ function generateColumns(
             // tslint:disable-next-line:no-useless-cast
             Header: '',
             accessor: 'id',
+            width: '80px',
             Cell: (cellProps: CellProps<SetEntity>) => {
                 return <SetComponent
                     set={cellProps.row.original}
@@ -44,12 +45,14 @@ function generateColumns(
         columns.push({
             // tslint:disable-next-line:no-useless-cast
             Header: t('set.attributes.code.label') as string,
+            width: '80px',
             accessor: 'code',
         });
 
         columns.push({
             // tslint:disable-next-line:no-useless-cast
             Header: t('set.attributes.name.label') as string,
+            width: undefined,
             accessor: 'name',
         });
 
@@ -69,11 +72,8 @@ const renderSetOverviewPage: React.FC<SetOverviewPageProps> = (props) => {
     );
 
     return <MainComponent
-        title={t('navbar.decks')}
+        title={t('set.plural')}
         currentUser={props.currentUser}>
-        <h2 className='title'>
-            {t('set.plural')}
-        </h2>
         <TableComponent<SetEntity>
             columns={columns}
             data={props.sets} />

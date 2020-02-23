@@ -10,6 +10,7 @@ import { CellProps, Column } from 'react-table';
 
 import { DeckEntity } from '../../../entities/deck.entity';
 import { UserExtensionEntity } from '../../../entities/user-extension.entity';
+import { ActionModel } from '../../../models/action.model';
 import MainComponent from '../../components/main';
 import TableComponent from '../../components/table';
 
@@ -80,21 +81,20 @@ const renderDeckOverviewPage: React.FC<DeckOverviewPageProps> = (props) => {
         [],
     );
 
+    const action = new ActionModel();
+    action.elment = <a
+        href='/decks/add'
+        className='button is-fullwidth'
+        accessKey='a'
+    >
+        Deck hinzufügen
+    </a>;
+    action.isVisible = () => props.currentUser instanceof UserExtensionEntity;
+
     return <MainComponent
         title={t('navbar.decks')}
-        currentUser={props.currentUser}>
-        <h2 className='title'>
-            {t('deck.overview.title')}
-            {props.currentUser instanceof UserExtensionEntity ?
-                <a
-                    href='/decks/add'
-                    className='button is-small is-action'
-                    accessKey='a'
-                >
-                    Deck hinzufügen
-                </a> :
-                null}
-        </h2>
+        currentUser={props.currentUser}
+        actions={[action]}>
         <TableComponent<DeckEntity>
             columns={columns}
             data={props.decks} />

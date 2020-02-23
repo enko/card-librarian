@@ -12,6 +12,7 @@ import { DeckEntity } from '../../../entities/deck.entity';
 import { LegalityFormatEntity } from '../../../entities/legality-format.entity';
 import { UserExtensionEntity } from '../../../entities/user-extension.entity';
 import { CardToDeckType } from '../../../enums/card-to-deck-type.enum';
+import { ActionModel } from '../../../models/action.model';
 import MainComponent from '../../components/main';
 import ManaCostComponent from '../../components/mana-cost';
 import SetComponent from '../../components/set';
@@ -144,6 +145,31 @@ function renderTables(t: TFunction, cardAssociations?: CardToDeckEntity[]) {
 }
 
 /**
+ * Generate the actions
+ */
+function composeActions(props: DeckDetailPageProps) {
+    return [
+        <a
+            href={`/decks/${props.deck.id}/cards/add`}
+            className='button is-fullwidth'
+            accessKey='a'>
+            K<u>a</u>rten hinzufügen
+        </a>,
+        <a href={`/decks/${props.deck.id}/edit`} className='button is-fullwidth'>Deck bearbeiten</a>,
+        <form action={`/decks/${props.deck.id}/delete`} method='post'>
+            <button type='submit' className='button is-fullwidth is-danger'>
+                Löschen
+            </button>
+        </form>,
+    ].map(element => {
+        const action = new ActionModel();
+        action.elment = element;
+        action.isVisible = () => props.currentUser instanceof UserExtensionEntity;
+        return action;
+    });
+}
+
+/**
  * Render a libray Detail
  */
 const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
@@ -155,24 +181,8 @@ const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
 
     return <MainComponent
         currentUser={props.currentUser}
-        title={`${t('deck.singular')} ${props.deck.name}`}>
-        <h2 className='title'>
-            {props.deck.name}
-
-            {props.currentUser instanceof UserExtensionEntity ?
-                [
-                    <a href={`/decks/${props.deck.id}/cards/add`} className='button is-small is-action' accessKey='a'>
-                        K<u>a</u>rten hinzufügen
-                    </a>,
-                    <a href={`/decks/${props.deck.id}/edit`} className='button is-small is-action'>Deck bearbeiten</a>,
-                    <form action={`/decks/${props.deck.id}/delete`} className='is-action' method='post'>
-                        <button type='submit' className='button is-small is-danger'>
-                            Löschen
-                        </button>
-                    </form>,
-                ] :
-                null}
-        </h2>
+        title={`${t('deck.singular')} ${props.deck.name}`}
+        actions={composeActions(props)}>
         <div className='columns is-gapless' style={styles}>
             <div className='column'>
                 {renderLegality(t, props.legalities)}
