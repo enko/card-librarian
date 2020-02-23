@@ -10,7 +10,7 @@ COPY tsconfig.json ormconfig.json package* /opt/card-librarian/
 RUN chown -R node /opt/card-librarian
 
 USER node
-RUN npm clean-install && npm run build
+RUN npm clean-install && npm run build && npm run css-build
 
 RUN cp -v /opt/card-librarian/src/migrations/*.sql /opt/card-librarian/dist/migrations/
 
