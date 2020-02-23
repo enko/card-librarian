@@ -29,14 +29,19 @@ function renderNavigation(
                     <img src='/assets/logo.svg' height='28' />
                 </a>
 
-                <a role='button' className='navbar-burger burger' aria-label='menu' aria-expanded='false' data-target='navbarBasicExample'>
+                <a
+                    role='button'
+                    className='navbar-burger burger'
+                    aria-label='menu'
+                    aria-expanded='false'
+                    data-target='primary-navigation'>
                     <span aria-hidden='true'></span>
                     <span aria-hidden='true'></span>
                     <span aria-hidden='true'></span>
                 </a>
             </div>
 
-            <div className='navbar-menu'>
+            <div className='navbar-menu' id='primary-navigation'>
                 <div className='navbar-start'>
                     <a className='navbar-item' href='/'>
                         {t('navbar.dashboard')}
