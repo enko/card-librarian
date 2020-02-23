@@ -44,8 +44,8 @@ const renderMainComponent: React.FC<MainComponentProps> = (props) => {
                 href='/assets/site.webmanifest' />
         </head>
         <body>
-            <div className='container'>
-                <nav className='navbar' role='navigation' aria-label='main navigation'>
+            <nav className='navbar is-dark' role='navigation' aria-label='main navigation'>
+                <div className='container'>
                     <div className='navbar-brand'>
                         <a className='navbar-item' href='/'>
                             <img src='/assets/logo.svg' height='28' />
@@ -63,7 +63,7 @@ const renderMainComponent: React.FC<MainComponentProps> = (props) => {
                         </a>
                     </div>
 
-                    <div id='navbarBasicExample' className='navbar-menu'>
+                    <div className='navbar-menu'>
                         <div className='navbar-start'>
                             <a className='navbar-item' href='/'>
                                 {t('navbar.dashboard')}
@@ -80,14 +80,14 @@ const renderMainComponent: React.FC<MainComponentProps> = (props) => {
                             <div className='navbar-item'>
                                 <div className='buttons'>
                                     {(props.currentUser instanceof UserExtensionEntity ?
-                                        <a className='button' href='/users/logout'>{t('navbar.logout')}</a> :
-                                        <a className='button' href='/users/login'>{t('navbar.login')}</a>)}
+                                        <a className='button is-small' href='/users/logout'>{t('navbar.logout')}</a> :
+                                        <a className='button is-small' href='/users/login'>{t('navbar.login')}</a>)}
                                 </div>
                             </div>
                         </div>
                     </div>
-                </nav>
-            </div>
+                </div>
+            </nav>
             <div className='section'>
                 <div className='container'>
                     {props.children}

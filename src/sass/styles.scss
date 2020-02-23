@@ -1,7 +1,7 @@
 @charset "utf-8";
-@import "../../node_modules/bulma/bulma.sass";
 $keyrune_font_path:  '/assets/fonts' !default;
 $ms_font_path: '/assets/fonts' !default;
+@import "../../node_modules/bulma/bulma.sass";
 @import "../../node_modules/keyrune/sass/keyrune.scss";
 @import "../../node_modules/mana-font/sass/mana.scss";
 
