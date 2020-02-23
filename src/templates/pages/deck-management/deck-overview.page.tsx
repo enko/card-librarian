@@ -34,6 +34,7 @@ function generateColumns(
             // tslint:disable-next-line:no-useless-cast
             Header: t('deck.attributes.id.label') as string,
             accessor: 'id',
+            width: '80px',
             Cell: (cellProps: CellProps<DeckEntity>) => {
                 return <a href={`/decks/${cellProps.row.original.id}`}>
                     {cellProps.row.original.id}
@@ -45,6 +46,7 @@ function generateColumns(
             // tslint:disable-next-line:no-useless-cast
             Header: t('deck.attributes.name.label') as string,
             accessor: 'name',
+            width: undefined,
             Cell: (cellProps: CellProps<DeckEntity>) => {
                 return <a href={`/decks/${cellProps.row.original.id}`}>
                     {cellProps.row.original.name}
@@ -57,6 +59,7 @@ function generateColumns(
                 // tslint:disable-next-line:no-useless-cast
                 Header: t('deck.attributes.isPublic.label') as string,
                 accessor: 'isPublic',
+                width: '80px',
                 Cell: (cellProps: CellProps<DeckEntity>) => {
                     return <input
                         type='checkbox'
