@@ -20,6 +20,7 @@ import { SetController } from './controllers/set.controller';
 import { UserController } from './controllers/user.controller';
 import { UserExtensionEntity } from './entities/user-extension.entity';
 import { ErrorHandlerMiddleware } from './middlewares/error-handler.middleware';
+import { ChangeLanguageMiddleware } from './middlewares/switch-language.middleware';
 
 const controllers = [
     DashboardController,
@@ -62,6 +63,7 @@ export async function startApp() {
         [
             CreateContextMiddleware,
             ErrorHandlerMiddleware,
+            ChangeLanguageMiddleware,
         ],
         {
             name: '',
@@ -106,6 +108,7 @@ async function initiallizeTranslation() {
             },
             lng: 'de',
             fallbackLng: 'de',
+            preload: ['de', 'en'],
 
             interpolation: {
                 escapeValue: false,
