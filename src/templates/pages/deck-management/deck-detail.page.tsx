@@ -5,6 +5,7 @@
 import { TFunction } from 'i18next';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { CellProps, Column } from 'react-table';
 
 import { CardToDeckEntity } from '../../../entities/card-to-deck.entity';
@@ -98,6 +99,35 @@ function getColumns(t: TFunction) {
                         set={cellProps.row.original.card.set}
                         showIcon={true}
                         showText={false} />;
+                },
+            },
+            {
+                Header: '',
+                width: '80px',
+                id: 'actions',
+                Cell: (cellProps: CellProps<CardToDeckEntity>) => {
+                    const deckId = cellProps.row.original.deck.id;
+                    const assignmentId = cellProps.row.original.id;
+
+                    const deleteRoute = `/decks/${deckId}/cards/${assignmentId}/delete`;
+                    const editRoute = `/decks/${deckId}/cards/${assignmentId}/edit`;
+
+                    return <div className='tags'>
+                        {[
+                            <a
+                                href={editRoute}
+                                className='tag'
+                                title={t('edit')}>
+                                <FaEdit />
+                            </a>,
+                            <a
+                                href={deleteRoute}
+                                className='tag'
+                                title={t('delete')}>
+                                <FaTrashAlt />
+                            </a>,
+                        ]}
+                    </div>;
                 },
             },
         ],

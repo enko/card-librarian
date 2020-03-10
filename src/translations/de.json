@@ -1,6 +1,7 @@
 {
     "appName": "Card Librarian",
     "submit": "Absenden",
+    "delete": "Löschen",
     "Please log in": "Bitte melde dich an",
     "user": {
         "login": {
@@ -114,10 +115,12 @@
                 "help": "Gebe an, ob das das Deck für die Öffentlichkeit bestimmt ist."
             },
             "amount": {
-                "label": "Menge"
+                "label": "Menge",
+                "help": "Gib die Menge an, wie oft die Karte in diesem Deck im entsprechenden Typ vorkommen soll"
             },
             "type": {
-                "label": "Typ"
+                "label": "Typ",
+                "help": "Gebe an ob die Karte im Sideboard oder Hauptkartensatz enthalten ist"
             }
         },
         "overview": {
@@ -136,6 +139,16 @@
         "widgets": {
             "legalities": {
                 "title": "Gültig für"
+            }
+        },
+        "assignment": {
+            "edit": {
+                "title": "Bearbeite Karte „{{cardName}}“ in Deck „{{deckName}}“"
+            },
+            "delete": {
+                "title": "Lösche Karte „{{cardName}}“ aus Deck „{{deckName}}“",
+                "deckName": "Deck-Name",
+                "cardName": "Karten-Name"
             }
         }
     },

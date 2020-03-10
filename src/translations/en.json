@@ -1,60 +1,154 @@
 {
-    "appName": "Card Librarian",
-    "submit": "Absenden",
-    "Please log in": "Please log in",
-    "user": {
-        "login": {
-            "username": "Username",
-            "password": "Password",
-            "login": "Login"
-        }
+  "Please log in": "Please login",
+  "appName": "Card Librarian",
+  "card": {
+    "attributes": {
+      "colors": {
+        "label": "Colors"
+      },
+      "id": {
+        "label": "ID"
+      },
+      "manaCost": {
+        "label": "Costs"
+      },
+      "name": {
+        "label": "Name"
+      },
+      "set": {
+        "label": "Set"
+      },
+      "setNumber": {
+        "label": "Set-Number"
+      },
+      "type": {
+        "label": "Type"
+      }
     },
-    "dashboard": {
-        "greetings": "Welcome to the card librarian"
+    "plural": "Cards",
+    "singular": "Card"
+  },
+  "dashboard": {
+    "greetings": "Wellcome to the Card Librarian"
+  },
+  "deck": {
+    "addCards": {
+      "importHelp": "Please enter a card per line",
+      "title": "Add Cards to Deck „{{deckName}}“"
     },
-    "navbar": {
-        "libraries": "Libraries",
-        "decks": "Decks",
-        "login": "Login",
-        "logout": "Logout",
-        "dashboard": "Start",
-        "cardManagement": "Cards",
-        "userManagement": "Users"
+    "attributes": {
+      "amount": {
+        "label": "Amount"
+      },
+      "id": {
+        "label": "ID"
+      },
+      "isPublic": {
+        "help": "Please tell us, if the deck is destined to be public",
+        "label": "Public"
+      },
+      "name": {
+        "help": "Give the deck a name",
+        "label": "Name",
+        "placeholder": "Name of the deck"
+      },
+      "type": {
+        "label": "Type"
+      }
     },
-    "library": {
-        "singular": "Library",
-        "plural": "Libraries",
-        "cardOverview": {
-            "setNumber": "Set-Nummer",
-            "set": "Set",
-            "name": "Name",
-            "colors": "Colors",
-            "manaCost": "Costs",
-            "amount": "Amount",
-            "import": "Cards to import",
-            "importHelp": "Please enter one card per line.",
-            "isFoil": "Foil"
-        },
-        "cardPreview": {
-            "id": "ID",
-            "type": "Type",
-            "name": "Name",
-            "color": "Color",
-            "manaCost": "Mana Costs",
-            "set": "Set",
-            "amount": "Amount",
-            "isFoil": "Foil"
-        },
-        "overview": {
-            "title": "Library Overview",
-            "id": "ID",
-            "name": "Name",
-            "placeholder": "Library name",
-            "help": "Enter the name of the library, for example Shoebox 1"
-        }
+    "edit": {
+      "title": "Edit deck „{{deckName}}“"
     },
-    "notfound": {
-        "title": "Page not found",
-        "message": "This page could not be found 🤔"
+    "new": {
+      "title": "Create a new deck"
+    },
+    "overview": {
+      "title": "Decks"
+    },
+    "plural": "Decks",
+    "singular": "Deck",
+    "widgets": {
+      "legalities": {
+        "title": "Valid for"
+      }
     }
+  },
+  "library": {
+    "addCards": {
+      "importHelp": "Please only one card per line",
+      "title": "Add cards to library „{{libraryName}}“"
+    },
+    "attributes": {
+      "amount": {
+        "label": "Amount"
+      },
+      "isFoil": {
+        "label": "Foil"
+      },
+      "isPublic": {
+        "help": "Please tell us if the library is destined to be public",
+        "label": "Public"
+      },
+      "name": {
+        "help": "Please give the library a name",
+        "label": "Name",
+        "placeholder": "Name of the library"
+      }
+    },
+    "cardOverview": {
+      "amount": "Amount",
+      "import": "Cards to import",
+      "importHelp": "Please on card per line",
+      "isFoil": "Foil"
+    },
+    "edit": {
+      "title": "Edit library „{{libraryName}}“"
+    },
+    "new": {
+      "title": "Create a new library"
+    },
+    "overview": {
+      "help": "Please give the library a name, for example „Box 1“",
+      "id": "ID",
+      "name": "Name",
+      "placeholder": "Libraryname",
+      "title": "Libraries"
+    },
+    "plural": "Libraries",
+    "singular": "Library"
+  },
+  "navbar": {
+    "cardManagement": "Cards",
+    "dashboard": "Start",
+    "decks": "Decks",
+    "libraries": "Libraries",
+    "login": "Login",
+    "logout": "Logout",
+    "sets": "Sets",
+    "userManagement": "User"
+  },
+  "notfound": {
+    "message": "This page could not be found 🤔",
+    "title": "Page not found"
+  },
+  "set": {
+    "attributes": {
+      "code": {
+        "label": "Code"
+      },
+      "name": {
+        "label": "Name"
+      }
+    },
+    "plural": "Sets",
+    "singular": "Set"
+  },
+  "submit": "Submit",
+  "user": {
+    "login": {
+      "login": "Login",
+      "password": "Password",
+      "username": "Username"
+    }
+  }
 }

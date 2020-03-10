@@ -37,6 +37,7 @@ export class CardToDeckEntity extends BaseEntity {
 
     @Column()
     @IsInt()
+
     public amount!: number;
 
     @Column()
