@@ -469,6 +469,58 @@ export class DeckController {
     }
 
     /**
+     * Delete a deck
+     */
+    @Authorized()
+    @Redirect('/decks')
+    @Post('/:id([0-9]+)/clone')
+    public async cloneDeck(
+        @Param('id') id: number,
+        @CurrentUser() currentUser: UserExtensionEntity,
+    ) {
+        const deck = await this.deckProvider.getDeck(id, currentUser);
+
+        if (!(deck instanceof DeckEntity)) {
+            throw new NotFoundError();
+        }
+
+        const qr = this.connection.createQueryRunner();
+
+        try {
+            await qr.startTransaction();
+
+            const clonedDeck = new DeckEntity();
+            clonedDeck.isPublic = false;
+            clonedDeck.name = deck.name;
+
+            await qr.manager.save(clonedDeck);
+
+            if (Array.isArray(deck.cardAssociations)) {
+                for (const assignment of deck.cardAssociations) {
+                    const clonedAssignment = new CardToDeckEntity();
+
+                    clonedAssignment.deck = clonedDeck;
+                    clonedAssignment.card = assignment.card;
+                    clonedAssignment.type = assignment.type;
+                    clonedAssignment.amount = assignment.amount;
+
+                    await qr.manager.save(clonedAssignment);
+                }
+            }
+
+            await qr.commitTransaction();
+
+            return `/decks/${clonedDeck.id}`;
+        } catch (error) {
+            this.logger.error('Failed to clone deck', serializeError(error));
+            await qr.rollbackTransaction();
+            return undefined;
+        } finally {
+            await qr.release();
+        }
+    }
+
+    /**
      * Present a form to edit a deck
      */
     @Authorized()

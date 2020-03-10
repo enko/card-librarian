@@ -52,6 +52,7 @@ export class DeckProvider {
             .getRepository(DeckEntity)
             .createQueryBuilder('d')
             .leftJoinAndSelect('d.cardAssociations', 'd__ca')
+            .leftJoinAndSelect('d__ca.card', 'd__ca__c')
             .where('d.id = :deckId')
             .andWhere('d.is_public = true');
 

@@ -150,6 +150,9 @@
                 "deckName": "Deck-Name",
                 "cardName": "Karten-Name"
             }
+        },
+        "detail": {
+            "clone": "Duplizieren"
         }
     },
     "set": {

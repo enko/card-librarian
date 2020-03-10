@@ -177,7 +177,7 @@ function renderTables(t: TFunction, cardAssociations?: CardToDeckEntity[]) {
 /**
  * Generate the actions
  */
-function composeActions(props: DeckDetailPageProps) {
+function composeActions(t: TFunction, props: DeckDetailPageProps) {
     return [
         <a
             href={`/decks/${props.deck.id}/cards/add`}
@@ -186,6 +186,11 @@ function composeActions(props: DeckDetailPageProps) {
             K<u>a</u>rten hinzufügen
         </a>,
         <a href={`/decks/${props.deck.id}/edit`} className='button is-fullwidth'>Deck bearbeiten</a>,
+        <form action={`/decks/${props.deck.id}/clone`} method='post'>
+            <button type='submit' className='button is-fullwidth'>
+                {t('deck.detail.clone')}
+            </button>
+        </form>,
         <form action={`/decks/${props.deck.id}/delete`} method='post'>
             <button type='submit' className='button is-fullwidth is-danger'>
                 Löschen
@@ -212,7 +217,7 @@ const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
     return <MainComponent
         currentUser={props.currentUser}
         title={`${t('deck.singular')} ${props.deck.name}`}
-        actions={composeActions(props)}>
+        actions={composeActions(t, props)}>
         <div className='columns is-gapless' style={styles}>
             <div className='column'>
                 {renderLegality(t, props.legalities)}
