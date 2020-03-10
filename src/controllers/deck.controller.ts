@@ -624,6 +624,8 @@ export class DeckController {
             throw new NotFoundError();
         }
 
+        await this.connection.manager.remove(assignment);
+
         response.status(303);
         response.header('Location', `/decks/${assignment.deck.id}`);
         return;
