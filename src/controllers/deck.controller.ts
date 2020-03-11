@@ -35,6 +35,8 @@ import { CardProvider } from '../providers/card.provider';
 import { DeckProvider } from '../providers/deck.provider';
 import DeckAddCardsPreviewPage from '../templates/pages/deck-management/deck-add-cards-preview.page';
 import DeckAddCardsPage from '../templates/pages/deck-management/deck-add-cards.page';
+import DeckAssignmentDeletePage from '../templates/pages/deck-management/deck-assignment-delete.page';
+import DeckAssignmentEditPage from '../templates/pages/deck-management/deck-assignment-edit.page';
 import DeckDetailPage from '../templates/pages/deck-management/deck-detail.page';
 import DeckEditPage from '../templates/pages/deck-management/deck-edit.page';
 import DeckOverviewPage from '../templates/pages/deck-management/deck-overview.page';
@@ -464,5 +466,220 @@ export class DeckController {
         } finally {
             await qr.release();
         }
+    }
+
+    /**
+     * Delete a deck
+     */
+    @Authorized()
+    @Redirect('/decks')
+    @Post('/:id([0-9]+)/clone')
+    public async cloneDeck(
+        @Param('id') id: number,
+        @CurrentUser() currentUser: UserExtensionEntity,
+    ) {
+        const deck = await this.deckProvider.getDeck(id, currentUser);
+
+        if (!(deck instanceof DeckEntity)) {
+            throw new NotFoundError();
+        }
+
+        const qr = this.connection.createQueryRunner();
+
+        try {
+            await qr.startTransaction();
+
+            const clonedDeck = new DeckEntity();
+            clonedDeck.isPublic = false;
+            clonedDeck.name = deck.name;
+
+            await qr.manager.save(clonedDeck);
+
+            if (Array.isArray(deck.cardAssociations)) {
+                for (const assignment of deck.cardAssociations) {
+                    const clonedAssignment = new CardToDeckEntity();
+
+                    clonedAssignment.deck = clonedDeck;
+                    clonedAssignment.card = assignment.card;
+                    clonedAssignment.type = assignment.type;
+                    clonedAssignment.amount = assignment.amount;
+
+                    await qr.manager.save(clonedAssignment);
+                }
+            }
+
+            await qr.commitTransaction();
+
+            return `/decks/${clonedDeck.id}`;
+        } catch (error) {
+            this.logger.error('Failed to clone deck', serializeError(error));
+            await qr.rollbackTransaction();
+            return undefined;
+        } finally {
+            await qr.release();
+        }
+    }
+
+    /**
+     * Present a form to edit a deck
+     */
+    @Authorized()
+    @Get('/:deckId([0-9]+)/cards/:cardAssignmentId([0-9]+)/edit')
+    public async deckAssignmentEditPage(
+        @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
+        @Param('deckId') deckId: number,
+        @Param('cardAssignmentId') cardAssignmentId: number,
+    ) {
+        const assignment = await this.deckProvider.getCardAssignment(
+            deckId,
+            cardAssignmentId,
+            currentUser,
+        );
+
+        if (!(assignment instanceof CardToDeckEntity)) {
+            throw new NotFoundError();
+        }
+
+        return react.renderToStaticMarkup(
+            React.createElement(
+                DeckAssignmentEditPage,
+                {
+                    assignment,
+                    currentUser,
+                },
+            ),
+        );
+    }
+
+    /**
+     * Present a form to edit a deck
+     */
+    @Authorized()
+    @Post('/:deckId([0-9]+)/cards/:cardAssignmentId([0-9]+)/edit')
+    public async updateDeckAssignment(
+        @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
+        @Param('deckId') deckId: number,
+        @Param('cardAssignmentId') cardAssignmentId: number,
+        @FormField('amount') amountData: string,
+        @FormField('type') typeData: string,
+        @Res() response: Response,
+    ) {
+        const assignment = await this.deckProvider.getCardAssignment(
+            deckId,
+            cardAssignmentId,
+            currentUser,
+        );
+
+        if (!(assignment instanceof CardToDeckEntity)) {
+            throw new NotFoundError();
+        }
+
+        let assignmentChanged = false;
+        assignment.amount = Number.parseInt(amountData);
+        if ((typeData === CardToDeckType.Main) && (assignment.type !== CardToDeckType.Main)) {
+            assignmentChanged = true;
+            assignment.type = CardToDeckType.Main;
+        } else if ((typeData === CardToDeckType.SideBoard) && (assignment.type !== CardToDeckType.SideBoard)) {
+            assignmentChanged = true;
+            assignment.type = CardToDeckType.SideBoard;
+        }
+
+        const validationErrors = await validate(assignment);
+
+        if (validationErrors.length > 0) {
+            return react.renderToStaticMarkup(
+                React.createElement(
+                    DeckAssignmentEditPage,
+                    {
+                        assignment,
+                        currentUser,
+                        validationErrors,
+                    },
+                ),
+            );
+        }
+
+        if (assignmentChanged === true) {
+            const existingAssignment = await this
+                .deckProvider
+                .getCardAssignmentByCardAndType(
+                    assignment.deck.id,
+                    assignment.card.id,
+                    assignment.type,
+                );
+
+            if (existingAssignment instanceof CardToDeckEntity) {
+                existingAssignment.amount += assignment.amount;
+                await this.connection.manager.save(existingAssignment);
+                await this.connection.manager.remove(assignment);
+            } else {
+                await this.connection.manager.save(assignment);
+            }
+        } else {
+            await this.connection.manager.save(assignment);
+        }
+
+        response.status(303);
+        response.header('Location', `/decks/${assignment.deck.id}`);
+        return;
+    }
+
+    /**
+     * Present a confirmation page to delete a deck assignment
+     */
+    @Authorized()
+    @Get('/:deckId([0-9]+)/cards/:cardAssignmentId([0-9]+)/delete')
+    public async deckAssignmentDeletePage(
+        @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
+        @Param('deckId') deckId: number,
+        @Param('cardAssignmentId') cardAssignmentId: number,
+    ) {
+        const assignment = await this.deckProvider.getCardAssignment(
+            deckId,
+            cardAssignmentId,
+            currentUser,
+        );
+
+        if (!(assignment instanceof CardToDeckEntity)) {
+            throw new NotFoundError();
+        }
+
+        return react.renderToStaticMarkup(
+            React.createElement(
+                DeckAssignmentDeletePage,
+                {
+                    assignment,
+                    currentUser,
+                },
+            ),
+        );
+    }
+
+    /**
+     * Present a confirmation page to delete a deck assignment
+     */
+    @Authorized()
+    @Post('/:deckId([0-9]+)/cards/:cardAssignmentId([0-9]+)/delete')
+    public async deleteDeckAssignment(
+        @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
+        @Param('deckId') deckId: number,
+        @Param('cardAssignmentId') cardAssignmentId: number,
+        @Res() response: Response,
+    ) {
+        const assignment = await this.deckProvider.getCardAssignment(
+            deckId,
+            cardAssignmentId,
+            currentUser,
+        );
+
+        if (!(assignment instanceof CardToDeckEntity)) {
+            throw new NotFoundError();
+        }
+
+        await this.connection.manager.remove(assignment);
+
+        response.status(303);
+        response.header('Location', `/decks/${assignment.deck.id}`);
+        return;
     }
 }

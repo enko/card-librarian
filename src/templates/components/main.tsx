@@ -5,6 +5,7 @@
 import { TFunction } from 'i18next';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { IconContext } from 'react-icons';
 
 import { UserExtensionEntity } from '../../entities/user-extension.entity';
 import { ActionModel } from '../../models/action.model';
@@ -139,13 +140,15 @@ const renderMainComponent: React.FC<MainComponentProps> = (props) => {
                 href='/assets/site.webmanifest' />
         </head>
         <body>
-            {renderNavigation(t, props)}
-            <div className='section'>
-                <div className='container'>
-                    {renderActions(t, props)}
+            <IconContext.Provider value={{ color: '#44aa00' }}>
+                {renderNavigation(t, props)}
+                <div className='section'>
+                    <div className='container'>
+                        {renderActions(t, props)}
+                    </div>
                 </div>
-            </div>
-            <script src='/assets/navbar-toggle.js'></script>
+                <script src='/assets/navbar-toggle.js'></script>
+            </IconContext.Provider>
         </body>
     </html>;
 };

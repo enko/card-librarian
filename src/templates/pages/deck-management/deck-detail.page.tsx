@@ -5,6 +5,7 @@
 import { TFunction } from 'i18next';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { CellProps, Column } from 'react-table';
 
 import { CardToDeckEntity } from '../../../entities/card-to-deck.entity';
@@ -100,6 +101,35 @@ function getColumns(t: TFunction) {
                         showText={false} />;
                 },
             },
+            {
+                Header: '',
+                width: '80px',
+                id: 'actions',
+                Cell: (cellProps: CellProps<CardToDeckEntity>) => {
+                    const deckId = cellProps.row.original.deck.id;
+                    const assignmentId = cellProps.row.original.id;
+
+                    const deleteRoute = `/decks/${deckId}/cards/${assignmentId}/delete`;
+                    const editRoute = `/decks/${deckId}/cards/${assignmentId}/edit`;
+
+                    return <div className='tags'>
+                        {[
+                            <a
+                                href={editRoute}
+                                className='tag'
+                                title={t('edit')}>
+                                <FaEdit />
+                            </a>,
+                            <a
+                                href={deleteRoute}
+                                className='tag'
+                                title={t('delete')}>
+                                <FaTrashAlt />
+                            </a>,
+                        ]}
+                    </div>;
+                },
+            },
         ],
         [],
     );
@@ -147,7 +177,7 @@ function renderTables(t: TFunction, cardAssociations?: CardToDeckEntity[]) {
 /**
  * Generate the actions
  */
-function composeActions(props: DeckDetailPageProps) {
+function composeActions(t: TFunction, props: DeckDetailPageProps) {
     return [
         <a
             href={`/decks/${props.deck.id}/cards/add`}
@@ -156,6 +186,11 @@ function composeActions(props: DeckDetailPageProps) {
             K<u>a</u>rten hinzufügen
         </a>,
         <a href={`/decks/${props.deck.id}/edit`} className='button is-fullwidth'>Deck bearbeiten</a>,
+        <form action={`/decks/${props.deck.id}/clone`} method='post'>
+            <button type='submit' className='button is-fullwidth'>
+                {t('deck.detail.clone')}
+            </button>
+        </form>,
         <form action={`/decks/${props.deck.id}/delete`} method='post'>
             <button type='submit' className='button is-fullwidth is-danger'>
                 Löschen
@@ -182,7 +217,7 @@ const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
     return <MainComponent
         currentUser={props.currentUser}
         title={`${t('deck.singular')} ${props.deck.name}`}
-        actions={composeActions(props)}>
+        actions={composeActions(t, props)}>
         <div className='columns is-gapless' style={styles}>
             <div className='column'>
                 {renderLegality(t, props.legalities)}

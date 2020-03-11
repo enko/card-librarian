@@ -5,7 +5,7 @@ secrets:
   - 5a47b616-c112-4670-b09d-edf81df628a0
   - 22c56a11-980b-401d-9522-b07d4e3e4f3d
   - c4af631b-92bd-4d2b-862c-b1f6ebad7e3d
-  - 501bf6b5-6346-4b1c-9bf6-9bd28805c76b
+  - 43cd4dd3-cfc2-4e49-b623-92779fde694e
 packages:
   - nvm
   - docker
@@ -29,7 +29,7 @@ tasks:
       fi
 
   - deploy-backend: |
-      curl -v -X POST $(< ~/slack-webhook-url) -d '{ "text": "Starting deployment of https://mtg.tim.schumacher.im", "format": "plain", "displayName": "Card Librarian CI", "avatarUrl": "https://mtg.tim.schumacher.im/assets/apple-touch-icon.png" }' -H 'Content-Type: application/json'
+      curl -X POST $(< ~/slack-webhook-url) -d '{ "text": "Starting deployment of https://mtg.tim.schumacher.im", "format": "plain", "displayName": "Card Librarian CI", "avatarUrl": "https://mtg.tim.schumacher.im/assets/apple-touch-icon.png" }' -H 'Content-Type: application/json'
       . ~/card-librarian/scripts/setup-ci.sh
       cd ~/card-librarian
       export VERSION=$(node -e 'console.log(require("./package.json").version)')
@@ -41,4 +41,4 @@ tasks:
       /usr/bin/rsync --rsh=ssh docker-compose.yml mtg.tim.schumacher.im@web.node2.datenknoten.me:/srv/services/mtg.tim.schumacher.im
       ssh -l mtg.tim.schumacher.im -p 8022 web.node2.datenknoten.me sudo systemctl restart mtg.tim.schumacher.im
       . ~/card-librarian/scripts/wait-for-backend.sh
-      curl -v -X POST $(< ~/slack-webhook-url) -d '{ "text": "Successfully deployed app to https://mtg.tim.schumacher.im", "format": "plain", "displayName": "Card Librarian CI", "avatarUrl": "https://mtg.tim.schumacher.im/assets/apple-touch-icon.png" }' -H 'Content-Type: application/json'
+      curl -X POST $(< ~/slack-webhook-url) -d '{ "text": "Successfully deployed app to https://mtg.tim.schumacher.im", "format": "plain", "displayName": "Card Librarian CI", "avatarUrl": "https://mtg.tim.schumacher.im/assets/apple-touch-icon.png" }' -H 'Content-Type: application/json'
