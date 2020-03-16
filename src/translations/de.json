@@ -139,6 +139,9 @@
         "widgets": {
             "legalities": {
                 "title": "Gültig für"
+            },
+            "convertedManaCost": {
+                "title": "Converted Mana Cost"
             }
         },
         "assignment": {

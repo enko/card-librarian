@@ -174,6 +174,17 @@ export class DeckController {
             }
         }
 
+        const aggregatedManaCosts: Record<number, number | undefined> = {};
+
+        for (const card of cards) {
+            const count = aggregatedManaCosts[card.card.convertedManaCost];
+            if (typeof count === 'undefined') {
+                aggregatedManaCosts[card.card.convertedManaCost] = 1;
+            } else {
+                aggregatedManaCosts[card.card.convertedManaCost] = count + 1;
+            }
+        }
+
         return react.renderToStaticMarkup(
             React.createElement(
                 DeckDetailPage,
@@ -182,6 +193,7 @@ export class DeckController {
                     currentUser,
                     cards,
                     legalities,
+                    convertedManaCosts: aggregatedManaCosts,
                 },
             ),
         );

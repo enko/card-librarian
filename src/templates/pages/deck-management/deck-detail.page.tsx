@@ -2,6 +2,11 @@
  * @copyright Card Librarian Team 2020
  */
 
+import { AxisBottom, AxisLeft } from '@vx/axis';
+import { Grid } from '@vx/grid';
+import { Group } from '@vx/group';
+import { scaleBand, scaleLinear } from '@vx/scale';
+import { Bar } from '@vx/shape';
 import { TFunction } from 'i18next';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +29,126 @@ export interface DeckDetailPageProps {
     currentUser?: UserExtensionEntity;
     cards?: CardToDeckEntity[];
     legalities: LegalityFormatEntity[];
+    convertedManaCosts: Record<number, number | undefined>;
+}
+
+
+/**
+ * Render the graph for the mana costs
+ */
+function renderConvertedManaCosts(
+    t: TFunction,
+    convertedManaCosts: Record<number, number | undefined>,
+) {
+    let maxValue = 0;
+
+    for (const value of Object.values(convertedManaCosts)) {
+        if ((typeof value === 'number') && (value > maxValue)) {
+            maxValue = value;
+        }
+    }
+
+    const keys = Object
+        .keys(convertedManaCosts)
+        .map(item => Number.parseFloat(item));
+
+    const height = 140 * 3;
+    const width = 300 * 3;
+
+    const margin = {
+        top: 0,
+        left: 30,
+        right: 0,
+        bottom: 30,
+    };
+
+    const colour = 'black';
+
+    const xMax = width - margin.left - margin.right;
+
+    const yMax = height - margin.top - margin.bottom;
+
+    const yScale = scaleLinear<number>({
+        domain: [0, maxValue],
+        rangeRound: [yMax, 0],
+        nice: true,
+    });
+
+    const xScale = scaleBand<number>({
+        domain: keys,
+        rangeRound: [0, xMax],
+        padding: 0.5,
+    });
+
+    return <div className='card'>
+        <header className='card-header'>
+            <p className='card-header-title'>
+                {t('deck.widgets.convertedManaCost.title')}
+            </p>
+        </header>
+        <div className='card-content'>
+            <div className='content'>
+                <svg
+                    viewBox={`0 0 ${width + margin.left} ${height + margin.bottom}`}
+                    /*width={width + margin.left}
+                    height={height + margin.bottom}*/>
+                    <Grid
+                        top={margin.top + margin.bottom}
+                        left={margin.left + margin.right}
+                        xScale={xScale}
+                        yScale={yScale}
+                        stroke='#00000022'
+                        width={width - (margin.left * 2)}
+                        height={yMax}
+                    />
+                    {keys
+                        .map((value) => {
+                            const count = convertedManaCosts[value];
+
+                            const barHeight = yMax - yScale(typeof count === 'number' ? count : 0);
+
+                            return (
+                                <Group>
+                                    <Bar
+                                        x={xScale(value)}
+                                        y={height - barHeight}
+                                        height={barHeight}
+                                        width={xScale.bandwidth()}
+                                        fill='#fc2e1c'
+                                    />
+                                </Group>
+                            );
+                        })}
+                    <AxisLeft
+                        top={margin.bottom}
+                        left={margin.left}
+                        scale={yScale}
+                        stroke={colour}
+                        tickStroke={colour}
+                        hideZero={true}
+                        tickComponent={({ formattedValue, ...tickProps }) => {
+                            tickProps.fontSize = '12pt';
+                            return (
+                                <text {...tickProps}>{formattedValue}</text>);
+                        }}
+                    />
+                    <AxisBottom
+                        top={height}
+                        left={0}
+                        scale={xScale}
+                        stroke={colour}
+                        tickStroke={colour}
+                        tickComponent={({ formattedValue, ...tickProps }) => {
+                            tickProps.y = tickProps.y + 5;
+                            tickProps.fontSize = '12pt';
+                            return (
+                                <text {...tickProps}>{formattedValue}</text>);
+                        }}
+                        label='CMC' />
+                </svg>
+            </div>
+        </div>
+    </div>;
 }
 
 /**
@@ -218,9 +343,12 @@ const renderDeckDetailPage: React.FC<DeckDetailPageProps> = (props) => {
         currentUser={props.currentUser}
         title={`${t('deck.singular')} ${props.deck.name}`}
         actions={composeActions(t, props)}>
-        <div className='columns is-gapless' style={styles}>
+        <div className='columns' style={styles}>
             <div className='column'>
                 {renderLegality(t, props.legalities)}
+            </div>
+            <div className='column'>
+                {renderConvertedManaCosts(t, props.convertedManaCosts)}
             </div>
         </div>
         {renderTables(t, props.cards)}

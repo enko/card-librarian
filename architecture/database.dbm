@@ -235,7 +235,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="cards" layer="0" collapse-mode="2" max-obj-count="15">
+<table name="cards" layer="0" collapse-mode="2" max-obj-count="16">
 	<schema name="card_management"/>
 	<role name="postgres"/>
 	<position x="620" y="80"/>
@@ -275,6 +275,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="set_number" not-null="true">
 		<type name="text" length="0"/>
 		<comment><![CDATA[A unique number inside a set that is printed on every card.]]></comment>
+	</column>
+	<column name="converted_mana_cost" not-null="true" default-value="0">
+		<type name="integer" length="0"/>
 	</column>
 	<column name="set_id" not-null="true">
 		<type name="integer" length="0"/>

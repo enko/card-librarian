@@ -41,6 +41,12 @@ export class CardEntity extends BaseEntity {
     })
     public setNumber!: string;
 
+
+    @Column({
+        name: 'converted_mana_cost',
+    })
+    public convertedManaCost!: number;
+
     @ManyToOne(
         () => SetEntity,
     )
