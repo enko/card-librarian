@@ -9,24 +9,24 @@ import { TableColumnOptions } from 'typeorm/schema-builder/options/TableColumnOp
 /**
  * Create the card_to_libraries table
  */
-export class AddCardToLibraryEntity1580549362358 implements MigrationInterface {
+export class AddCardToLibraryEntity1598708963582 implements MigrationInterface {
     // tslint:disable-next-line:completed-docs
     public async up(queryRunner: QueryRunner) {
         const baseEntitySchema: TableColumnOptions[] = [
             {
                 name: 'id',
                 isPrimary: true,
-                type: 'integer',
+                type: 'uuid',
                 isGenerated: true,
-                generationStrategy: 'increment',
+                generationStrategy: 'uuid',
             },
             {
-                name: 'createdAt',
+                name: 'created_at',
                 type: 'timestamp',
                 default: 'CURRENT_TIMESTAMP',
             },
             {
-                name: 'updatedAt',
+                name: 'updated_at',
                 type: 'timestamp',
                 default: 'CURRENT_TIMESTAMP',
             },
@@ -38,21 +38,21 @@ export class AddCardToLibraryEntity1580549362358 implements MigrationInterface {
                 ...baseEntitySchema,
                 {
                     name: 'created_by',
-                    type: 'integer',
+                    type: 'uuid',
                     isNullable: true,
                 },
                 {
                     name: 'updated_by',
-                    type: 'integer',
+                    type: 'uuid',
                     isNullable: true,
                 },
                 {
                     name: 'card_id',
-                    type: 'integer',
+                    type: 'uuid',
                 },
                 {
                     name: 'library_id',
-                    type: 'integer',
+                    type: 'uuid',
                 },
                 {
                     name: 'amount',

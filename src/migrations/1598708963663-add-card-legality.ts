@@ -7,9 +7,9 @@ import * as path from 'path';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 /**
- * Run migration add_type_to_card_to_decks
+ * Run migration add_card_legalities
  */
-export class AddTypeToCardToDeck1582029913627 implements MigrationInterface {
+export class AddCardLegality1598708963663 implements MigrationInterface {
     /**
      * TypeORMs migration up
      */

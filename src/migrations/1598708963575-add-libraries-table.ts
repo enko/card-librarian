@@ -7,57 +7,49 @@ import {MigrationInterface, QueryRunner, Table} from 'typeorm';
 import { TableColumnOptions } from 'typeorm/schema-builder/options/TableColumnOptions';
 
 /**
- * Create the sets table
+ * Create the libraries table
  */
-export class AddSetEntity1580409992825 implements MigrationInterface {
+export class AddLibraryEntity1598708963575 implements MigrationInterface {
     // tslint:disable-next-line:completed-docs
     public async up(queryRunner: QueryRunner) {
         const baseEntitySchema: TableColumnOptions[] = [
             {
                 name: 'id',
                 isPrimary: true,
-                type: 'integer',
+                type: 'uuid',
                 isGenerated: true,
-                generationStrategy: 'increment',
+                generationStrategy: 'uuid',
             },
             {
-                name: 'createdAt',
+                name: 'created_at',
                 type: 'timestamp',
                 default: 'CURRENT_TIMESTAMP',
             },
             {
-                name: 'updatedAt',
+                name: 'updated_at',
                 type: 'timestamp',
                 default: 'CURRENT_TIMESTAMP',
             },
         ];
 
         const table = new Table({
-            name: 'card_management.sets',
+            name: 'card_management.libraries',
             columns: [
                 ...baseEntitySchema,
                 {
                     name: 'created_by',
-                    type: 'integer',
+                    type: 'uuid',
                     isNullable: true,
                 },
                 {
                     name: 'updated_by',
-                    type: 'integer',
-                    isNullable: true,
-                },
-                {
-                    name: 'code',
-                    type: 'text',
+                    type: 'uuid',
                     isNullable: true,
                 },
                 {
                     name: 'name',
                     type: 'text',
-                },
-                {
-                    name: 'import_data',
-                    type: 'jsonb',
+                    isNullable: false,
                 },
             ],
         });
@@ -67,7 +59,7 @@ export class AddSetEntity1580409992825 implements MigrationInterface {
 
     // tslint:disable-next-line:completed-docs
     public async down(queryRunner: QueryRunner) {
-        await queryRunner.dropTable('sets');
+        await queryRunner.dropTable('libraries');
     }
 
 }

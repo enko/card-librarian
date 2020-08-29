@@ -7,9 +7,9 @@ import * as path from 'path';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 /**
- * Run migration fixup_created_at_columns
+ * Run migration add_converted_mana_cost_to_cards
  */
-export class FixupCreatedAtColumns1581880087197 implements MigrationInterface {
+export class AddConvertedManaCostToCard1598708963684 implements MigrationInterface {
     /**
      * TypeORMs migration up
      */

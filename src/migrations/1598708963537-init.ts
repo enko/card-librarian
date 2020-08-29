@@ -11,23 +11,23 @@ import { TableColumnOptions } from 'typeorm/schema-builder/options/TableColumnOp
 /**
  * The initial migrations
  */
-export class Init1537884600000 implements MigrationInterface {
+export class Init1598708963537 implements MigrationInterface {
     public async up(queryRunner: QueryRunner) {
         const baseEntitySchema: TableColumnOptions[] = [
             {
                 name: 'id',
                 isPrimary: true,
-                type: 'integer',
+                type: 'uuid',
                 isGenerated: true,
-                generationStrategy: 'increment',
+                generationStrategy: 'uuid',
             },
             {
-                name: 'createdAt',
+                name: 'created_at',
                 type: 'timestamp',
                 default: 'CURRENT_TIMESTAMP',
             },
             {
-                name: 'updatedAt',
+                name: 'updated_at',
                 type: 'timestamp',
                 default: 'CURRENT_TIMESTAMP',
             },
@@ -39,17 +39,15 @@ export class Init1537884600000 implements MigrationInterface {
                 ...baseEntitySchema,
                 {
                     name: 'firstname',
-                    type: 'varchar',
-                    length: '60',
+                    type: 'text',
                 },
                 {
                     name: 'lastname',
-                    type: 'varchar',
-                    length: '60',
+                    type: 'text',
                 },
                 {
                     name: 'users_id',
-                    type: 'integer',
+                    type: 'uuid',
                 },
             ],
             foreignKeys: [

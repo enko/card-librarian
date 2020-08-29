@@ -7,9 +7,9 @@ import * as path from 'path';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 /**
- * Run migration add_card_legalities
+ * Run migration move_libraries_to_library_managements
  */
-export class AddCardLegality1582017370453 implements MigrationInterface {
+export class MoveLibrariesToLibraryManagement1598708963648 implements MigrationInterface {
     /**
      * TypeORMs migration up
      */

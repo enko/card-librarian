@@ -7,7 +7,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 /**
  * Add a unique contrain for CardToLibrary
  */
-export class AddCardToLibraryUniqueContrain1580931913504 implements MigrationInterface {
+export class AddCardToLibraryUniqueContrain1598708963590 implements MigrationInterface {
 
     /**
      * TypeORMs up

@@ -27,14 +27,14 @@ CREATE TYPE card_management.enum___legalities___status AS
 -- object: card_management.legalities | type: TABLE --
 -- DROP TABLE IF EXISTS card_management.legalities CASCADE;
 CREATE TABLE card_management.legalities (
-	id serial NOT NULL,
-	"createdAt" timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	"updatedAt" timestamp with time zone,
-	created_by integer,
-	updated_by integer,
+	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	"created_at" timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	"updated_at" timestamp with time zone,
+	created_by uuid,
+	updated_by uuid,
 	status card_management.enum___legalities___status,
-	card_id integer NOT NULL,
-	legality_format_id integer NOT NULL,
+	card_id uuid NOT NULL,
+	legality_format_id uuid NOT NULL,
 	CONSTRAINT pk___legalities___id PRIMARY KEY (id)
 
 );
@@ -45,11 +45,11 @@ CREATE TABLE card_management.legalities (
 -- object: card_management.legality_formats | type: TABLE --
 -- DROP TABLE IF EXISTS card_management.legality_formats CASCADE;
 CREATE TABLE card_management.legality_formats (
-	id serial NOT NULL,
-	"createdAt" timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	"updatedAt" timestamp with time zone,
-	created_by integer,
-	updated_by integer,
+	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	"created_at" timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	"updated_at" timestamp with time zone,
+	created_by uuid,
+	updated_by uuid,
 	code text NOT NULL,
 	name text NOT NULL,
 	CONSTRAINT pk___legality_formats___id PRIMARY KEY (id)
