@@ -7,9 +7,9 @@ import * as path from 'path';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 /**
- * Run migration add_public_to_libraries
+ * Run migration fixup_created_at_columns
  */
-export class AddPublicToLibraries1582465843300 implements MigrationInterface {
+export class FixupCreatedAtColumns1598708963655 implements MigrationInterface {
     /**
      * TypeORMs migration up
      */

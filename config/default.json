@@ -6,7 +6,8 @@
         "username": "postgres",
         "password": "",
         "database": "mtg_app",
-        "logging": false
+        "logging": "none",
+        "logger": "advanced-console"
     },
     "media": {
         "directory": "/srv/backend/files/media",

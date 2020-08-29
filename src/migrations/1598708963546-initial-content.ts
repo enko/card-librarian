@@ -10,7 +10,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 /**
  * Democontent from migrations
  */
-export class InitialContent1537885010000 implements MigrationInterface {
+export class InitialContent1598708963546 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner) {
         const roles = [

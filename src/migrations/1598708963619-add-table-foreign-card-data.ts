@@ -7,9 +7,9 @@ import * as path from 'path';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 /**
- * Run migration add_deck_tables
+ * Run migration add_table_foreign_card_data
  */
-export class AddDeckTable1581679751191 implements MigrationInterface {
+export class AddTableForeignCardData1598708963619 implements MigrationInterface {
     /**
      * TypeORMs migration up
      */
@@ -21,8 +21,8 @@ export class AddDeckTable1581679751191 implements MigrationInterface {
     /**
      * TypeORMs migration down
      */
-    public async down(_queryRunner: QueryRunner) {
-        throw new Error('Not Possible');
+    public async down(queryRunner: QueryRunner) {
+        await queryRunner.dropTable('card_management.foreign_card_data');
     }
 
 }

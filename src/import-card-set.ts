@@ -296,7 +296,10 @@ async function importLegalities(
 
         const fileName = args._[0];
 
-        const db = await sqlite.open(fileName);
+        const db = await sqlite.open({
+            driver: sqlite.Database,
+            filename: fileName,
+        });
 
         const start = moment();
 

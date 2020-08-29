@@ -196,19 +196,19 @@ function getColumns(t: TFunction) {
             {
                 // tslint:disable-next-line:no-useless-cast
                 Header: t('card.attributes.name.label') as string,
-                accessor: 'card.name',
+                accessor: (row) => row.card.name,
                 width: undefined,
             },
             {
                 // tslint:disable-next-line:no-useless-cast
                 Header: t('card.attributes.colors.label') as string,
-                accessor: 'card.colors',
+                accessor: (row) => row.card.colors,
                 width: '20px',
             },
             {
                 // tslint:disable-next-line:no-useless-cast
                 Header: t('card.attributes.manaCost.label') as string,
-                accessor: 'card.manaCost',
+                accessor: (row) => row.card.manaCost,
                 width: '100px',
                 Cell: (cellProps: CellProps<CardToDeckEntity>) => {
                     return <ManaCostComponent

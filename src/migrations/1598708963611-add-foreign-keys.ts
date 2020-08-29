@@ -8,7 +8,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 /**
  * Run migration add_foreign_keys
  */
-export class AddForeignKeys1581016043229 implements MigrationInterface {
+export class AddForeignKeys1598708963611 implements MigrationInterface {
     /**
      * TypeORMs migration up
      */
@@ -21,9 +21,6 @@ export class AddForeignKeys1581016043229 implements MigrationInterface {
         );
         await queryRunner.query(
             'ALTER TABLE public.tokens ADD CONSTRAINT fk__tokens__users_id FOREIGN KEY (users_id) REFERENCES public.users (id) MATCH SIMPLE ON DELETE NO ACTION ON UPDATE NO ACTION;',
-        );
-        await queryRunner.query(
-            'ALTER TABLE public.user_extensions ADD CONSTRAINT fk__user_extensions FOREIGN KEY (users_id) REFERENCES public.users (id) MATCH SIMPLE ON DELETE NO ACTION ON UPDATE NO ACTION;',
         );
         await queryRunner.query(
             'ALTER TABLE card_management.cards ADD CONSTRAINT fk___cards___set_id___sets FOREIGN KEY (set_id) REFERENCES card_management.sets (id) MATCH SIMPLE ON DELETE NO ACTION ON UPDATE NO ACTION;',

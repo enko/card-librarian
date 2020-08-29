@@ -19,18 +19,18 @@ SET search_path=public,pg_catalog,card_management;
 -- object: card_management.foreign_card_data | type: TABLE --
 -- DROP TABLE IF EXISTS card_management.foreign_card_data CASCADE;
 CREATE TABLE card_management.foreign_card_data (
-	id serial NOT NULL,
-	"createdAt" timestamp with time zone NOT NULL DEFAULT NOW(),
+	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	"created_at" timestamp with time zone NOT NULL DEFAULT NOW(),
 	"updatedAt" timestamp with time zone,
-	created_by integer,
-	updated_by integer,
+	created_by uuid,
+	updated_by uuid,
 	flavor_text text NOT NULL,
 	language text NOT NULL,
 	name text NOT NULL,
 	text text NOT NULL,
 	type text NOT NULL,
 	import_data jsonb NOT NULL,
-	card_id integer NOT NULL,
+	card_id uuid NOT NULL,
 	CONSTRAINT pk___foreign_card_data___id PRIMARY KEY (id)
 
 );

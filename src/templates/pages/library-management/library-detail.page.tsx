@@ -39,7 +39,7 @@ function composeActions(props: LibraryDetailPageProps) {
         <form action={`/libraries/${props.library.id}/delete`} method='post'>
             <button type='submit' className='button is-danger is-fullwidth'>
                 Löschen
-                        </button>
+            </button>
         </form>,
     ].map(item => {
         const action = new ActionModel();
@@ -75,24 +75,24 @@ const renderLibraryDetailPage: React.FC<LibraryDetailPageProps> = (props) => {
                 // tslint:disable-next-line:no-useless-cast
                 Header: t('card.attributes.setNumber.label') as string,
                 width: '100px',
-                accessor: 'card.setNumber',
+                accessor: (row) => row.card.setNumber,
             },
             {
                 // tslint:disable-next-line:no-useless-cast
                 Header: t('card.attributes.name.label') as string,
                 width: undefined,
-                accessor: 'card.name',
+                accessor: (row) => row.card.name,
             },
             {
                 // tslint:disable-next-line:no-useless-cast
                 Header: t('card.attributes.colors.label') as string,
                 width: '80px',
-                accessor: 'card.colors',
+                accessor: (row) => row.card.colors,
             },
             {
                 // tslint:disable-next-line:no-useless-cast
                 Header: t('card.attributes.manaCost.label') as string,
-                accessor: 'card.manaCost',
+                accessor: (row) => row.card.manaCost,
                 width: '100px',
                 Cell: (cellProps: CellProps<CardToLibraryEntity>) => {
                     return <ManaCostComponent

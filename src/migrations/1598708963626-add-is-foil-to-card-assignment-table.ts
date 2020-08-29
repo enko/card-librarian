@@ -7,9 +7,9 @@ import * as path from 'path';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 /**
- * Run migration add_set_number_to_cards
+ * Run migration add_is_foil_to_card_assignment_tables
  */
-export class AddSetNumberToCard1581157446468 implements MigrationInterface {
+export class AddIsFoilToCardAssignmentTable1598708963626 implements MigrationInterface {
     /**
      * TypeORMs migration up
      */

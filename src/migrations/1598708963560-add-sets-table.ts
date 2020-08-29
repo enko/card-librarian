@@ -7,44 +7,48 @@ import {MigrationInterface, QueryRunner, Table} from 'typeorm';
 import { TableColumnOptions } from 'typeorm/schema-builder/options/TableColumnOptions';
 
 /**
- * Create the cards table
+ * Create the sets table
  */
-export class AddCardEntity1580409992827 implements MigrationInterface {
+export class AddSetEntity1598708963560 implements MigrationInterface {
     // tslint:disable-next-line:completed-docs
     public async up(queryRunner: QueryRunner) {
         const baseEntitySchema: TableColumnOptions[] = [
             {
                 name: 'id',
                 isPrimary: true,
-                type: 'integer',
+                type: 'uuid',
                 isGenerated: true,
-                generationStrategy: 'increment',
+                generationStrategy: 'uuid',
             },
             {
-                name: 'createdAt',
+                name: 'created_at',
                 type: 'timestamp',
                 default: 'CURRENT_TIMESTAMP',
             },
             {
-                name: 'updatedAt',
+                name: 'updated_at',
                 type: 'timestamp',
                 default: 'CURRENT_TIMESTAMP',
             },
         ];
 
         const table = new Table({
-
-            name: 'card_management.cards',
+            name: 'card_management.sets',
             columns: [
                 ...baseEntitySchema,
                 {
                     name: 'created_by',
-                    type: 'integer',
+                    type: 'uuid',
                     isNullable: true,
                 },
                 {
                     name: 'updated_by',
-                    type: 'integer',
+                    type: 'uuid',
+                    isNullable: true,
+                },
+                {
+                    name: 'code',
+                    type: 'text',
                     isNullable: true,
                 },
                 {
@@ -52,34 +56,8 @@ export class AddCardEntity1580409992827 implements MigrationInterface {
                     type: 'text',
                 },
                 {
-                    name: 'colors',
-                    type: 'text',
-                    isNullable: true,
-                },
-                {
-                    name: 'mana_cost',
-                    type: 'text',
-                    isNullable: true,
-                },
-                {
                     name: 'import_data',
                     type: 'jsonb',
-                },
-                {
-                    name: 'set_id',
-                    type: 'integer',
-                },
-                {
-                    name: 'types',
-                    type: 'text',
-                },
-            ],
-            foreignKeys: [
-                {
-                    name: 'fk___cards___set_id___sets',
-                    columnNames: ['set_id'],
-                    referencedTableName: 'card_management.sets',
-                    referencedColumnNames: ['id'],
                 },
             ],
         });
@@ -89,7 +67,7 @@ export class AddCardEntity1580409992827 implements MigrationInterface {
 
     // tslint:disable-next-line:completed-docs
     public async down(queryRunner: QueryRunner) {
-        await queryRunner.dropTable('cards');
+        await queryRunner.dropTable('sets');
     }
 
 }

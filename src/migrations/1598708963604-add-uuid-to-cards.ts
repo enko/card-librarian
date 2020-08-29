@@ -7,7 +7,7 @@ import { MigrationInterface, QueryRunner, TableColumn } from 'typeorm';
 /**
  * Run migration add_uuid_to_cards
  */
-export class AddUuidToCards1581014475196 implements MigrationInterface {
+export class AddUuidToCards1598708963604 implements MigrationInterface {
     /**
      * TypeORMs migration up
      */

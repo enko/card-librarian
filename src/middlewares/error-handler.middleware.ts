@@ -7,7 +7,7 @@ import { ExpressErrorMiddlewareInterface, InternalServerError, Middleware, NotFo
 import { Request, Response } from 'express';
 import React = require('react');
 import * as react from 'react-dom/server';
-import { Service } from 'typedi';
+import Container, { Service } from 'typedi';
 import { Connection } from 'typeorm';
 
 import { UserExtensionEntity } from '../entities/user-extension.entity';
@@ -19,10 +19,6 @@ import NotFoundPage from '../templates/pages/not-found.page';
 @Middleware({ type: 'after' })
 @Service()
 export class ErrorHandlerMiddleware implements ExpressErrorMiddlewareInterface {
-    public constructor(
-        private connection: Connection,
-    ) {}
-
     /**
      * Handle the error my own way
      */
@@ -32,7 +28,8 @@ export class ErrorHandlerMiddleware implements ExpressErrorMiddlewareInterface {
         response: Response,
         next: (err: Error) => unknown,
     ) {
-        const checker = createCurrentUserChecker(this.connection);
+        const connection = Container.get(Connection);
+        const checker = createCurrentUserChecker(connection);
         const currentUser = await checker({
             request,
             response,
