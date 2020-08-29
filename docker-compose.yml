@@ -1,0 +1,72 @@
+version: "3"
+
+services:
+    api-test:
+        image: node:14
+        command: npm run -s test
+        links:
+            - test-db:db
+        environment:
+            - NODE_ENV=test
+            - NODE_CONFIG_ENV=dev-docker
+        working_dir: /backend
+        volumes:
+            - ./:/backend
+            - mtg-media-test:/srv/backend/files/media
+
+    api-coverage:
+        image: node
+        command: npm run -s coverage
+        links:
+            - test-db:db
+        environment:
+            - NODE_ENV=test
+            - NODE_CONFIG_ENV=dev-docker
+        working_dir: /backend
+        volumes:
+            - ./:/backend
+            - mtg-media-test:/srv/backend/files/media
+
+    test-db:
+        image: postgres:12
+        volumes:
+            - mtg-postgres-test:/usr/local/var/lib/postgresql
+        environment:
+            - PGDATA=/usr/local/var/lib/postgresql
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=mtg_app
+
+    api-dev:
+        image: node:14
+        command: npm run start:dev
+        links:
+            - dev-db:db
+        ports:
+            - 127.0.0.1:3000:3000
+            - 127.0.0.1:9229:9229
+        user: "${UID:-1000}:${GID:-1000}"
+        environment:
+            - NODE_ENV=dev
+            - NODE_CONFIG_ENV=dev-docker
+        working_dir: /backend
+        volumes:
+            - ./:/backend
+            - mtg-media-dev:/srv/backend/files/media
+
+    dev-db:
+        image: postgres:12
+        volumes:
+            - mtg-postgres-dev:/usr/local/var/lib/postgresql
+        environment:
+            - PGDATA=/usr/local/var/lib/postgresql
+            - POSTGRES_HOST_AUTH_METHOD=trust
+            - POSTGRES_DB=mtg_app
+        ports:
+            - 127.0.0.1:15432:5432
+
+volumes:
+    mtg-postgres-test:
+    mtg-postgres-dev:
+    mtg-media-test:
+    mtg-media-dev:

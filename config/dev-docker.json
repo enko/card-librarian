@@ -1,0 +1,12 @@
+{
+    "database": {
+        "host": "db",
+        "port": 5432,
+        "username": "postgres",
+        "password": "postgres"
+    },
+    "explorer": {
+        "enabled": true
+    },
+    "listen": "0.0.0.0"
+}

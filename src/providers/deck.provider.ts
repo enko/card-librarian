@@ -2,6 +2,7 @@
  * @copyright Card Librarian Team 2020
  */
 
+import { uuid } from '@flyacts/backend-core-entities';
 import { Service } from 'typedi';
 import { Connection } from 'typeorm';
 
@@ -94,8 +95,8 @@ export class DeckProvider {
      * Fetch a specific assignment
      */
     public async getCardAssignmentByCardAndType(
-        deckId: number,
-        cardId: number,
+        deckId: uuid,
+        cardId: uuid,
         type: CardToDeckType,
     ) {
         return this

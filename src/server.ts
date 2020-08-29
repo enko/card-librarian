@@ -11,6 +11,7 @@ import * as fs from 'fs-extra';
 import i18next from 'i18next';
 import * as path from 'path';
 import { initReactI18next } from 'react-i18next';
+import { PackageJson } from 'type-fest';
 import Container from 'typedi';
 
 import { DashboardController } from './controllers/dashboard.controller';
@@ -45,8 +46,10 @@ export async function startApp() {
 
     const typeOrmConfig = {
         ...require('../ormconfig.json'),
-        ...config.get<Object>('database'),
+        ...config.get<object>('database'),
     };
+
+    const packageJson = require('../package.json') as PackageJson;
 
     const mediaLocation = config.get<string>('media.directory');
     if (!(await fs.pathExists(mediaLocation))) {
@@ -57,6 +60,7 @@ export async function startApp() {
     mediaConfig.tempDir = config.get<string>('media.tmpdir');
 
     Container.set(MediaConfiguration, mediaConfig);
+
     return Backend.create(
         typeOrmConfig,
         controllers,
@@ -66,17 +70,12 @@ export async function startApp() {
             ChangeLanguageMiddleware,
         ],
         {
-            name: '',
-            description: '',
-            version: '',
+            name: (typeof packageJson.name === 'string' ? packageJson.name : ''),
+            description: (typeof packageJson.description === 'string' ? packageJson.description : ''),
+            version: (typeof packageJson.version === 'string' ? packageJson.version : ''),
         },
-        undefined,
-        undefined,
-        true,
-        true,
-        true,
-        false,
     );
+
 }
 
 /**

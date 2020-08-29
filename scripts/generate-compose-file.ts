@@ -11,7 +11,8 @@ import * as path from 'path';
 (async function() {
     const logger = new Logger();
     try {
-        const doc = yaml.safeLoad(await fs.readFile(path.resolve(__dirname, `docker-compose.yml`), 'utf8'));
+        // tslint:disable-next-line: no-any
+        const doc = yaml.safeLoad(await fs.readFile(path.resolve(__dirname, `docker-compose.yml`), 'utf8')) as any;
 
         const packageJson = require(path.resolve(__dirname, '../package.json'));
 

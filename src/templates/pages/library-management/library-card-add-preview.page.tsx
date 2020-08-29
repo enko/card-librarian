@@ -5,7 +5,7 @@
 import { TFunction } from 'i18next';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CellProps } from 'react-table';
+import { CellProps, Column } from 'react-table';
 
 import { LibraryEntity } from '../../../entities/library.entity';
 import { CardAssignment } from '../../../models/card-assignment.model';
@@ -22,7 +22,7 @@ export interface LibraryCardAddPreviewProps {
 /**
  * Generate the columns for the Table
  */
-function generateColumns(t: TFunction) {
+function generateColumns(t: TFunction): Array<Column<CardAssignment>> {
     return [
         {
             // tslint:disable-next-line:no-useless-cast
@@ -37,22 +37,22 @@ function generateColumns(t: TFunction) {
         {
             // tslint:disable-next-line:no-useless-cast
             Header: t('card.attributes.setNumber.label') as string,
-            accessor: 'card.setNumber',
+            accessor: (row) => row.card.setNumber,
         },
         {
             // tslint:disable-next-line:no-useless-cast
             Header: t('card.attributes.name.label') as string,
-            accessor: 'card.name',
+            accessor: (row) => row.card.name,
         },
         {
             // tslint:disable-next-line:no-useless-cast
             Header: t('card.attributes.colors.label') as string,
-            accessor: 'card.colors',
+            accessor: (row) => row.card.colors,
         },
         {
             // tslint:disable-next-line:no-useless-cast
             Header: t('card.attributes.manaCost.label') as string,
-            accessor: 'card.manaCost',
+            accessor: (row) => row.card.manaCost,
         },
         {
             // tslint:disable-next-line:no-useless-cast
