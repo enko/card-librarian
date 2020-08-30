@@ -4,6 +4,7 @@
 
 // tslint:disable:no-duplicate-string
 
+import { Logger } from '@flyacts/backend';
 import { uuid } from '@flyacts/backend-core-entities';
 import {
     Authorized,
@@ -21,6 +22,7 @@ import { validate } from 'class-validator';
 import { Response } from 'express';
 import React = require('react');
 import * as react from 'react-dom/server';
+import { serializeError } from 'serialize-error';
 import { Service } from 'typedi';
 import { Connection } from 'typeorm';
 
@@ -49,6 +51,7 @@ export class LibraryController {
         private connection: Connection,
         private cardProvider: CardProvider,
         private libraryProvider: LibraryProvider,
+        private logger: Logger,
     ) {
 
     }
@@ -345,5 +348,44 @@ export class LibraryController {
                 },
             ),
         );
+    }
+
+    /**
+     * Delete a deck
+     */
+    @Authorized()
+    @Redirect('/libraries')
+    @Post(`/:id(${getUUIDRegEx()})/delete`)
+    public async deleteLibrary(
+        @Param('id') id: uuid,
+        @CurrentUser() currentUser: UserExtensionEntity,
+    ) {
+        const deck = await this.libraryProvider.getLibrary(id, currentUser);
+
+        if (!(deck instanceof LibraryEntity)) {
+            throw new NotFoundError();
+        }
+
+        const qr = this.connection.createQueryRunner();
+
+        try {
+            await qr.connect();
+            await qr.startTransaction();
+
+            if (Array.isArray(deck.cardAssociations)) {
+                for (const assignment of deck.cardAssociations) {
+                    await qr.manager.remove(assignment);
+                }
+            }
+
+            await qr.manager.remove(deck);
+
+            await qr.commitTransaction();
+        } catch (error) {
+            this.logger.error('Failed to delete deck', serializeError(error));
+            await qr.rollbackTransaction();
+        } finally {
+            await qr.release();
+        }
     }
 }
