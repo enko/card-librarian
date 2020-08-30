@@ -29,6 +29,7 @@ services:
 
     test-db:
         image: postgres:12
+        shm_size: 1g
         volumes:
             - mtg-postgres-test:/usr/local/var/lib/postgresql
         environment:
@@ -56,6 +57,7 @@ services:
 
     dev-db:
         image: postgres:12
+        shm_size: 1g
         volumes:
             - mtg-postgres-dev:/usr/local/var/lib/postgresql
         environment:

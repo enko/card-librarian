@@ -15,7 +15,7 @@ CREATE TABLE deck_management.decks (
 CREATE TABLE deck_management.cards_to_decks (
 	id uuid NOT NULL DEFAULT uuid_generate_v4(),
 	"created_at" timestamp with time zone NOT NULL DEFAULT NOW(),
-	"updatedAt" timestamp with time zone,
+	"updated_at" timestamp with time zone,
 	created_by uuid,
 	updated_by uuid,
 	deck_id uuid NOT NULL,

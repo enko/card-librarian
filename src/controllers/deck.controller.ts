@@ -3,6 +3,7 @@
  */
 
 import { Logger } from '@flyacts/backend';
+import { uuid } from '@flyacts/backend-core-entities';
 import {
     Authorized,
     Controller,
@@ -31,6 +32,7 @@ import { LegalityEntity } from '../entities/legality.entity';
 import { UserExtensionEntity } from '../entities/user-extension.entity';
 import { CardToDeckType } from '../enums/card-to-deck-type.enum';
 import { LegalityStatus } from '../enums/legality-status.enum';
+import { getUUIDRegEx } from '../helper/funcs';
 import { CardProvider } from '../providers/card.provider';
 import { DeckProvider } from '../providers/deck.provider';
 import DeckAddCardsPreviewPage from '../templates/pages/deck-management/deck-add-cards-preview.page';
@@ -114,9 +116,9 @@ export class DeckController {
     /**
      * Fetch details about a deck
      */
-    @Get('/:id([0-9]+)')
+    @Get(`/:id(${getUUIDRegEx()})`)
     public async getDeckDetails(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @CurrentUser() currentUser: UserExtensionEntity,
     ) {
         const deck = await this.deckProvider.getDeck(id, currentUser);
@@ -221,10 +223,10 @@ export class DeckController {
     /**
      * Rendere a form for creating a deck
      */
-    @Get('/:id([0-9]+)/edit')
+    @Get(`/:id(${getUUIDRegEx()})/edit`)
     @Authorized()
     public async getDeckEditDetailForm(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @CurrentUser() currentUser: UserExtensionEntity,
     ) {
         const deck = await this.deckProvider.getDeck(id, currentUser);
@@ -247,10 +249,10 @@ export class DeckController {
     /**
      * Rendere a form for creating a deck
      */
-    @Get('/:id([0-9]+)/cards/add')
+    @Get(`/:id(${getUUIDRegEx()})/cards/add`)
     @Authorized()
     public async getDeckAddCardsForm(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @CurrentUser() currentUser: UserExtensionEntity,
     ) {
         const deck = await this.deckProvider.getDeck(id, currentUser);
@@ -273,10 +275,10 @@ export class DeckController {
     /**
      * Update a existing deck
      */
-    @Post('/:id([0-9]+)')
+    @Post(`/:id(${getUUIDRegEx()})`)
     @Authorized()
     public async updateDeck(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @FormField('name') name: string,
         @FormField('isPublic') isPublic: string,
         @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
@@ -317,10 +319,10 @@ export class DeckController {
     /**
      * Preview adding cards to a deck
      */
-    @Post('/:id([0-9]+)/cards/add')
+    @Post(`/:id(${getUUIDRegEx()})/cards/add`)
     @Authorized()
     public async previewAddCardsToDeck(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @FormField('cards') cards: string,
         @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
     ) {
@@ -347,12 +349,12 @@ export class DeckController {
     /**
      * Submit cards to a deck
      */
-    @Post('/:id([0-9]+)/cards/submit')
+    @Post(`/:id(${getUUIDRegEx()})/cards/submit`)
     @Authorized()
     @Redirect('/decks')
     // tslint:disable-next-line
     public async submitCardsToDeck(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
         @FormField('card_id') cardIDValues?: string[],
         @FormField('amount') amountValues?: string[],
@@ -447,9 +449,9 @@ export class DeckController {
      */
     @Authorized()
     @Redirect('/decks')
-    @Post('/:id([0-9]+)/delete')
+    @Post(`/:id(${getUUIDRegEx()})/delete`)
     public async deleteDeck(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @CurrentUser() currentUser: UserExtensionEntity,
     ) {
         const deck = await this.deckProvider.getDeck(id, currentUser);
@@ -485,9 +487,9 @@ export class DeckController {
      */
     @Authorized()
     @Redirect('/decks')
-    @Post('/:id([0-9]+)/clone')
+    @Post(`/:id(${getUUIDRegEx()})/clone`)
     public async cloneDeck(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @CurrentUser() currentUser: UserExtensionEntity,
     ) {
         const deck = await this.deckProvider.getDeck(id, currentUser);
@@ -536,11 +538,11 @@ export class DeckController {
      * Present a form to edit a deck
      */
     @Authorized()
-    @Get('/:deckId([0-9]+)/cards/:cardAssignmentId([0-9]+)/edit')
+    @Get(`/:deckId(${getUUIDRegEx()})/cards/:cardAssignmentId(${getUUIDRegEx()})/edit`)
     public async deckAssignmentEditPage(
         @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
-        @Param('deckId') deckId: number,
-        @Param('cardAssignmentId') cardAssignmentId: number,
+        @Param('deckId') deckId: uuid,
+        @Param('cardAssignmentId') cardAssignmentId: uuid,
     ) {
         const assignment = await this.deckProvider.getCardAssignment(
             deckId,
@@ -567,11 +569,11 @@ export class DeckController {
      * Present a form to edit a deck
      */
     @Authorized()
-    @Post('/:deckId([0-9]+)/cards/:cardAssignmentId([0-9]+)/edit')
+    @Post(`/:deckId(${getUUIDRegEx()})/cards/:cardAssignmentId(${getUUIDRegEx()})/edit`)
     public async updateDeckAssignment(
         @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
-        @Param('deckId') deckId: number,
-        @Param('cardAssignmentId') cardAssignmentId: number,
+        @Param('deckId') deckId: uuid,
+        @Param('cardAssignmentId') cardAssignmentId: uuid,
         @FormField('amount') amountData: string,
         @FormField('type') typeData: string,
         @Res() response: Response,
@@ -640,11 +642,11 @@ export class DeckController {
      * Present a confirmation page to delete a deck assignment
      */
     @Authorized()
-    @Get('/:deckId([0-9]+)/cards/:cardAssignmentId([0-9]+)/delete')
+    @Get(`/:deckId(${getUUIDRegEx()})/cards/:cardAssignmentId(${getUUIDRegEx()})/delete`)
     public async deckAssignmentDeletePage(
         @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
-        @Param('deckId') deckId: number,
-        @Param('cardAssignmentId') cardAssignmentId: number,
+        @Param('deckId') deckId: uuid,
+        @Param('cardAssignmentId') cardAssignmentId: uuid,
     ) {
         const assignment = await this.deckProvider.getCardAssignment(
             deckId,
@@ -671,11 +673,11 @@ export class DeckController {
      * Present a confirmation page to delete a deck assignment
      */
     @Authorized()
-    @Post('/:deckId([0-9]+)/cards/:cardAssignmentId([0-9]+)/delete')
+    @Post(`/:deckId(${getUUIDRegEx()})/cards/:cardAssignmentId(${getUUIDRegEx()})/delete`)
     public async deleteDeckAssignment(
         @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
-        @Param('deckId') deckId: number,
-        @Param('cardAssignmentId') cardAssignmentId: number,
+        @Param('deckId') deckId: uuid,
+        @Param('cardAssignmentId') cardAssignmentId: uuid,
         @Res() response: Response,
     ) {
         const assignment = await this.deckProvider.getCardAssignment(

@@ -74,6 +74,12 @@ export async function startApp() {
             description: (typeof packageJson.description === 'string' ? packageJson.description : ''),
             version: (typeof packageJson.version === 'string' ? packageJson.version : ''),
         },
+        undefined,
+        undefined,
+        true,
+        true,
+        true,
+        false,
     );
 
 }

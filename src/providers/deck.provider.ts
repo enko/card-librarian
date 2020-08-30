@@ -45,7 +45,7 @@ export class DeckProvider {
      * Return all the decks
      */
     public async getDeck(
-        deckId: number,
+        deckId: uuid,
         currentUser?: UserExtensionEntity,
     ) {
         const query = this
@@ -72,8 +72,8 @@ export class DeckProvider {
      * Fetch a specific assignment
      */
     public async getCardAssignment(
-        deckId: number,
-        cardAssignmentId: number,
+        deckId: uuid,
+        cardAssignmentId: uuid,
         currentUser: UserExtensionEntity,
     ) {
         return this

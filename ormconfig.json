@@ -1,6 +1,10 @@
 {
-    "type": "sqlite",
-    "database": "database.db",
+    "type": "postgres",
+    "database": "mtg_app",
+    "host": "db",
+    "port": 5432,
+    "username": "postgres",
+    "password": "",
     "synchronize": false,
     "logging": true,
     "entities": [
@@ -22,5 +26,13 @@
         "entitiesDir": "src/entities",
         "migrationsDir": "src/migrations",
         "subscribersDir": "src/subscribers"
-    }
+    },
+    "seeds": [
+        "dist/seeds/**/*.js",
+        "src/seeds/**/*.ts"
+    ],
+    "factories": [
+        "dist/factories/**/*.js",
+        "src/factories/**/*.ts"
+    ]
 }

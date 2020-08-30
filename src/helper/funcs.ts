@@ -18,3 +18,10 @@ export function isValue<T>(value: NullAble<T>): value is T {
 
     return true;
 }
+
+/**
+ * Return a regex for uuids
+ */
+export function getUUIDRegEx() {
+    return '[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}';
+}

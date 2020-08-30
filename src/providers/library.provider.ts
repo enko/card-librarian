@@ -2,6 +2,7 @@
  * @copyright Card Librarian Team 2020
  */
 
+import { uuid } from '@flyacts/backend-core-entities';
 import { Service } from 'typedi';
 import { Connection } from 'typeorm';
 
@@ -42,7 +43,7 @@ export class LibraryProvider {
      * Return all the decks
      */
     public async getLibrary(
-        libraryId: number,
+        libraryId: uuid,
         currentUser?: UserExtensionEntity,
     ) {
         const query = this

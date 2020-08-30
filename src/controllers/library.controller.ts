@@ -4,6 +4,7 @@
 
 // tslint:disable:no-duplicate-string
 
+import { uuid } from '@flyacts/backend-core-entities';
 import {
     Authorized,
     Controller,
@@ -27,6 +28,7 @@ import { CardToLibraryEntity } from '../entities/card-to-library.entity';
 import { CardEntity } from '../entities/card.entity';
 import { LibraryEntity } from '../entities/library.entity';
 import { UserExtensionEntity } from '../entities/user-extension.entity';
+import { getUUIDRegEx } from '../helper/funcs';
 import { CardProvider } from '../providers/card.provider';
 import { LibraryProvider } from '../providers/library.provider';
 import LibraryOverviewPage from '../templates/pages/library-management/libary-overview.page';
@@ -90,9 +92,9 @@ export class LibraryController {
     /**
      * Get a library detail page
      */
-    @Get('/:id([0-9]+)')
+    @Get(`/:id(${getUUIDRegEx()})`)
     public async getDetail(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @CurrentUser() currentUser: UserExtensionEntity,
     ) {
         const library = await this.libraryProvider.getLibrary(
@@ -115,10 +117,10 @@ export class LibraryController {
     /**
      * Preview the cards you want to add to your library
      */
-    @Post('/:id/cards/add')
+    @Post(`/:id(${getUUIDRegEx()})/cards/add`)
     @Authorized()
     public async addCard(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @FormField('cards') importData: string,
         @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
     ) {
@@ -146,12 +148,12 @@ export class LibraryController {
     /**
      * Submit cards to your library
      */
-    @Post('/:id/cards/submit')
+    @Post(`/:id(${getUUIDRegEx()})/cards/submit`)
     @Redirect('/libraries')
     @Authorized()
     // tslint:disable-next-line:cognitive-complexity
     public async submitCards(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
         @FormField('card_id') cardIDValues?: string[],
         @FormField('amount') amountValues?: string[],
@@ -235,10 +237,10 @@ export class LibraryController {
     /**
      * Rendere a form for editing a library
      */
-    @Get('/:id([0-9]+)/edit')
+    @Get(`/:id(${getUUIDRegEx()})/edit`)
     @Authorized()
     public async getLibraryEditDetailForm(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @CurrentUser() currentUser: UserExtensionEntity,
     ) {
         const library = await this.libraryProvider.getLibrary(id, currentUser);
@@ -261,10 +263,10 @@ export class LibraryController {
     /**
      * Update a existing deck
      */
-    @Post('/:id([0-9]+)')
+    @Post(`/:id(${getUUIDRegEx()})`)
     @Authorized()
     public async updateDeck(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @FormField('name') name: string,
         @FormField('isPublic') isPublic: string,
         @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
@@ -304,10 +306,10 @@ export class LibraryController {
     /**
      * Preview adding cards to a deck
      */
-    @Get('/:id([0-9]+)/cards/add')
+    @Get(`/:id(${getUUIDRegEx()})/cards/add`)
     @Authorized()
     public async previewAddCardsToLibrary(
-        @Param('id') id: number,
+        @Param('id') id: uuid,
         @CurrentUser({ required: true }) currentUser: UserExtensionEntity,
     ) {
         const library = await this.libraryProvider.getLibrary(id, currentUser);

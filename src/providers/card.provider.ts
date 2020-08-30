@@ -30,7 +30,7 @@ export class CardProvider {
             .leftJoinAndSelect('c.translations', 'c__t')
             .where('c.name ILIKE :name', { name: `%${text}%` })
             .orWhere('c__t.name ILIKE :translatedName', {
-                translaardtedName: `%${text}%`,
+                translatedName: `%${text}%`,
             })
             .getMany();
 
