@@ -4,10 +4,13 @@
 
 import { Logger } from '@flyacts/backend';
 import config from 'config';
+import * as fs from 'fs/promises';
 import minimist = require('minimist');
 import moment = require('moment');
+import * as path from 'path';
 import { serializeError } from 'serialize-error';
 import * as sqlite from 'sqlite';
+import sqlite3 from 'sqlite3';
 import { createConnection, QueryRunner } from 'typeorm';
 
 import { CardEntity } from './entities/card.entity';
@@ -87,6 +90,7 @@ async function importCards(
         cardEntity.name = card.name;
         cardEntity.manaCost = card.manaCost;
         cardEntity.types = card.types;
+        cardEntity.setNumber = card.number;
 
         const set = allSets.filter(item => item.code === card.setCode).pop();
 
@@ -104,7 +108,7 @@ async function importCards(
         counter += 1;
 
         if ((counter % 200) === 0) {
-            logger.info(`Imported ${counter} of ${importCards.length}`);
+            logger.info(`Imported ${counter} of ${_importCards.length}`);
         }
     }
 }
@@ -281,6 +285,7 @@ async function importLegalities(
 (async function () {
     const logger = new Logger();
     try {
+        logger.info('Welcome to the import card set');
         const args = minimist((process.argv.slice(2)));
 
         const typeOrmConfig = {
@@ -294,10 +299,14 @@ async function importLegalities(
             throw new Error('database file not passed along?!');
         }
 
-        const fileName = args._[0];
+        const fileName = path.resolve(__dirname, '..', args._[0]);
+
+        await fs.access(fileName);
+
+        logger.info(`Opening database ${fileName}`);
 
         const db = await sqlite.open({
-            driver: sqlite.Database,
+            driver: sqlite3.Database,
             filename: fileName,
         });
 

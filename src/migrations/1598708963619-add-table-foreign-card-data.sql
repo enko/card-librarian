@@ -21,7 +21,7 @@ SET search_path=public,pg_catalog,card_management;
 CREATE TABLE card_management.foreign_card_data (
 	id uuid NOT NULL DEFAULT uuid_generate_v4(),
 	"created_at" timestamp with time zone NOT NULL DEFAULT NOW(),
-	"updatedAt" timestamp with time zone,
+	"updated_at" timestamp with time zone,
 	created_by uuid,
 	updated_by uuid,
 	flavor_text text NOT NULL,
