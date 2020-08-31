@@ -21,7 +21,7 @@ tasks:
       cd ~/card-librarian
       npm run lint
       npm run build
-      docker build .
+      docker build --progress=plain .
       # if not on develop branch the next stages
       if [ "$(git rev-parse origin/develop)" != "$(git rev-parse HEAD)" ]; then \
         complete-build; \
@@ -32,7 +32,7 @@ tasks:
       . ~/card-librarian/scripts/setup-ci.sh
       cd ~/card-librarian
       export VERSION=$(node -e 'console.log(require("./package.json").version)')
-      docker build -t cardlibrarian/backend:$VERSION.$JOB_ID .
+      docker build -t cardlibrarian/backend:$VERSION.$JOB_ID --progress=plain .
       docker login -u cardlibrarian -p $(< ~/.docker-secret)
       docker push cardlibrarian/backend:$VERSION.$JOB_ID
       curl -X POST $(< ~/slack-webhook-url) -d '{ "text": "Successfully deployed app to https://mtg.tim.schumacher.im", "format": "plain", "displayName": "Card Librarian CI", "avatarUrl": "https://mtg.tim.schumacher.im/assets/apple-touch-icon.png" }' -H 'Content-Type: application/json'
