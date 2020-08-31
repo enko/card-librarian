@@ -10,6 +10,7 @@ packages:
   - nvm
   - docker
   - rsync
+  - postgresql-libs
 tasks:
   - setup: |
       . ~/card-librarian/scripts/setup-docker.sh
