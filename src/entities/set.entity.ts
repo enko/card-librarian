@@ -4,7 +4,9 @@
 
 import { BaseEntity } from '@flyacts/backend-core-entities';
 import { OwnableEntity } from '@flyacts/backend-user-management';
-import { Column } from 'typeorm';
+import { Column, OneToMany } from 'typeorm';
+
+import { CardEntity } from './card.entity';
 
 /**
  * Set Entity
@@ -21,4 +23,10 @@ export class SetEntity extends BaseEntity {
         name: 'import_data',
     })
     public importData!: string;
+
+    @OneToMany(
+        () => CardEntity,
+        (card) => card.set,
+    )
+    public cards?: CardEntity[];
 }

@@ -54,6 +54,11 @@ function generateColumns(
             Header: t('set.attributes.name.label') as string,
             width: undefined,
             accessor: 'name',
+            Cell: (cellProps: CellProps<SetEntity>) => {
+                return <a href={`/sets/${cellProps.row.original.code}`}>
+                    {cellProps.row.original.name}
+                </a>;
+            },
         });
 
         return columns;
