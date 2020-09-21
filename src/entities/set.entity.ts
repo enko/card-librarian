@@ -19,11 +19,6 @@ export class SetEntity extends BaseEntity {
     @Column()
     public name!: string;
 
-    @Column({
-        name: 'import_data',
-    })
-    public importData!: string;
-
     @OneToMany(
         () => CardEntity,
         (card) => card.set,

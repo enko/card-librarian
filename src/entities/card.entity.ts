@@ -67,11 +67,6 @@ export class CardEntity extends BaseEntity {
     )
     public translations?: ForeignCardDataEntity[];
 
-    @Column({
-        name: 'import_data',
-    })
-    public importData!: string;
-
     @OneToMany(
         () => LegalityEntity,
         (entity) => entity.card,

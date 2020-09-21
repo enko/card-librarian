@@ -26,11 +26,6 @@ export class ForeignCardDataEntity extends BaseEntity {
     @Column()
     public type!: string;
 
-    @Column({
-        name: 'import_data',
-    })
-    public importData!: string;
-
     @ManyToOne(() => CardEntity)
     @JoinColumn({
         name: 'card_id',
