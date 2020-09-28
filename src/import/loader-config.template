@@ -1,0 +1,11 @@
+LOAD database
+     FROM sqlite://<path-to-sqlite>
+     INTO postgresql://postgres@127.0.0.1:15432/mtg_app
+
+     WITH include drop, create tables, create indexes, reset sequences
+
+     CAST type text       to text drop typemod
+
+     -- ALTER TABLE NAMES MATCHING 'sets' IN SCHEMA 'public' SET SCHEMA 'import'
+
+     SET work_mem to '16MB', maintenance_work_mem to '512 MB';

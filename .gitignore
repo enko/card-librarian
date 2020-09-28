@@ -4,3 +4,4 @@ database.db
 database
 *:Zone.Identifier
 AllPrintings*
+src/import/loader-config
