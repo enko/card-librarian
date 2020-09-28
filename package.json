@@ -1,5 +1,5 @@
 {
-    "version": "0.4.0",
+    "version": "0.4.1",
     "main": "src/server.ts",
     "license": "SEE LICENSE IN LICENSE",
     "private": true,
