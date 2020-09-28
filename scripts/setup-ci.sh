@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Enable bash strict mode
-set -euo pipefail
-IFS=$'\n\t'
+#set -euo pipefail
+#IFS=$'\n\t'
 
 export NVM_DIR="$HOME/.nvm"
 
