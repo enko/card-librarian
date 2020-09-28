@@ -51,7 +51,6 @@ import { UserExtensionEntity } from '../src/entities/user-extension.entity';
         const set = new SetEntity();
         set.name = 'Unglued';
         set.code = 'UGL';
-        set.importData = '{}';
 
         await connection.manager.save(set);
 
@@ -59,7 +58,6 @@ import { UserExtensionEntity } from '../src/entities/user-extension.entity';
         card.name = 'Chaos Confetti';
         card.manaCost = '{4}';
         card.types = 'Artifact';
-        card.importData = '{}';
         card.set = set;
         card.uuid = '6bd280d0-3259-4343-9203-3bda16444e7e';
 
