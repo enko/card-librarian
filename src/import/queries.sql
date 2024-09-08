@@ -33,7 +33,7 @@ SELECT
        c.types,
        c.uuid::uuid,
        c.number,
-       c.convertedmanacost
+       c.manavalue
 FROM cards AS c
 ON CONFLICT (uuid) DO UPDATE SET
    updated_at = NOW(),
@@ -62,7 +62,7 @@ SELECT
        fd.text,
        fd.type,
        (SELECT c.id FROM card_management.cards AS c WHERE c.uuid = fd.uuid::uuid)
-FROM foreign_data AS fd
+FROM cardforeigndata AS fd
 ON CONFLICT (card_id, language) DO UPDATE SET
    updated_at = NOW(),
    flavor_text = excluded.flavor_text,
@@ -70,32 +70,34 @@ ON CONFLICT (card_id, language) DO UPDATE SET
    text = excluded.text,
    type = excluded.type;
 
-DELETE FROM card_management.legalities;
-DELETE FROM card_management.legality_formats;
+-- TODO need to refactor
 
-INSERT INTO card_management.legality_formats (
-       code,
-       name,
-       created_at
-)
-SELECT
-    DISTINCT format,
-    format,
-    NOW()
-FROM
-    legalities
-ON CONFLICT DO NOTHING;
+-- DELETE FROM card_management.legalities;
+-- DELETE FROM card_management.legality_formats;
 
-INSERT INTO card_management.legalities (
-       created_at,
-       status,
-       card_id,
-       legality_format_id
-)
-SELECT
-    NOW(),
-    l.status::card_management.enum___legalities___status,
-    (SELECT c.id FROM card_management.cards AS c WHERE c.uuid = l.uuid::uuid),
-    (SELECT lf.id FROM card_management.legality_formats AS lf WHERE lf.code = l.format)
-FROM
-    legalities AS l
+-- INSERT INTO card_management.legality_formats (
+--        code,
+--        name,
+--        created_at
+-- )
+-- SELECT
+--     DISTINCT format,
+--     format,
+--     NOW()
+-- FROM
+--     cardlegalities
+-- ON CONFLICT DO NOTHING;
+
+-- INSERT INTO card_management.legalities (
+--        created_at,
+--        status,
+--        card_id,
+--        legality_format_id
+-- )
+-- SELECT
+--     NOW(),
+--     l.status::card_management.enum___legalities___status,
+--     (SELECT c.id FROM card_management.cards AS c WHERE c.uuid = l.uuid::uuid),
+--     (SELECT lf.id FROM card_management.legality_formats AS lf WHERE lf.code = l.format)
+-- FROM
+--     legalities AS l
